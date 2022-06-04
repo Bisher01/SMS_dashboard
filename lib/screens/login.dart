@@ -32,8 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var containerWidth = widgetSize.getWidth(400, context);
-    var containerHeight = widgetSize.getHeight(600, context);
     return Scaffold(
       //backgroundColor: const Color(0Xff2BC3BB),
       body: Container(
@@ -58,26 +56,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-            width: containerWidth,
-            height: containerHeight,
+            width: widgetSize.getWidth(400, context),
+            height: widgetSize.getHeight(600, context),
             //color: Colors.white,
             child: Row(
               children: [
                 SizedBox(
-                  width: containerWidth / 2,
-                  height: containerHeight,
+                  width: widgetSize.getWidth(200, context),
+                  height: widgetSize.getHeight(600, context),
                   child: SvgPicture.asset(
                     'login.svg',
                   ),
                 ),
                 Container(
                   color: Colors.white,
-                  width: containerWidth / 2,
-                  height: containerHeight,
+                  width: widgetSize.getWidth(200, context),
+                  height: widgetSize.getHeight(600, context),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: containerWidth / 10,
-                      vertical: containerHeight / 3.5,
+                      horizontal: widgetSize.getWidth(40, context),
+                      vertical: widgetSize.getHeight(150, context),
                     ),
                     child: Column(
                       children: [
@@ -266,8 +264,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             elevation: 3,
                             fixedSize: Size(
-                              containerWidth / 2 - containerWidth / 5,
-                              containerHeight / 17,
+                              widgetSize.getWidth(200, context) - widgetSize.getWidth(80, context),
+                                widgetSize.getHeight(50, context),
                             ),
                             primary: const Color(
                               0Xff2BC3BB,
