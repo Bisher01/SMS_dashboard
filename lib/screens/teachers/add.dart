@@ -29,12 +29,7 @@ class _AddTeacherState extends State<AddTeacher> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber,
-      drawerEnableOpenDragGesture: false,
-      appBar: AppBar(),
-      drawer: CustomDrawer(),
-      body: ListView(
+    return ListView(
         children: [
           //fname lname email
           Row(
@@ -75,7 +70,6 @@ class _AddTeacherState extends State<AddTeacher> {
             ),
           ),
         ],
-      ),
     );
   }
 }

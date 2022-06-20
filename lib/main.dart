@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sms_dashboard/screens/main_screen.dart';
 import 'package:sms_dashboard/screens/students/edit.dart';
 import '../screens/screens.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           //primarySwatch: Colors.blue,
           ),
-      home: EditStudent(),
+      home: MainScreen(),
     );
   }
 }

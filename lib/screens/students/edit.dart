@@ -16,7 +16,6 @@ class _EditStudentState extends State<EditStudent> {
       backgroundColor: Colors.amber,
       drawerEnableOpenDragGesture: false,
       appBar: AppBar(),
-      drawer: CustomDrawer(),
     );
   }
 }

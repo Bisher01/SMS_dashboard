@@ -28,12 +28,7 @@ class _AddStudentState extends State<AddStudent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber,
-      drawerEnableOpenDragGesture: false,
-      appBar: AppBar(),
-      drawer: CustomDrawer(),
-      body: ListView(
+    return ListView(
         children: [
           //fname lname email
           Row(
@@ -91,7 +86,6 @@ class _AddStudentState extends State<AddStudent> {
             ),
           ),
         ],
-      ),
     );
   }
 }
