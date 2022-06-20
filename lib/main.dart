@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:sms_dashboard/screens/login.dart';
+import 'package:sms_dashboard/screens/students/main.dart';
 import '../screens/screens.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           //primarySwatch: Colors.blue,
           ),
-      home: LoginScreen(),
+      home: MainStudent(),
     );
   }
 }
