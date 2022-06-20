@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../components/components.dart';
 
-class AddStudent extends StatefulWidget {
-  const AddStudent({Key? key}) : super(key: key);
+class AddTeacher extends StatefulWidget {
+  const AddTeacher({Key? key}) : super(key: key);
 
   @override
-  State<AddStudent> createState() => _AddStudentState();
+  State<AddTeacher> createState() => _AddTeacherState();
 }
 
-class _AddStudentState extends State<AddStudent> {
+class _AddTeacherState extends State<AddTeacher> {
+
   DateTime? _selectedDate;
   void _presentDatePicker() {
     showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2020),
-            lastDate: DateTime.now())
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now())
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
@@ -43,7 +44,7 @@ class _AddStudentState extends State<AddStudent> {
               TextFormField(),
             ],
           ),
-          //gender religion nationality blood type
+          //gender  bloodtype address grades
           Row(
             children: [
               DropdownButton<String?>(
@@ -64,24 +65,7 @@ class _AddStudentState extends State<AddStudent> {
               ),
             ],
           ),
-          //class classroom academic year
-          Row(
-            children: [
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-            ],
-          ),
-          //birthdate
+          //join date
           ElevatedButton(
             onPressed: () {
               _presentDatePicker();

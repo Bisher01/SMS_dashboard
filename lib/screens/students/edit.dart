@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../screens.dart';
 import '../../components/components.dart';
 
-class MainStudent extends StatefulWidget {
-  const MainStudent({Key? key}) : super(key: key);
+class EditStudent extends StatefulWidget {
+  const EditStudent({Key? key}) : super(key: key);
 
   @override
-  State<MainStudent> createState() => _MainStudentState();
+  State<EditStudent> createState() => _EditStudentState();
 }
 
-class _MainStudentState extends State<MainStudent> {
+class _EditStudentState extends State<EditStudent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
