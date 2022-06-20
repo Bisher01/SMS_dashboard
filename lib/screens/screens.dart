@@ -3,3 +3,7 @@ export './students/edit.dart';
 export './students/add.dart';
 export './teachers/edit.dart';
 export './teachers/add.dart';
+export './students/show.dart';
+export './teachers/show.dart';
+export './main_screen.dart';
+export './settings.dart';

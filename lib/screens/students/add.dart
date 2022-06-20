@@ -28,64 +28,66 @@ class _AddStudentState extends State<AddStudent> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        children: [
-          //fname lname email
-          Row(
-            children: [
-              TextFormField(),
-              TextFormField(),
-              TextFormField(),
-            ],
-          ),
-          //gender religion nationality blood type
-          Row(
-            children: [
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-            ],
-          ),
-          //class classroom academic year
-          Row(
-            children: [
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-              DropdownButton<String?>(
-                items: [],
-                onChanged: (value) {},
-              ),
-            ],
-          ),
-          //birthdate
-          ElevatedButton(
-            onPressed: () {
-              _presentDatePicker();
-            },
-            child: Text(
-              'date',
-            ),
-          ),
-        ],
-    );
+    print('student');
+    return Container(color: Colors.black,);
+    // return ListView(
+    //     children: [
+    //       //fname lname email
+    //       // Row(
+    //       //   children: [
+    //       //     TextFormField(),
+    //       //     TextFormField(),
+    //       //     TextFormField(),
+    //       //   ],
+    //       // ),
+    //       //gender religion nationality blood type
+    //       Row(
+    //         children: <Widget> [
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //         ],
+    //       ),
+    //       //class classroom academic year
+    //       Row(
+    //         children: [
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //           DropdownButton<String?>(
+    //             items: [],
+    //             onChanged: (value) {},
+    //           ),
+    //         ],
+    //       ),
+    //       //birthdate
+    //       ElevatedButton(
+    //         onPressed: () {
+    //           _presentDatePicker();
+    //         },
+    //         child: Text(
+    //           'date',
+    //         ),
+    //       ),
+    //     ],
+    // );
   }
 }

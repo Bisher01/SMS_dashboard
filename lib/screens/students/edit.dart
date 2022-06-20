@@ -12,10 +12,9 @@ class EditStudent extends StatefulWidget {
 class _EditStudentState extends State<EditStudent> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber,
-      drawerEnableOpenDragGesture: false,
-      appBar: AppBar(),
+    return Container(
+      color: Colors.amber,
+
     );
   }
 }

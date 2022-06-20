@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sms_dashboard/screens/main_screen.dart';
-import 'package:sms_dashboard/screens/students/edit.dart';
 import '../screens/screens.dart';
 
 void main() {
@@ -18,7 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           //primarySwatch: Colors.blue,
           ),
-      home: MainScreen(),
+      home: const LoginScreen(),
+      routes: {
+        '/main': (context) => const MainScreen(),
+      },
     );
   }
 }
