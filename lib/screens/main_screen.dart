@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView(
+              controller: ScrollController(),
               children: [
                 SvgPicture.asset(
                   'login.svg',
@@ -54,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 10,
                 ),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   title: Text(
                     'Settings',
                     style: TextStyle(
@@ -67,9 +68,9 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 1;
@@ -82,9 +83,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 2;
@@ -97,9 +98,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 3;
@@ -112,9 +113,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 4;
@@ -127,9 +128,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 5;
@@ -142,9 +143,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {
                     setState(() {
                       selectedTab = 6;
@@ -157,9 +158,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {},
                   title: const Text(
                     'Classes and Classrooms',
@@ -168,9 +169,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {},
                   title: const Text(
                     'Daily Schedule',
@@ -179,9 +180,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {},
                   title: const Text(
                     'Exam Schedule',
@@ -190,9 +191,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white,),
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.ac_unit,color: Colors.white,),
                   onTap: () {},
                   title: const Text(
                     'Exams',
