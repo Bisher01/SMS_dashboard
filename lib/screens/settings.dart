@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sms_dashboard/components/components.dart';
 import 'package:sms_dashboard/utill/widget_size.dart';
 
 class Settings extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SettingsState extends State<Settings> {
               Image.asset(
                 '/back.jpg',
                 fit: BoxFit.scaleDown,
-                width: widgetSize.getWidth(100,context),
+                width: widgetSize.getWidth(100, context),
               ),
               TextButton(
                 onPressed: () {},
@@ -32,37 +33,30 @@ class _SettingsState extends State<Settings> {
               ),
             ],
           ),
-          Text(
-            'School name',
+          SettingsCard(
+            color: Colors.blue,
+            title: 'School name',
+            name: 'Awael',
+            button: 'Edit school name',
           ),
-          Row(
-            children: <Widget>[
-              //TextField(),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Edit name',
-                ),
-              ),
-            ],
+          SettingsCard(
+            color: Colors.deepPurpleAccent,
+            title: 'School address',
+            name: 'address',
+            button: 'Edit school address',
           ),
-          Text(
-            'School address',
-          ),
-          Text(
-            '.... address',
-          ),
+
           Text(
             'School Email',
           ),
           Text(
             '.... email',
           ),
-          Text(
-            'School phone number',
-          ),
-          Text(
-            '.... number',
+          SettingsCard(
+            color: Colors.limeAccent,
+            title: 'School phone number',
+            name: '..phone',
+            button: 'Edit school phone number',
           ),
         ],
       ),

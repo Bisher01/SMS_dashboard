@@ -7,3 +7,4 @@ export './students/show.dart';
 export './teachers/show.dart';
 export './main_screen.dart';
 export './settings.dart';
+export './academic_years.dart';

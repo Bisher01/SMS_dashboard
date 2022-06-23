@@ -47,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
@@ -69,7 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   width: widgetSize.getWidth(200, context),
                   height: widgetSize.getHeight(600, context),
                   child: Padding(
@@ -264,8 +268,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             elevation: 3,
                             fixedSize: Size(
-                              widgetSize.getWidth(200, context) - widgetSize.getWidth(80, context),
-                                widgetSize.getHeight(50, context),
+                              widgetSize.getWidth(200, context) -
+                                  widgetSize.getWidth(80, context),
+                              widgetSize.getHeight(50, context),
                             ),
                             primary: const Color(
                               0Xff2BC3BB,

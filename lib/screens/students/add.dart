@@ -10,6 +10,44 @@ class AddStudent extends StatefulWidget {
 }
 
 class _AddStudentState extends State<AddStudent> {
+  final fnameController = TextEditingController();
+  final lnameController = TextEditingController();
+  final emailController = TextEditingController();
+
+  final locationController = TextEditingController();
+  final cityController = TextEditingController();
+  final countryController = TextEditingController();
+
+  final fatherController = TextEditingController();
+  final motherController = TextEditingController();
+  final pemailController = TextEditingController();
+
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
+
+
+  final FocusNode focusNode4 = FocusNode();
+  final FocusNode focusNode5 = FocusNode();
+  final FocusNode focusNode6 = FocusNode();
+
+  final FocusNode focusNode7 = FocusNode();
+  final FocusNode focusNode8 = FocusNode();
+  final FocusNode focusNode9 = FocusNode();
+
+  String genderDDV = 'male';
+  String nationalityDDV = 'male';
+  String bloodDDV = 'male';
+  String religionDDV = 'male';
+
+  String gradeDDv = 'male';
+  String classDDV = 'male';
+  String classroomDDv = 'male';
+
+  String mnationalityDDV = 'male';
+  String fnationalityDDV = 'male';
+  String fbloodDDV = 'male';
+  String preligionDDV = 'male';
   DateTime? _selectedDate;
   void _presentDatePicker() {
     showDatePicker(
@@ -28,74 +66,863 @@ class _AddStudentState extends State<AddStudent> {
   }
 
   @override
+  initState() {
+    focusNode1.addListener(() {
+      setState(() {});
+    });
+    focusNode2.addListener(() {
+      setState(() {});
+    });
+    focusNode3.addListener(() {
+      setState(() {});
+    });
+
+    focusNode4.addListener(() {
+      setState(() {});
+    });
+    focusNode5.addListener(() {
+      setState(() {});
+    });
+    focusNode6.addListener(() {
+      setState(() {});
+    });
+
+    focusNode7.addListener(() {
+      setState(() {});
+    });
+    focusNode8.addListener(() {
+      setState(() {});
+    });
+    focusNode9.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //return Container(color: Colors.black,);
     return ListView(
+      padding: const EdgeInsets.all(
+        30,
+      ),
       scrollDirection: Axis.vertical,
       children: [
-        //fname lname email
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-                width: widgetSize.getWidth(50, context),
-                child: TextFormField()),
-            Container(
-                width: widgetSize.getWidth(50, context),
-                child: TextFormField()),
-            Container(
-              width: widgetSize.getWidth(50, context),
-              child: TextFormField(),
+        const Center(
+          child: Text(
+            'Add Student',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
-          ],
+          ),
+        ),
+        //fname lname email
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode1,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode1.hasFocus
+                          ? const Color(
+                              0Xff2BC3BB,
+                            )
+                          : Colors.black54,
+                    ),
+                    labelText: "First name",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: fnameController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode2,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode2.hasFocus
+                          ? const Color(
+                              0Xff2BC3BB,
+                            )
+                          : Colors.black54,
+                    ),
+                    labelText: "Last name",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: lnameController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode3,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode3.hasFocus
+                          ? const Color(
+                              0Xff2BC3BB,
+                            )
+                          : Colors.black54,
+                    ),
+                    labelText: "Email address",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: emailController,
+                ),
+              ),
+            ],
+          ),
         ),
         //gender religion nationality blood type
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              DropdownButton<String>(
+                hint: Text(
+                  'Gender',
+                ),
+                value: genderDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    genderDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Nationality',
+                ),
+                value: nationalityDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    nationalityDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Blood type',
+                ),
+                value: bloodDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    bloodDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Religion',
+                ),
+                value: religionDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    religionDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
         ),
-        //class classroom academic year
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-            DropdownButton<String?>(
-              items: [],
-              onChanged: (value) {},
-            ),
-          ],
+        //birthdate picture
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: widgetSize.getWidth(60, context),
+                height: widgetSize.getHeight(100, context),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(
+                      0Xff2BC3BB,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        15,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    _presentDatePicker();
+                  },
+                  child: const Text(
+                    'Date of birth',
+                    style: TextStyle(
+                      fontSize: 22,
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'add picture',
+                ),
+              ),
+            ],
+          ),
         ),
-        //birthdate
-        ElevatedButton(
-          onPressed: () {
-            _presentDatePicker();
-          },
-          child: Text(
-            'date',
+        // grade class classroom
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              DropdownButton<String>(
+                hint: Text(
+                  'Grade',
+                ),
+                value: gradeDDv,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    gradeDDv = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Class',
+                ),
+                value: classDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    classDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Classroom',
+                ),
+                value: classroomDDv,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    classroomDDv = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+        //address
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode4,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode4.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "Country",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: countryController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode5,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode5.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "City",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: cityController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode6,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode6.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "Location",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: locationController,
+                ),
+              ),
+            ],
+          ),
+        ),
+        //parents
+        //mother father email
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode7,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode7.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "Father name",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: fatherController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode8,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode8.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "Mother name",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: motherController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
+                  focusNode: focusNode9,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode9.hasFocus
+                          ? const Color(
+                        0Xff2BC3BB,
+                      )
+                          : Colors.black54,
+                    ),
+                    labelText: "Parent email address",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: pemailController,
+                ),
+              ),
+            ],
+          ),
+        ),
+        //blood religion nationality
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              DropdownButton<String>(
+                hint: Text(
+                  'Mother nationality',
+                ),
+                value: mnationalityDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    mnationalityDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Father nationality',
+                ),
+                value: fnationalityDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    fnationalityDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Father blood type',
+                ),
+                value: fbloodDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    fbloodDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              DropdownButton<String>(
+                hint: Text(
+                  'Parents religion',
+                ),
+                value: preligionDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    preligionDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
         ),
       ],
