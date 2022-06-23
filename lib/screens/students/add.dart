@@ -26,7 +26,6 @@ class _AddStudentState extends State<AddStudent> {
   final FocusNode focusNode2 = FocusNode();
   final FocusNode focusNode3 = FocusNode();
 
-
   final FocusNode focusNode4 = FocusNode();
   final FocusNode focusNode5 = FocusNode();
   final FocusNode focusNode6 = FocusNode();
@@ -48,9 +47,22 @@ class _AddStudentState extends State<AddStudent> {
   String fnationalityDDV = 'male';
   String fbloodDDV = 'male';
   String preligionDDV = 'male';
+
   DateTime? _selectedDate;
+
   void _presentDatePicker() {
     showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0Xff2BC3BB),
+            colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2010),
@@ -101,8 +113,8 @@ class _AddStudentState extends State<AddStudent> {
 
   @override
   Widget build(BuildContext context) {
-    //return Container(color: Colors.black,);
     return ListView(
+      controller: ScrollController(),
       padding: const EdgeInsets.all(
         30,
       ),
@@ -279,7 +291,7 @@ class _AddStudentState extends State<AddStudent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Gender',
                 ),
                 value: genderDDV,
@@ -304,7 +316,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Nationality',
                 ),
                 value: nationalityDDV,
@@ -329,7 +341,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Blood type',
                 ),
                 value: bloodDDV,
@@ -354,7 +366,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Religion',
                 ),
                 value: religionDDV,
@@ -394,7 +406,7 @@ class _AddStudentState extends State<AddStudent> {
                 height: widgetSize.getHeight(100, context),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color(
+                    primary: const Color(
                       0Xff2BC3BB,
                     ),
                     shape: RoundedRectangleBorder(
@@ -418,6 +430,11 @@ class _AddStudentState extends State<AddStudent> {
                 onPressed: () {},
                 child: const Text(
                   'add picture',
+                  style: TextStyle(
+                    color: Color(
+                      0Xff2BC3BB,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -432,7 +449,7 @@ class _AddStudentState extends State<AddStudent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Grade',
                 ),
                 value: gradeDDv,
@@ -457,7 +474,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Class',
                 ),
                 value: classDDV,
@@ -482,7 +499,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Classroom',
                 ),
                 value: classroomDDv,
@@ -537,8 +554,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode4.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "Country",
@@ -584,8 +601,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode5.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "City",
@@ -631,8 +648,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode6.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "Location",
@@ -690,8 +707,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode7.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "Father name",
@@ -737,8 +754,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode8.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "Mother name",
@@ -784,8 +801,8 @@ class _AddStudentState extends State<AddStudent> {
                     labelStyle: TextStyle(
                       color: focusNode9.hasFocus
                           ? const Color(
-                        0Xff2BC3BB,
-                      )
+                              0Xff2BC3BB,
+                            )
                           : Colors.black54,
                     ),
                     labelText: "Parent email address",
@@ -823,7 +840,7 @@ class _AddStudentState extends State<AddStudent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Mother nationality',
                 ),
                 value: mnationalityDDV,
@@ -848,7 +865,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Father nationality',
                 ),
                 value: fnationalityDDV,
@@ -873,7 +890,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Father blood type',
                 ),
                 value: fbloodDDV,
@@ -898,7 +915,7 @@ class _AddStudentState extends State<AddStudent> {
                 }).toList(),
               ),
               DropdownButton<String>(
-                hint: Text(
+                hint: const Text(
                   'Parents religion',
                 ),
                 value: preligionDDV,

@@ -4,13 +4,13 @@ class SettingsCard extends StatefulWidget {
   final Color color;
   final String title;
   final String name;
-  final String button;
+  final String? button;
   const SettingsCard(
       {Key? key,
       required this.color,
       required this.title,
       required this.name,
-      required this.button})
+      this.button})
       : super(key: key);
 
   @override
@@ -30,17 +30,22 @@ class _SettingsCardState extends State<SettingsCard> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
             widget.title,
           ),
           Text(widget.name),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              widget.button,
+          if (widget.button != null)
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                widget.button!,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );
