@@ -14,13 +14,17 @@ class _AddStudentState extends State<AddStudent> {
   final lnameController = TextEditingController();
   final emailController = TextEditingController();
 
-  final locationController = TextEditingController();
+  final streetController = TextEditingController();
   final cityController = TextEditingController();
-  final countryController = TextEditingController();
+  final townController = TextEditingController();
 
   final fatherController = TextEditingController();
   final motherController = TextEditingController();
   final pemailController = TextEditingController();
+  final nationalController = TextEditingController();
+
+  final phoneController = TextEditingController();
+  final jobController = TextEditingController();
 
   final FocusNode focusNode1 = FocusNode();
   final FocusNode focusNode2 = FocusNode();
@@ -33,6 +37,10 @@ class _AddStudentState extends State<AddStudent> {
   final FocusNode focusNode7 = FocusNode();
   final FocusNode focusNode8 = FocusNode();
   final FocusNode focusNode9 = FocusNode();
+  final FocusNode focusNode10 = FocusNode();
+
+  final FocusNode focusNode11 = FocusNode();
+  final FocusNode focusNode12 = FocusNode();
 
   String genderDDV = 'male';
   String nationalityDDV = 'male';
@@ -47,6 +55,7 @@ class _AddStudentState extends State<AddStudent> {
   String fnationalityDDV = 'male';
   String fbloodDDV = 'male';
   String preligionDDV = 'male';
+  String yearDDV = 'male';
 
   DateTime? _selectedDate;
 
@@ -108,8 +117,18 @@ class _AddStudentState extends State<AddStudent> {
     focusNode9.addListener(() {
       setState(() {});
     });
+    focusNode10.addListener(() {
+      setState(() {});
+    });
+    focusNode11.addListener(() {
+      setState(() {});
+    });
+    focusNode12.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -440,7 +459,7 @@ class _AddStudentState extends State<AddStudent> {
             ],
           ),
         ),
-        // grade class classroom
+        // grade class classroom academic year
         Padding(
           padding: const EdgeInsets.only(
             top: 30,
@@ -523,6 +542,31 @@ class _AddStudentState extends State<AddStudent> {
                   );
                 }).toList(),
               ),
+              DropdownButton<String>(
+                hint: const Text(
+                  'Academic Year',
+                ),
+                value: yearDDV,
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                  color: const Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    yearDDV = newValue!;
+                  });
+                },
+                items: <String>['male', 'female']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
             ],
           ),
         ),
@@ -558,53 +602,6 @@ class _AddStudentState extends State<AddStudent> {
                             )
                           : Colors.black54,
                     ),
-                    labelText: "Country",
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 2,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  controller: countryController,
-                ),
-              ),
-              SizedBox(
-                width: widgetSize.getWidth(
-                  70,
-                  context,
-                ),
-                child: TextFormField(
-                  focusNode: focusNode5,
-                  cursorColor: const Color(
-                    0Xff2BC3BB,
-                  ),
-                  decoration: InputDecoration(
-                    hoverColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    focusColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    labelStyle: TextStyle(
-                      color: focusNode5.hasFocus
-                          ? const Color(
-                              0Xff2BC3BB,
-                            )
-                          : Colors.black54,
-                    ),
                     labelText: "City",
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
@@ -634,6 +631,53 @@ class _AddStudentState extends State<AddStudent> {
                   context,
                 ),
                 child: TextFormField(
+                  focusNode: focusNode5,
+                  cursorColor: const Color(
+                    0Xff2BC3BB,
+                  ),
+                  decoration: InputDecoration(
+                    hoverColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    focusColor: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    labelStyle: TextStyle(
+                      color: focusNode5.hasFocus
+                          ? const Color(
+                              0Xff2BC3BB,
+                            )
+                          : Colors.black54,
+                    ),
+                    labelText: "Town",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 2,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: const BorderSide(
+                        color: Color(0Xff2BC3BB),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  controller: townController,
+                ),
+              ),
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
+                ),
+                child: TextFormField(
                   focusNode: focusNode6,
                   cursorColor: const Color(
                     0Xff2BC3BB,
@@ -652,7 +696,7 @@ class _AddStudentState extends State<AddStudent> {
                             )
                           : Colors.black54,
                     ),
-                    labelText: "Location",
+                    labelText: "Street",
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         10,
@@ -672,14 +716,13 @@ class _AddStudentState extends State<AddStudent> {
                       ),
                     ),
                   ),
-                  controller: locationController,
+                  controller: streetController,
                 ),
               ),
             ],
           ),
         ),
-        //parents
-        //mother father email
+        //parents national number
         Padding(
           padding: const EdgeInsets.only(
             top: 30,
@@ -687,52 +730,8 @@ class _AddStudentState extends State<AddStudent> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SizedBox(
-                width: widgetSize.getWidth(
-                  70,
-                  context,
-                ),
-                child: TextFormField(
-                  focusNode: focusNode7,
-                  cursorColor: const Color(
-                    0Xff2BC3BB,
-                  ),
-                  decoration: InputDecoration(
-                    hoverColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    focusColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    labelStyle: TextStyle(
-                      color: focusNode7.hasFocus
-                          ? const Color(
-                              0Xff2BC3BB,
-                            )
-                          : Colors.black54,
-                    ),
-                    labelText: "Father name",
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 2,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  controller: fatherController,
-                ),
+              const Text(
+                'Parents national number',
               ),
               SizedBox(
                 width: widgetSize.getWidth(
@@ -740,7 +739,7 @@ class _AddStudentState extends State<AddStudent> {
                   context,
                 ),
                 child: TextFormField(
-                  focusNode: focusNode8,
+                  focusNode: focusNode10,
                   cursorColor: const Color(
                     0Xff2BC3BB,
                   ),
@@ -752,13 +751,13 @@ class _AddStudentState extends State<AddStudent> {
                       0Xff2BC3BB,
                     ),
                     labelStyle: TextStyle(
-                      color: focusNode8.hasFocus
+                      color: focusNode10.hasFocus
                           ? const Color(
                               0Xff2BC3BB,
                             )
                           : Colors.black54,
                     ),
-                    labelText: "Mother name",
+                    labelText: "National number",
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         10,
@@ -778,171 +777,439 @@ class _AddStudentState extends State<AddStudent> {
                       ),
                     ),
                   ),
-                  controller: motherController,
-                ),
-              ),
-              SizedBox(
-                width: widgetSize.getWidth(
-                  70,
-                  context,
-                ),
-                child: TextFormField(
-                  focusNode: focusNode9,
-                  cursorColor: const Color(
-                    0Xff2BC3BB,
-                  ),
-                  decoration: InputDecoration(
-                    hoverColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    focusColor: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    labelStyle: TextStyle(
-                      color: focusNode9.hasFocus
-                          ? const Color(
-                              0Xff2BC3BB,
-                            )
-                          : Colors.black54,
-                    ),
-                    labelText: "Parent email address",
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 2,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Color(0Xff2BC3BB),
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  controller: pemailController,
+                  controller: nationalController,
                 ),
               ),
             ],
           ),
         ),
-        //blood religion nationality
+        //submit
         Padding(
-          padding: const EdgeInsets.only(
-            top: 30.0,
+          padding: EdgeInsets.only(
+            top: 30,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              DropdownButton<String>(
-                hint: const Text(
-                  'Mother nationality',
-                ),
-                value: mnationalityDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    mnationalityDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+            children: [
+              Expanded(
+                child: SizedBox(),
               ),
-              DropdownButton<String>(
-                hint: const Text(
-                  'Father nationality',
+              SizedBox(
+                width: widgetSize.getWidth(
+                  70,
+                  context,
                 ),
-                value: fnationalityDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
+                height: widgetSize.getHeight(
+                  60,
+                  context,
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(
+                      0Xff2BC3BB,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        15,
+                      ),
+                    ),
                   ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    fnationalityDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: const Text(
-                  'Father blood type',
-                ),
-                value: fbloodDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
+                  child: Text(
+                    'Submit',
                   ),
+                  onPressed: () {},
                 ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    fbloodDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: const Text(
-                  'Parents religion',
-                ),
-                value: preligionDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    preligionDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
               ),
             ],
           ),
         ),
+        //parents
+        //mother father email
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //     top: 30,
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: [
+        //       SizedBox(
+        //         width: widgetSize.getWidth(
+        //           70,
+        //           context,
+        //         ),
+        //         child: TextFormField(
+        //           focusNode: focusNode7,
+        //           cursorColor: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //           decoration: InputDecoration(
+        //             hoverColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             focusColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             labelStyle: TextStyle(
+        //               color: focusNode7.hasFocus
+        //                   ? const Color(
+        //                       0Xff2BC3BB,
+        //                     )
+        //                   : Colors.black54,
+        //             ),
+        //             labelText: "Father name",
+        //             focusedBorder: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 2,
+        //               ),
+        //             ),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 1,
+        //               ),
+        //             ),
+        //           ),
+        //           controller: fatherController,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         width: widgetSize.getWidth(
+        //           70,
+        //           context,
+        //         ),
+        //         child: TextFormField(
+        //           focusNode: focusNode8,
+        //           cursorColor: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //           decoration: InputDecoration(
+        //             hoverColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             focusColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             labelStyle: TextStyle(
+        //               color: focusNode8.hasFocus
+        //                   ? const Color(
+        //                       0Xff2BC3BB,
+        //                     )
+        //                   : Colors.black54,
+        //             ),
+        //             labelText: "Mother name",
+        //             focusedBorder: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 2,
+        //               ),
+        //             ),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 1,
+        //               ),
+        //             ),
+        //           ),
+        //           controller: motherController,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         width: widgetSize.getWidth(
+        //           70,
+        //           context,
+        //         ),
+        //         child: TextFormField(
+        //           focusNode: focusNode9,
+        //           cursorColor: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //           decoration: InputDecoration(
+        //             hoverColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             focusColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             labelStyle: TextStyle(
+        //               color: focusNode9.hasFocus
+        //                   ? const Color(
+        //                       0Xff2BC3BB,
+        //                     )
+        //                   : Colors.black54,
+        //             ),
+        //             labelText: "Parent email address",
+        //             focusedBorder: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 2,
+        //               ),
+        //             ),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 1,
+        //               ),
+        //             ),
+        //           ),
+        //           controller: pemailController,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+
+        //job and phone
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //     top: 30,
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: [
+        //       SizedBox(
+        //         width: widgetSize.getWidth(
+        //           70,
+        //           context,
+        //         ),
+        //         child: TextFormField(
+        //           focusNode: focusNode11,
+        //           cursorColor: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //           decoration: InputDecoration(
+        //             hoverColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             focusColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             labelStyle: TextStyle(
+        //               color: focusNode11.hasFocus
+        //                   ? const Color(
+        //                 0Xff2BC3BB,
+        //               )
+        //                   : Colors.black54,
+        //             ),
+        //             labelText: "Phone number",
+        //             focusedBorder: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 2,
+        //               ),
+        //             ),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 1,
+        //               ),
+        //             ),
+        //           ),
+        //           controller: phoneController,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         width: widgetSize.getWidth(
+        //           70,
+        //           context,
+        //         ),
+        //         child: TextFormField(
+        //           focusNode: focusNode12,
+        //           cursorColor: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //           decoration: InputDecoration(
+        //             hoverColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             focusColor: const Color(
+        //               0Xff2BC3BB,
+        //             ),
+        //             labelStyle: TextStyle(
+        //               color: focusNode12.hasFocus
+        //                   ? const Color(
+        //                 0Xff2BC3BB,
+        //               )
+        //                   : Colors.black54,
+        //             ),
+        //             labelText: "Job",
+        //             focusedBorder: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 2,
+        //               ),
+        //             ),
+        //             border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(
+        //                 10,
+        //               ),
+        //               borderSide: const BorderSide(
+        //                 color: Color(0Xff2BC3BB),
+        //                 width: 1,
+        //               ),
+        //             ),
+        //           ),
+        //           controller: jobController,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+
+        // //blood religion nationality
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //     top: 30.0,
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: <Widget>[
+        //       DropdownButton<String>(
+        //         hint: const Text(
+        //           'Mother nationality',
+        //         ),
+        //         value: mnationalityDDV,
+        //         elevation: 16,
+        //         underline: Container(
+        //           height: 2,
+        //           color: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //         ),
+        //         onChanged: (String? newValue) {
+        //           setState(() {
+        //             mnationalityDDV = newValue!;
+        //           });
+        //         },
+        //         items: <String>['male', 'female']
+        //             .map<DropdownMenuItem<String>>((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //       ),
+        //       DropdownButton<String>(
+        //         hint: const Text(
+        //           'Father nationality',
+        //         ),
+        //         value: fnationalityDDV,
+        //         elevation: 16,
+        //         underline: Container(
+        //           height: 2,
+        //           color: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //         ),
+        //         onChanged: (String? newValue) {
+        //           setState(() {
+        //             fnationalityDDV = newValue!;
+        //           });
+        //         },
+        //         items: <String>['male', 'female']
+        //             .map<DropdownMenuItem<String>>((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //       ),
+        //       DropdownButton<String>(
+        //         hint: const Text(
+        //           'Father blood type',
+        //         ),
+        //         value: fbloodDDV,
+        //         elevation: 16,
+        //         underline: Container(
+        //           height: 2,
+        //           color: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //         ),
+        //         onChanged: (String? newValue) {
+        //           setState(() {
+        //             fbloodDDV = newValue!;
+        //           });
+        //         },
+        //         items: <String>['male', 'female']
+        //             .map<DropdownMenuItem<String>>((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //       ),
+        //       DropdownButton<String>(
+        //         hint: const Text(
+        //           'Parents religion',
+        //         ),
+        //         value: preligionDDV,
+        //         elevation: 16,
+        //         underline: Container(
+        //           height: 2,
+        //           color: const Color(
+        //             0Xff2BC3BB,
+        //           ),
+        //         ),
+        //         onChanged: (String? newValue) {
+        //           setState(() {
+        //             preligionDDV = newValue!;
+        //           });
+        //         },
+        //         items: <String>['male', 'female']
+        //             .map<DropdownMenuItem<String>>((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
+  }
+  @override
+  dispose() {
+    focusNode1.dispose();
+    focusNode2.dispose();
+    focusNode3.dispose();
+    focusNode4.dispose();
+    focusNode5.dispose();
+    focusNode6.dispose();
+    focusNode7.dispose();
+    focusNode8.dispose();
+    focusNode9.dispose();
+    focusNode10.dispose();
+    focusNode11.dispose();
+    focusNode12.dispose();
+    super.dispose();
   }
 }

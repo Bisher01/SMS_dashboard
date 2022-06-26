@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../components/components.dart';
-import '../../utill/widget_size.dart';
 
-class AddTeacher extends StatefulWidget {
-  const AddTeacher({Key? key}) : super(key: key);
+import '../../utill/widget_size.dart';
+class AddMentor extends StatefulWidget {
+  const AddMentor({Key? key}) : super(key: key);
 
   @override
-  State<AddTeacher> createState() => _AddTeacherState();
+  State<AddMentor> createState() => _AddMentorState();
 }
 
-class _AddTeacherState extends State<AddTeacher> {
+class _AddMentorState extends State<AddMentor> {
+
   final fnameController = TextEditingController();
   final lnameController = TextEditingController();
   final emailController = TextEditingController();
@@ -18,7 +18,7 @@ class _AddTeacherState extends State<AddTeacher> {
   final cityController = TextEditingController();
   final townController = TextEditingController();
 
-  final salaryController = TextEditingController();
+  final phoneController = TextEditingController();
 
   final FocusNode focusNode1 = FocusNode();
   final FocusNode focusNode2 = FocusNode();
@@ -30,10 +30,7 @@ class _AddTeacherState extends State<AddTeacher> {
 
   final FocusNode focusNode7 = FocusNode();
 
-  String genderDDV = 'male';
-  String religionDDV = 'male';
-  String gradeDDV = 'male';
-  String subjectDDV = 'male';
+  String classDDV = 'male';
 
   @override
   initState() {
@@ -65,22 +62,22 @@ class _AddTeacherState extends State<AddTeacher> {
   DateTime? _selectedDate;
   void _presentDatePicker() {
     showDatePicker(
-            builder: (context, child) {
-              return Theme(
-                data: ThemeData.light().copyWith(
-                  primaryColor: const Color(0Xff2BC3BB),
-                  colorScheme:
-                      const ColorScheme.light(primary: Color(0Xff2BC3BB)),
-                  buttonTheme:
-                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                ),
-                child: child!,
-              );
-            },
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2020),
-            lastDate: DateTime.now())
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: const Color(0Xff2BC3BB),
+              colorScheme:
+              const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+              buttonTheme:
+              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!,
+          );
+        },
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now())
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
@@ -90,7 +87,6 @@ class _AddTeacherState extends State<AddTeacher> {
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -100,7 +96,7 @@ class _AddTeacherState extends State<AddTeacher> {
       children: [
         const Center(
           child: Text(
-            'Add Teacher',
+            'Add Mentor',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -136,8 +132,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode1.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "First name",
@@ -183,8 +179,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode2.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "Last name",
@@ -230,8 +226,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode3.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "Email address",
@@ -260,7 +256,7 @@ class _AddTeacherState extends State<AddTeacher> {
             ],
           ),
         ),
-        //joining date picture
+        //joining date class
         Padding(
           padding: EdgeInsets.only(
             top: 30,
@@ -293,33 +289,11 @@ class _AddTeacherState extends State<AddTeacher> {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'add picture',
-                  style: TextStyle(
-                    color: Color(
-                      0Xff2BC3BB,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        //gender religion grade subject
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 30.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
               DropdownButton<String>(
                 hint: Text(
                   'Gender',
                 ),
-                value: genderDDV,
+                value: classDDV,
                 elevation: 16,
                 underline: Container(
                   height: 2,
@@ -329,82 +303,7 @@ class _AddTeacherState extends State<AddTeacher> {
                 ),
                 onChanged: (String? newValue) {
                   setState(() {
-                    genderDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: Text(
-                  'Religion',
-                ),
-                value: religionDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    religionDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: Text(
-                  'Grade',
-                ),
-                value: gradeDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    gradeDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: Text(
-                  'Subject',
-                ),
-                value: subjectDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    subjectDDV = newValue!;
+                    classDDV = newValue!;
                   });
                 },
                 items: <String>['male', 'female']
@@ -446,8 +345,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode4.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "City",
@@ -493,8 +392,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode5.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "Town",
@@ -540,8 +439,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     labelStyle: TextStyle(
                       color: focusNode6.hasFocus
                           ? const Color(
-                              0Xff2BC3BB,
-                            )
+                        0Xff2BC3BB,
+                      )
                           : Colors.black54,
                     ),
                     labelText: "Street",
@@ -570,7 +469,7 @@ class _AddTeacherState extends State<AddTeacher> {
             ],
           ),
         ),
-        //salary submit
+        // phone submit
         Padding(
           padding: EdgeInsets.only(
             top: 30,
@@ -602,7 +501,7 @@ class _AddTeacherState extends State<AddTeacher> {
                       )
                           : Colors.black54,
                     ),
-                    labelText: "Salary",
+                    labelText: "Phone",
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         10,
@@ -622,7 +521,7 @@ class _AddTeacherState extends State<AddTeacher> {
                       ),
                     ),
                   ),
-                  controller: salaryController,
+                  controller: phoneController,
                 ),
               ),
               SizedBox(
@@ -669,3 +568,5 @@ class _AddTeacherState extends State<AddTeacher> {
     super.dispose();
   }
 }
+
+

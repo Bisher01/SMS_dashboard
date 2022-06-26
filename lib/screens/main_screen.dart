@@ -16,11 +16,10 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pages = [
     const Settings(),
     const AddStudent(),
-    const EditStudent(),
     const ShowStudent(),
     const AddTeacher(),
-    const EditTeacher(),
     const ShowTeacher(),
+    const AddMentor(),
     const AcademicYears()
   ];
 
@@ -44,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
                   'login.svg',
                   height: widgetSize.getHeight(180, context),
                 ),
-                Text(
+                const Text(
                   'School Name',
                   style: TextStyle(
                     color: Colors.white,
@@ -52,11 +51,11 @@ class _MainScreenState extends State<MainScreen> {
                     fontSize: 30,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
@@ -75,34 +74,34 @@ class _MainScreenState extends State<MainScreen> {
                 const Divider(
                   color: Colors.white,
                 ),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.ac_unit,
+                //     color: Colors.white,
+                //   ),
+                //   onTap: () {
+                //     setState(() {
+                //       selectedTab = 2;
+                //     });
+                //   },
+                //   title: const Text(
+                //     'Edit Students',
+                //     style: TextStyle(
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
+                // const Divider(
+                //   color: Colors.white,
+                // ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
                   onTap: () {
                     setState(() {
                       selectedTab = 2;
-                    });
-                  },
-                  title: const Text(
-                    'Edit Students',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.ac_unit,
-                    color: Colors.white,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      selectedTab = 3;
                     });
                   },
                   title: const Text(
@@ -116,13 +115,13 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
                   onTap: () {
                     setState(() {
-                      selectedTab = 4;
+                      selectedTab = 3;
                     });
                   },
                   title: const Text(
@@ -135,34 +134,34 @@ class _MainScreenState extends State<MainScreen> {
                 const Divider(
                   color: Colors.white,
                 ),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.ac_unit,
+                //     color: Colors.white,
+                //   ),
+                //   onTap: () {
+                //     setState(() {
+                //       selectedTab = 5;
+                //     });
+                //   },
+                //   title: const Text(
+                //     'Edit Teachers',
+                //     style: TextStyle(
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
+                // const Divider(
+                //   color: Colors.white,
+                // ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
                   onTap: () {
                     setState(() {
-                      selectedTab = 5;
-                    });
-                  },
-                  title: const Text(
-                    'Edit Teachers',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  color: Colors.white,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.ac_unit,
-                    color: Colors.white,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      selectedTab = 6;
+                      selectedTab = 4;
                     });
                   },
                   title: const Text(
@@ -176,7 +175,28 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
+                    Icons.ac_unit,
+                    color: Colors.white,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedTab = 5;
+                    });
+                  },
+                  title: const Text(
+                    'Add Mentors',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const Divider(
+                  color: Colors.white,
+                ),
+
+                ListTile(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
@@ -192,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
@@ -208,7 +228,7 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
@@ -224,7 +244,7 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
@@ -240,13 +260,13 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
                   onTap: () {
                     setState(() {
-                      selectedTab = 7;
+                      selectedTab = 5;
                     });
                   },
                   title: const Text(
@@ -260,13 +280,13 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.ac_unit,
                     color: Colors.white,
                   ),
-                  title: Text(
+                  title: const Text(
                     'Settings',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
