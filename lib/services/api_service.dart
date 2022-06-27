@@ -39,4 +39,7 @@ abstract class ApiService {
 
   @GET('subject/all')
   Future<FSubject> getAllSubjects();
+
+  @GET('mentor/all')
+  Future <FMentor> getAllMentors();
 }

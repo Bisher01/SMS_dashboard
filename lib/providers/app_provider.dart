@@ -81,37 +81,6 @@ class AppProvider extends ChangeNotifier {
     return fStudentResponse!;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ApiResponse<FSubject>? _fSubjectResponse;
   ApiResponse<FSubject>? get fSubjectResponse => _fSubjectResponse;
   set fSubjectResponse(ApiResponse<FSubject>? value) {
@@ -140,6 +109,36 @@ class AppProvider extends ChangeNotifier {
       return fSubjectResponse = ApiResponse.error('No Internet Connection');
     }
     return fSubjectResponse!;
+  }
+
+  ApiResponse<FMentor>? _fMentorResponse;
+
+  ApiResponse<FMentor>? get fMentorResponse => _fMentorResponse;
+  set fMentorResponse(ApiResponse<FMentor>? value) {
+    _fMentorResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMentor>> getAllMentors() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      fMentorResponse = ApiResponse.loading('');
+      try {
+        FMentor fMentor = await apiService.getAllMentors();
+        fMentorResponse = ApiResponse.completed(fMentor);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            fMentorResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          fMentorResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return fMentorResponse!;
   }
 }
 
