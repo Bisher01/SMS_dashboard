@@ -19,7 +19,7 @@ class Mentor {
 
   Mentor(
       {
-        this.address_id,
+     this.address_id,
      this.code,
      this.created_at,
      this.email,
@@ -37,10 +37,10 @@ class Mentor {
 
 @JsonSerializable()
 class FMentor {
-  String status;
-  String message;
-  List<Mentor> data;
-  FMentor({required this.message, required this.status, required this.data});
+  bool? status;
+  String? message;
+  List<Mentor>? data;
+  FMentor({ this.message,  this.status,  this.data});
 
   factory FMentor.fromJson(Map<String, dynamic> json) =>
       _$FMentorFromJson(json);

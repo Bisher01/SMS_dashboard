@@ -31,8 +31,12 @@ dependencies:
     sdk: flutter
   flutter_svg: ^1.0.3
   retrofit: ^3.0.1+1
-  logger: any
+  pretty_dio_logger: ^1.1.1
   dio:
+  provider: ^6.0.3
+  connectivity_plus: ^2.3.5
+  json_annotation: ^4.5.0
+  shimmer: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,9 +45,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator:
-  build_runner:
-  json_serializable:
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
 
 
 

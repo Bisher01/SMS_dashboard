@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../models/models.dart';
+
 class StudentShowCard extends StatefulWidget {
-  const StudentShowCard({Key? key}) : super(key: key);
+  final Student student;
+  const StudentShowCard({required this.student,Key? key}) : super(key: key);
 
   @override
   State<StudentShowCard> createState() => _StudentShowCardState();
@@ -37,7 +40,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                       "student's name:",
                     ),
                     Text(
-                      'joudi joudi',
+                      '${widget.student.f_name} ${widget.student.l_name}'
                     ),
                   ],
                 ),
@@ -47,14 +50,14 @@ class _StudentShowCardState extends State<StudentShowCard> {
                       'student email',
                     ),
                     Text(
-                      'joudi.kab01@gmail.com',
+                      '${widget.student.email}',
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          //gender blood salary join date
+          //gender blood salary birth date
           Padding(
             padding: const EdgeInsets.only(
               top: 15,
@@ -83,7 +86,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                 Column(
                   children: [
                     Text('student birth date',),
-                    Text('21-5-2010',),
+                    Text('${widget.student.birthdate}',),
                   ],
                 ),
               ],

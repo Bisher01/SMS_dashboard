@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sms_dashboard/models/models.dart';
 
 class TeacherShowCard extends StatefulWidget {
-  const TeacherShowCard({Key? key}) : super(key: key);
+  final Teacher teacher;
+  const TeacherShowCard({required this.teacher,Key? key}) : super(key: key);
 
   @override
   State<TeacherShowCard> createState() => _TeacherShowCardState();
@@ -33,11 +35,9 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
               children: [
                 Column(
                   children: [
+                    Text('Teacher name'),
                     Text(
-                      "Teacher's name:",
-                    ),
-                    Text(
-                      'joudi joudi',
+                      '${widget.teacher.f_name} ${widget.teacher.l_name}'
                     ),
                   ],
                 ),
@@ -47,7 +47,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       'Teachers email',
                     ),
                     Text(
-                      'joudi.kab01@gmail.com',
+                     '${widget.teacher.email}'
                     ),
                   ],
                 ),

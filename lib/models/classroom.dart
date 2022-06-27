@@ -27,7 +27,7 @@ class Classroom{
 
 @JsonSerializable()
 class FClassroom{
-  String? status;
+  bool? status;
   String? message;
   List<Classroom>? classrooms;
   FClassroom({

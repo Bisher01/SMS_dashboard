@@ -55,7 +55,7 @@ class Student {
 
 @JsonSerializable()
 class FStudent {
-  String? status;
+  bool? status;
   String? message;
   @JsonKey(name: 'Student Data')
   List<Student>? studentData;

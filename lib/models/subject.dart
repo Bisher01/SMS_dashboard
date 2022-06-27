@@ -27,7 +27,7 @@ class Subject{
 
 @JsonSerializable()
 class FSubject{
-  String? status;
+  bool? status;
   String? message;
   List<Subject>? subjects;
   FSubject({

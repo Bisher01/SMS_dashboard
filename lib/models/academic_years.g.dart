@@ -25,7 +25,7 @@ Map<String, dynamic> _$AcademicYearsToJson(AcademicYears instance) =>
 FAcademicYears _$FAcademicYearsFromJson(Map<String, dynamic> json) =>
     FAcademicYears(
       message: json['message'] as String?,
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       academicYears: (json['Academic Years'] as List<dynamic>?)
           ?.map((e) => AcademicYears.fromJson(e as Map<String, dynamic>))
           .toList(),

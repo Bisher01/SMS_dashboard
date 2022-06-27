@@ -53,7 +53,7 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
     };
 
 FStudent _$FStudentFromJson(Map<String, dynamic> json) => FStudent(
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       message: json['message'] as String?,
       studentData: (json['Student Data'] as List<dynamic>?)
           ?.map((e) => Student.fromJson(e as Map<String, dynamic>))

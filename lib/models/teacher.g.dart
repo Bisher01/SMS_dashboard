@@ -41,7 +41,7 @@ Map<String, dynamic> _$TeacherToJson(Teacher instance) => <String, dynamic>{
     };
 
 FTeacher _$FTeacherFromJson(Map<String, dynamic> json) => FTeacher(
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       message: json['message'] as String?,
       teacherData: (json['Teacher Data'] as List<dynamic>?)
           ?.map((e) => Teacher.fromJson(e as Map<String, dynamic>))

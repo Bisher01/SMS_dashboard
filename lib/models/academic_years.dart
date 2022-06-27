@@ -25,7 +25,7 @@ class AcademicYears{
 
 @JsonSerializable()
 class FAcademicYears{
-  String? status;
+  bool? status;
   String? message;
   @JsonKey(name: 'Academic Years')
   List<AcademicYears>? academicYears;

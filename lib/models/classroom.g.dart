@@ -24,7 +24,7 @@ Map<String, dynamic> _$ClassroomToJson(Classroom instance) => <String, dynamic>{
 
 FClassroom _$FClassroomFromJson(Map<String, dynamic> json) => FClassroom(
       message: json['message'] as String?,
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       classrooms: (json['classrooms'] as List<dynamic>?)
           ?.map((e) => Classroom.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -24,7 +24,7 @@ Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
 
 FSubject _$FSubjectFromJson(Map<String, dynamic> json) => FSubject(
       message: json['message'] as String?,
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       subjects: (json['subjects'] as List<dynamic>?)
           ?.map((e) => Subject.fromJson(e as Map<String, dynamic>))
           .toList(),

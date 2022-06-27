@@ -41,7 +41,7 @@ class Teacher {
 }
 @JsonSerializable()
 class FTeacher{
-  String? status;
+  bool? status;
   String? message;
   @JsonKey(name: 'Teacher Data')
   List<Teacher>? teacherData;
