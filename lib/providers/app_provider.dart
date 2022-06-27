@@ -15,69 +15,63 @@ class AppProvider extends ChangeNotifier {
     isConnected = connectivityResult != ConnectivityResult.none;
     return isConnected;
   }
+
   ApiResponse<FTeacher>? _fTeacherResponse;
 
   ApiResponse<FTeacher>? get fTeacherResponse => _fTeacherResponse;
-  set fTeacherResponse(ApiResponse<FTeacher>? value){
+  set fTeacherResponse(ApiResponse<FTeacher>? value) {
     _fTeacherResponse = value;
     notifyListeners();
   }
 
-  Future <ApiResponse<FTeacher>> getAllTeachers()async{
+  Future<ApiResponse<FTeacher>> getAllTeachers() async {
     ApiService apiService = ApiService(Dio());
-    if(await checkInternet()){
+    if (await checkInternet()) {
       fTeacherResponse = ApiResponse.loading('');
-      try{
+      try {
         FTeacher teacher = await apiService.getAllTeachers();
         fTeacherResponse = ApiResponse.completed(teacher);
-      }catch(e,stackTrace){
-        if( e is DioError){
-          try{
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
             throwCustomException(e);
-          }catch(forcedException){
-            return fTeacherResponse = ApiResponse.error(forcedException.toString());
+          } catch (forcedException) {
+            return fTeacherResponse =
+                ApiResponse.error(forcedException.toString());
           }
-
+        } else {
+          return fTeacherResponse = ApiResponse.error(e.toString());
         }
-        else
-          {
-            return fTeacherResponse = ApiResponse.error(e.toString());
-          }
       }
-    }
-    else{
-      return fTeacherResponse=ApiResponse.error('No Internet Connection');
+    } else {
+      return fTeacherResponse = ApiResponse.error('No Internet Connection');
     }
     return fTeacherResponse!;
-
-
   }
 
   ApiResponse<FStudent>? _fStudentResponse;
 
   ApiResponse<FStudent>? get fStudentResponse => _fStudentResponse;
-  set fStudentResponse(ApiResponse<FStudent>? value ){
+  set fStudentResponse(ApiResponse<FStudent>? value) {
     _fStudentResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FStudent>> getAllStudents()async
-  {
+  Future<ApiResponse<FStudent>> getAllStudents() async {
     ApiService apiService = ApiService(Dio());
-    if(await checkInternet()){
-      fStudentResponse=ApiResponse.loading('');
-      try{
-       FStudent fStudent = await apiService.getAllStudents();
-       fStudentResponse=ApiResponse.completed(fStudent);
-      }catch(e,stackTrace){
-        if(e is DioError){
-          try{
+    if (await checkInternet()) {
+      fStudentResponse = ApiResponse.loading('');
+      try {
+        FStudent fStudent = await apiService.getAllStudents();
+        fStudentResponse = ApiResponse.completed(fStudent);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
             throwCustomException(e);
-          }catch(forcedException){
+          } catch (forcedException) {
             fStudentResponse = ApiResponse.error(forcedException.toString());
           }
-        }
-        else{
+        } else {
           fStudentResponse = ApiResponse.error(e.toString());
         }
       }
@@ -85,6 +79,35 @@ class AppProvider extends ChangeNotifier {
     return fStudentResponse!;
   }
 
+  ApiResponse<FMentor>? _fMentorResponse;
+
+  ApiResponse<FMentor>? get fMentorResponse => _fMentorResponse;
+  set fMentorResponse(ApiResponse<FMentor>? value) {
+    _fMentorResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMentor>> getAllMentors() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      fMentorResponse = ApiResponse.loading('');
+      try {
+        FMentor fMentor = await apiService.getAllMentors();
+        fMentorResponse = ApiResponse.completed(fMentor);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            fMentorResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          fMentorResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return fMentorResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {
