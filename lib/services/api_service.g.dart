@@ -82,6 +82,22 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<FClassroom> getAllClassrooms() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FClassroom>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'classroom/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FClassroom.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<FAdmin> login(formData) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -94,6 +110,102 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = FAdmin.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FMentor> addMentor(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FMentor>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'mentor/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FMentor.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FStudent> addStudent(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FStudent>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'student/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FStudent.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FTeacher> addTeacher(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FTeacher>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'teacher/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FTeacher.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FAcademicYears> addAcademicYear(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FAcademicYears>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'AcademicYear/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FAcademicYears.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSubject> addSubject(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSubject>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'subject/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSubject.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FClassroom> addClassroom(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FClassroom>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'classroom/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FClassroom.fromJson(_result.data!);
     return value;
   }
 

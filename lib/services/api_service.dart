@@ -22,27 +22,60 @@ abstract class ApiService {
     }));
     dio.interceptors.add(PrettyDioLogger(
       requestHeader: true,
-      requestBody:  true,
+      requestBody: true,
       responseBody: true,
       responseHeader: true,
-      error:  true,
+      error: true,
       compact: true,
       maxWidth: 90,
     ));
-    return _ApiService(dio,baseUrl: baseUrl);
+    return _ApiService(dio, baseUrl: baseUrl);
   }
+  //all teachers
   @GET('teacher/all')
-  Future <FTeacher> getAllTeachers();
+  Future<FTeacher> getAllTeachers();
 
+  //all students
   @GET('student/all')
   Future<FStudent> getAllStudents();
 
+  //all subjects
   @GET('subject/all')
   Future<FSubject> getAllSubjects();
 
+  //all mentors
   @GET('mentor/all')
-  Future <FMentor> getAllMentors();
+  Future<FMentor> getAllMentors();
 
+  //all classrooms
+  @GET('classroom/all')
+  Future<FClassroom> getAllClassrooms();
+
+  //admin authentication
   @POST('admin')
-  Future<FAdmin> login(@Body()FormData formData);
+  Future<FAdmin> login(@Body() FormData formData);
+
+  //add mentor
+  @POST('mentor/add')
+  Future<FMentor> addMentor(@Body() FormData formData);
+
+  //add student
+  @POST('student/add')
+  Future<FStudent> addStudent(@Body() FormData formData);
+
+  //add teacher
+  @POST('teacher/add')
+  Future<FTeacher> addTeacher(@Body() FormData formData);
+
+  //add academic year
+  @POST('AcademicYear/add')
+  Future<FAcademicYears> addAcademicYear(@Body() FormData formData);
+
+  //add subject
+  @POST('subject/add')
+  Future<FSubject> addSubject(@Body() FormData formData);
+
+  //add classroom
+  @POST('classroom/add')
+  Future<FClassroom> addClassroom(@Body() FormData formData);
 }

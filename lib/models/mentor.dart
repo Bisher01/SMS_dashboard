@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'mentor.g.dart';
 
 @JsonSerializable()
@@ -18,18 +17,17 @@ class Mentor {
   String? updated_at;
 
   Mentor(
-      {
-     this.address_id,
-     this.code,
-     this.created_at,
-     this.email,
-     this.f_name,
-     this.id,
-     this.l_name,
-     this.updated_at,
-     this.joining_date,
-     this.class_id,
-     this.phone});
+      {this.address_id,
+      this.code,
+      this.created_at,
+      this.email,
+      this.f_name,
+      this.id,
+      this.l_name,
+      this.updated_at,
+      this.joining_date,
+      this.class_id,
+      this.phone});
 
   factory Mentor.fromJson(Map<String, dynamic> json) => _$MentorFromJson(json);
   Map<String, dynamic> toJson() => _$MentorToJson(this);
@@ -39,8 +37,8 @@ class Mentor {
 class FMentor {
   bool? status;
   String? message;
-  List<Mentor>? data;
-  FMentor({ this.message,  this.status,  this.data});
+  List<Mentor>? mentor;
+  FMentor({this.message, this.status, this.mentor});
 
   factory FMentor.fromJson(Map<String, dynamic> json) =>
       _$FMentorFromJson(json);

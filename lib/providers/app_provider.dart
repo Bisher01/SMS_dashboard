@@ -8,16 +8,16 @@ import '../models/models.dart';
 import '../services/api_exception.dart';
 
 class AppProvider extends ChangeNotifier {
+  //check connection
   bool isConnected = false;
-
   Future<bool> checkInternet() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     isConnected = connectivityResult != ConnectivityResult.none;
     return isConnected;
   }
 
+  //get all teachers
   ApiResponse<FTeacher>? _fTeacherResponse;
-
   ApiResponse<FTeacher>? get fTeacherResponse => _fTeacherResponse;
   set fTeacherResponse(ApiResponse<FTeacher>? value) {
     _fTeacherResponse = value;
@@ -49,8 +49,8 @@ class AppProvider extends ChangeNotifier {
     return fTeacherResponse!;
   }
 
+  //get all students
   ApiResponse<FStudent>? _fStudentResponse;
-
   ApiResponse<FStudent>? get fStudentResponse => _fStudentResponse;
   set fStudentResponse(ApiResponse<FStudent>? value) {
     _fStudentResponse = value;
@@ -81,6 +81,7 @@ class AppProvider extends ChangeNotifier {
     return fStudentResponse!;
   }
 
+  //get all subjects
   ApiResponse<FSubject>? _fSubjectResponse;
   ApiResponse<FSubject>? get fSubjectResponse => _fSubjectResponse;
   set fSubjectResponse(ApiResponse<FSubject>? value) {
@@ -111,8 +112,8 @@ class AppProvider extends ChangeNotifier {
     return fSubjectResponse!;
   }
 
+  //get all mentors
   ApiResponse<FMentor>? _fMentorResponse;
-
   ApiResponse<FMentor>? get fMentorResponse => _fMentorResponse;
   set fMentorResponse(ApiResponse<FMentor>? value) {
     _fMentorResponse = value;
@@ -141,20 +142,18 @@ class AppProvider extends ChangeNotifier {
     return fMentorResponse!;
   }
 
+  //admin authentication
   ApiResponse<FAdmin>? _fAdminResponse;
-
   ApiResponse<FAdmin>? get fAdminResponse => _fAdminResponse;
   set fAdminResponse(ApiResponse<FAdmin>? value) {
     _fAdminResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FAdmin>> login(String email,String password) async {
+  Future<ApiResponse<FAdmin>> login(String email, String password) async {
     ApiService apiService = ApiService(Dio());
-    FormData formData=FormData.fromMap({
-      'email': email,
-      'password': password
-    });
+    FormData formData =
+        FormData.fromMap({'email': email, 'password': password});
     if (await checkInternet()) {
       fAdminResponse = ApiResponse.loading('');
       try {
@@ -176,6 +175,357 @@ class AppProvider extends ChangeNotifier {
       return fAdminResponse = ApiResponse.error('No Internet Connection');
     }
     return fAdminResponse!;
+  }
+
+  //add mentor
+  ApiResponse<FMentor>? _fAddMentorResponse;
+  ApiResponse<FMentor>? get fAddMentorResponse => _fAddMentorResponse;
+  set fAddMentorResponse(ApiResponse<FMentor>? value) {
+    _fAddMentorResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMentor>> addMentor(
+      String email,
+      String f_name,
+      String l_name,
+      int address_id,
+      String joining_date,
+      String phone,
+      int class_id,
+      String city,
+      String town,
+      String street) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'email': email,
+      'f_name': f_name,
+      'l_name': l_name,
+      'address_id': address_id,
+      'joining_date': joining_date,
+      'phone': phone,
+      'class_id': class_id,
+      'city': city,
+      'town': town,
+      'street': street
+    });
+    if (await checkInternet()) {
+      fAddMentorResponse = ApiResponse.loading('');
+      try {
+        FMentor mentor = await apiService.addMentor(formData);
+        fAddMentorResponse = ApiResponse.completed(mentor);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddMentorResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddMentorResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddMentorResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddMentorResponse!;
+  }
+
+  //get all classrooms
+  ApiResponse<FClassroom>? _fClassrooms;
+  ApiResponse<FClassroom>? get fClassroomResponse => _fClassrooms;
+  set fClassroomResponse(ApiResponse<FClassroom>? value) {
+    _fClassrooms = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FClassroom>> getAllClassrooms() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      fClassroomResponse = ApiResponse.loading('');
+      try {
+        FClassroom fClassroom = await apiService.getAllClassrooms();
+        fClassroomResponse = ApiResponse.completed(fClassroom);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            fClassroomResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          fClassroomResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return fClassroomResponse!;
+  }
+
+  //add student
+  ApiResponse<FStudent>? _fAddStudentResponse;
+  ApiResponse<FStudent>? get fAddStudentResponse => _fAddStudentResponse;
+  set fAddStudentResponse(ApiResponse<FStudent>? value) {
+    _fAddStudentResponse = value;
+    notifyListeners();
+  }
+
+  ///TODO: other add student request when he has no siblings
+  Future<ApiResponse<FStudent>> addStudent(
+
+      ///TODO: not string
+      String picture,
+      String email,
+      String f_name,
+      String l_name,
+      String nationality,
+
+      ///TODO: not string
+      String birthdate,
+      int blood_id,
+      int gender_id,
+      int religion_id,
+      int grade_id,
+      int class_id,
+      int classroom_id,
+      int academic_year_id,
+      String national_number,
+      String city,
+      String town,
+      String street) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'picture': picture,
+      'email': email,
+      'f_name': f_name,
+      'l_name': l_name,
+      'nationality': nationality,
+      'birthdate': birthdate,
+      'blood_id': blood_id,
+      'gender_id': gender_id,
+      'religion_id': religion_id,
+      'grade_id': grade_id,
+      'class_id': class_id,
+      'classroom_id': classroom_id,
+      'academic_year_id': academic_year_id,
+      'national_number': national_number,
+      'city': city,
+      'town': town,
+      'street': street
+    });
+    if (await checkInternet()) {
+      fAddStudentResponse = ApiResponse.loading('');
+      try {
+        FStudent student = await apiService.addStudent(formData);
+        fAddStudentResponse = ApiResponse.completed(student);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddStudentResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddStudentResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddStudentResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddStudentResponse!;
+  }
+
+  //add teacher
+  ApiResponse<FTeacher>? _fAddTeacherResponse;
+  ApiResponse<FTeacher>? get fAddTeacherResponse => _fAddTeacherResponse;
+  set fAddTeacherResponse(ApiResponse<FTeacher>? value) {
+    _fAddTeacherResponse = value;
+    notifyListeners();
+  }
+
+
+  Future<ApiResponse<FTeacher>> addTeacher(
+
+      ///TODO: not string
+      String picture,
+      String email,
+      String f_name,
+      String l_name,
+
+      ///TODO: not string
+      String joining_date,
+      int salary,
+      int gender_id,
+      int religion_id,
+      int grade_id,
+      int subject_id,
+      String city,
+      String town,
+      String street) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'picture': picture,
+      'email': email,
+      'f_name': f_name,
+      'l_name': l_name,
+      'joining_date': joining_date,
+      'salary': salary,
+      'gender_id': gender_id,
+      'religion_id': religion_id,
+      'grade_id': grade_id,
+      'city': city,
+      'town': town,
+      'street': street,
+      'subject_id': subject_id
+    });
+    if (await checkInternet()) {
+      fAddTeacherResponse = ApiResponse.loading('');
+      try {
+        FTeacher teacher = await apiService.addTeacher(formData);
+        fAddTeacherResponse = ApiResponse.completed(teacher);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddTeacherResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddTeacherResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddTeacherResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddTeacherResponse!;
+  }
+
+  //add academic year
+  ApiResponse<FAcademicYears>? _fAddYearResponse;
+  ApiResponse<FAcademicYears>? get fAddYearResponse => _fAddYearResponse;
+  set fAddYearResponse(ApiResponse<FAcademicYears>? value) {
+    _fAddYearResponse = value;
+    notifyListeners();
+  }
+
+
+  Future<ApiResponse<FAcademicYears>> addAcademicYear(
+
+      ///TODO: not string
+      String date,
+      ) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'date': date,
+    });
+    if (await checkInternet()) {
+      fAddYearResponse = ApiResponse.loading('');
+      try {
+        FAcademicYears year = await apiService.addAcademicYear(formData);
+        fAddYearResponse = ApiResponse.completed(year);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddYearResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddYearResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddYearResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddYearResponse!;
+  }
+
+
+  //add subject
+  ApiResponse<FSubject>? _fAddSubjectResponse;
+  ApiResponse<FSubject>? get fAddSubjectResponse => _fAddSubjectResponse;
+  set fAddSubjectResponse(ApiResponse<FSubject>? value) {
+    _fAddSubjectResponse = value;
+    notifyListeners();
+  }
+
+
+  Future<ApiResponse<FSubject>> addSubject(
+
+
+      String subject_name,
+      ) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'subject_name': subject_name,
+    });
+    if (await checkInternet()) {
+      fAddSubjectResponse = ApiResponse.loading('');
+      try {
+        FSubject subject = await apiService.addSubject(formData);
+        fAddSubjectResponse = ApiResponse.completed(subject);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddSubjectResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddSubjectResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddSubjectResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddSubjectResponse!;
+  }
+
+  //add classroom
+  ApiResponse<FClassroom>? _fAddclassroomResponse;
+  ApiResponse<FClassroom>? get fAddclassroomResponse => _fAddclassroomResponse;
+  set fAddclassroomResponse(ApiResponse<FClassroom>? value) {
+    _fAddclassroomResponse = value;
+    notifyListeners();
+  }
+
+
+  Future<ApiResponse<FClassroom>> addClassroom(
+
+
+      String name,
+      int max_number
+      ) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'max_number':max_number
+    });
+    if (await checkInternet()) {
+      fAddclassroomResponse = ApiResponse.loading('');
+      try {
+        FClassroom classroom = await apiService.addClassroom(formData);
+        fAddclassroomResponse = ApiResponse.completed(classroom);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddclassroomResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddclassroomResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddclassroomResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddclassroomResponse!;
   }
 }
 

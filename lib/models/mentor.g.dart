@@ -37,7 +37,7 @@ Map<String, dynamic> _$MentorToJson(Mentor instance) => <String, dynamic>{
 FMentor _$FMentorFromJson(Map<String, dynamic> json) => FMentor(
       message: json['message'] as String?,
       status: json['status'] as bool?,
-      data: (json['data'] as List<dynamic>?)
+      mentor: (json['mentor'] as List<dynamic>?)
           ?.map((e) => Mentor.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -45,5 +45,5 @@ FMentor _$FMentorFromJson(Map<String, dynamic> json) => FMentor(
 Map<String, dynamic> _$FMentorToJson(FMentor instance) => <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'data': instance.data,
+      'mentor': instance.mentor,
     };
