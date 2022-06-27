@@ -4,17 +4,17 @@ part 'academic_years.g.dart';
 
 @JsonSerializable()
 class AcademicYears{
-  int id;
-  String date;
-  String created_at;
-  String updated_at;
+  int? id;
+  String? date;
+  String? created_at;
+  String? updated_at;
 
   AcademicYears({
 
-    required this.updated_at,
-    required this.id,
-    required this.created_at,
-    required this.date
+    this.updated_at,
+    this.id,
+    this.created_at,
+    this.date
 });
 
   factory AcademicYears.fromJson(Map<String, dynamic> json) =>

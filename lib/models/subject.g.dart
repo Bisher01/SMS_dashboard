@@ -1,39 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'academic_years.dart';
+part of 'subject.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AcademicYears _$AcademicYearsFromJson(Map<String, dynamic> json) =>
-    AcademicYears(
+Subject _$SubjectFromJson(Map<String, dynamic> json) => Subject(
       updated_at: json['updated_at'] as String?,
       id: json['id'] as int?,
       created_at: json['created_at'] as String?,
-      date: json['date'] as String?,
+      name: json['name'] as String?,
+      book_id: json['book_id'] as int?,
     );
 
-Map<String, dynamic> _$AcademicYearsToJson(AcademicYears instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
       'id': instance.id,
-      'date': instance.date,
+      'name': instance.name,
+      'book_id': instance.book_id,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
     };
 
-FAcademicYears _$FAcademicYearsFromJson(Map<String, dynamic> json) =>
-    FAcademicYears(
+FSubject _$FSubjectFromJson(Map<String, dynamic> json) => FSubject(
       message: json['message'] as String?,
       status: json['status'] as String?,
-      academicYears: (json['Academic Years'] as List<dynamic>?)
-          ?.map((e) => AcademicYears.fromJson(e as Map<String, dynamic>))
+      subjects: (json['subjects'] as List<dynamic>?)
+          ?.map((e) => Subject.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$FAcademicYearsToJson(FAcademicYears instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FSubjectToJson(FSubject instance) => <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'Academic Years': instance.academicYears,
+      'subjects': instance.subjects,
     };
