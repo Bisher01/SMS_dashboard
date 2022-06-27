@@ -81,6 +81,37 @@ class AppProvider extends ChangeNotifier {
     return fStudentResponse!;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ApiResponse<FSubject>? _fSubjectResponse;
   ApiResponse<FSubject>? get fSubjectResponse => _fSubjectResponse;
   set fSubjectResponse(ApiResponse<FSubject>? value) {
