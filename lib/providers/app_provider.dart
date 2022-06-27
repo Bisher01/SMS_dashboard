@@ -140,6 +140,43 @@ class AppProvider extends ChangeNotifier {
     }
     return fMentorResponse!;
   }
+
+  ApiResponse<FAdmin>? _fAdminResponse;
+
+  ApiResponse<FAdmin>? get fAdminResponse => _fAdminResponse;
+  set fAdminResponse(ApiResponse<FAdmin>? value) {
+    _fAdminResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FAdmin>> login(String email,String password) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData=FormData.fromMap({
+      'email': email,
+      'password': password
+    });
+    if (await checkInternet()) {
+      fAdminResponse = ApiResponse.loading('');
+      try {
+        FAdmin admin = await apiService.login(formData);
+        fAdminResponse = ApiResponse.completed(admin);
+      } catch (e, stackTrace) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAdminResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAdminResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAdminResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAdminResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {

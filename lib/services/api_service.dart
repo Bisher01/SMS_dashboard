@@ -42,4 +42,7 @@ abstract class ApiService {
 
   @GET('mentor/all')
   Future <FMentor> getAllMentors();
+
+  @POST('admin')
+  Future<FAdmin> login(@Body()FormData formData);
 }

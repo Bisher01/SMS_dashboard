@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sms_dashboard/providers/providers.dart';
+import '../services/api_response.dart';
 import '../utill/utill.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -276,10 +279,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               0Xff2BC3BB,
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             FocusScope.of(context).unfocus();
+                            if (await Provider.of<AppProvider>(context,
+                                    listen: false)
+                                .checkInternet()) {
+                              var response = await Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .login(_emailController.text,
+                                      _passwordController.text);
+                              if(response.status==Status.COMPLETED){
+                                if(response.data!=null && response.data!.status!){
+                                  Navigator.of(context).pushReplacementNamed('/main');
+                                }
+                              }
+                            }
+                            else{
 
-                            Navigator.of(context).pushReplacementNamed('/main');
+                            }
+
                           },
                           child: const Text(
                             'Log In',
