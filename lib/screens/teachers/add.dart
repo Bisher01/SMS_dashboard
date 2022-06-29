@@ -33,7 +33,6 @@ class _AddTeacherState extends State<AddTeacher> {
   String genderDDV = 'male';
   String religionDDV = 'male';
   String gradeDDV = 'male';
-  String subjectDDV = 'male';
 
   @override
   initState() {
@@ -380,31 +379,6 @@ class _AddTeacherState extends State<AddTeacher> {
                 onChanged: (String? newValue) {
                   setState(() {
                     gradeDDV = newValue!;
-                  });
-                },
-                items: <String>['male', 'female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              DropdownButton<String>(
-                hint: Text(
-                  'Subject',
-                ),
-                value: subjectDDV,
-                elevation: 16,
-                underline: Container(
-                  height: 2,
-                  color: const Color(
-                    0Xff2BC3BB,
-                  ),
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    subjectDDV = newValue!;
                   });
                 },
                 items: <String>['male', 'female']
