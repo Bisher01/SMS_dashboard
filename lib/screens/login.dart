@@ -271,8 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             elevation: 3,
                             fixedSize: Size(
-                              widgetSize.getWidth(200, context) -
-                                  widgetSize.getWidth(80, context),
+                              widgetSize.getWidth(180, context),
                               widgetSize.getHeight(50, context),
                             ),
                             primary: const Color(
