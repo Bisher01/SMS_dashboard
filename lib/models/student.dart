@@ -10,18 +10,18 @@ class Student {
   String? l_name;
   String? email;
   String? code;
-  String? nationality;
+  String? nationality_id;
   String? picture;
   String? birthdate;
-  int? parent_id;
-  int? blood_id;
-  int? gender_id;
-  int? religion_id;
-  int? grade_id;
-  int? class_id;
-  int? classroom_id;
-  int? academic_year_id;
-  int? address_id;
+  String? parent_id;
+  String? blood_id;
+  String? gender_id;
+  String? religion_id;
+  String? grade_id;
+  String? class_id;
+  String? classroom_id;
+  String? academic_year_id;
+  String? address_id;
   String? deleted_at;
   String? created_at;
   String? updated_at;
@@ -42,7 +42,7 @@ class Student {
       this.grade_id,
       this.id,
       this.l_name,
-      this.nationality,
+      this.nationality_id,
       this.parent_id,
       this.picture,
       this.religion_id,
@@ -57,9 +57,8 @@ class Student {
 class FStudent {
   bool? status;
   String? message;
-  @JsonKey(name: 'Student Data')
-  List<Student>? studentData;
-  FStudent({this.status, this.message, this.studentData});
+  List<Student>? student;
+  FStudent({this.status, this.message, this.student});
   factory FStudent.fromJson(Map<String, dynamic> json) =>
       _$FStudentFromJson(json);
   Map<String, dynamic> toJson() => _$FStudentToJson(this);

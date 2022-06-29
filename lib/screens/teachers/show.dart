@@ -45,11 +45,11 @@ class _ShowTeacherState extends State<ShowTeacher> {
               return GridView.builder(
                 scrollDirection: Axis.vertical,
                 controller: ScrollController(),
-                itemCount: provider.fTeacherResponse!.data!.teacherData!.length,
+                itemCount: provider.fTeacherResponse!.data!.teacher!.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ), itemBuilder: (BuildContext context, int index) {
-                return TeacherShowCard(teacher: provider.fTeacherResponse!.data!.teacherData![index],);
+                return TeacherShowCard(teacher: provider.fTeacherResponse!.data!.teacher![index],);
               },
               );
             case Status.ERROR:

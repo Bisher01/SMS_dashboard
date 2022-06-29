@@ -7,25 +7,25 @@ part of 'student.dart';
 // **************************************************************************
 
 Student _$StudentFromJson(Map<String, dynamic> json) => Student(
-      academic_year_id: json['academic_year_id'] as int?,
-      address_id: json['address_id'] as int?,
+      academic_year_id: json['academic_year_id'] as String?,
+      address_id: json['address_id'] as String?,
       birthdate: json['birthdate'] as String?,
-      blood_id: json['blood_id'] as int?,
-      class_id: json['class_id'] as int?,
-      classroom_id: json['classroom_id'] as int?,
+      blood_id: json['blood_id'] as String?,
+      class_id: json['class_id'] as String?,
+      classroom_id: json['classroom_id'] as String?,
       code: json['code'] as String?,
       created_at: json['created_at'] as String?,
       deleted_at: json['deleted_at'] as String?,
       email: json['email'] as String?,
       f_name: json['f_name'] as String?,
-      gender_id: json['gender_id'] as int?,
-      grade_id: json['grade_id'] as int?,
+      gender_id: json['gender_id'] as String?,
+      grade_id: json['grade_id'] as String?,
       id: json['id'] as int?,
       l_name: json['l_name'] as String?,
-      nationality: json['nationality'] as String?,
-      parent_id: json['parent_id'] as int?,
+      nationality_id: json['nationality_id'] as String?,
+      parent_id: json['parent_id'] as String?,
       picture: json['picture'] as String?,
-      religion_id: json['religion_id'] as int?,
+      religion_id: json['religion_id'] as String?,
       updated_at: json['updated_at'] as String?,
     );
 
@@ -35,7 +35,7 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'l_name': instance.l_name,
       'email': instance.email,
       'code': instance.code,
-      'nationality': instance.nationality,
+      'nationality_id': instance.nationality_id,
       'picture': instance.picture,
       'birthdate': instance.birthdate,
       'parent_id': instance.parent_id,
@@ -55,7 +55,7 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
 FStudent _$FStudentFromJson(Map<String, dynamic> json) => FStudent(
       status: json['status'] as bool?,
       message: json['message'] as String?,
-      studentData: (json['Student Data'] as List<dynamic>?)
+      student: (json['student'] as List<dynamic>?)
           ?.map((e) => Student.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -63,5 +63,5 @@ FStudent _$FStudentFromJson(Map<String, dynamic> json) => FStudent(
 Map<String, dynamic> _$FStudentToJson(FStudent instance) => <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'Student Data': instance.studentData,
+      'student': instance.student,
     };

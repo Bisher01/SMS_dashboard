@@ -27,7 +27,7 @@ class AcademicYears{
 class FAcademicYears{
   bool? status;
   String? message;
-  @JsonKey(name: 'Academic Years')
+  @JsonKey(name: 'Academic Year')
   List<AcademicYears>? academicYears;
   FAcademicYears({
     this.message,

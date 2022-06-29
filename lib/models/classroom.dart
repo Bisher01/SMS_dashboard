@@ -6,7 +6,7 @@ part 'classroom.g.dart';
 class Classroom{
   int? id;
   String? name;
-  int? max_number;
+  String? max_number;
   String? created_at;
   String? updated_at;
 

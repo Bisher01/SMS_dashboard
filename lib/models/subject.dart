@@ -6,7 +6,6 @@ part 'subject.g.dart';
 class Subject{
   int? id;
   String? name;
-  int? book_id;
   String? created_at;
   String? updated_at;
 
@@ -16,7 +15,6 @@ class Subject{
    this.id,
    this.created_at,
    this.name,
-    this.book_id
   });
 
   factory Subject.fromJson(Map<String, dynamic> json) =>

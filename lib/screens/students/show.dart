@@ -52,13 +52,13 @@ class _ShowStudentState extends State<ShowStudent> {
             return GridView.builder(
               scrollDirection: Axis.vertical,
               controller: ScrollController(),
-              itemCount: provider.fStudentResponse!.data!.studentData!.length,
+              itemCount: provider.fStudentResponse!.data!.student!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
               itemBuilder: (BuildContext context, int index) {
                 return StudentShowCard(
-                  student: provider.fStudentResponse!.data!.studentData![index],
+                  student: provider.fStudentResponse!.data!.student![index],
                 );
               },
             );

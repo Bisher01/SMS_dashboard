@@ -11,13 +11,11 @@ Subject _$SubjectFromJson(Map<String, dynamic> json) => Subject(
       id: json['id'] as int?,
       created_at: json['created_at'] as String?,
       name: json['name'] as String?,
-      book_id: json['book_id'] as int?,
     );
 
 Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'book_id': instance.book_id,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
     };

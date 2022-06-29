@@ -78,4 +78,54 @@ abstract class ApiService {
   //add classroom
   @POST('classroom/add')
   Future<FClassroom> addClassroom(@Body() FormData formData);
+
+  //edit student
+  @POST('student/edit/{id}')
+  Future<FStudent> editStudent(@Body() FormData formData, @Path('id') int id);
+
+  //delete student
+  @DELETE('student/delete/{id}')
+  Future deleteStudent(@Path('id') int id);
+
+  //edit teacher
+  @POST('teacher/edit/{id}')
+  Future<FTeacher> editTeacher(@Body() FormData formData, @Path('id') int id);
+
+  //delete teacher
+  @DELETE('teacher/delete/{id}')
+  Future deleteTeacher(@Path('id') int id);
+
+  //edit academic year
+  @POST('AcademicYear/update/{id}')
+  Future<FAcademicYears> editAcademicYear(
+      @Body() FormData formData, @Path('id') int id);
+
+  //delete academic year
+  @DELETE('AcademicYear/delete/{id}')
+  Future deleteAcademicYear(@Path('id') int id);
+
+  //edit mentor
+  @POST('mentor/edit/{id}')
+  Future<FMentor> editMentor(@Body() FormData formData, @Path('id') int id);
+
+  //delete mentor
+  @DELETE('mentor/delete/{id}')
+  Future deleteMentor(@Path('id') int id);
+
+  //edit classroom
+  @POST('classroom/edit/{id}')
+  Future<FClassroom> editClassroom(
+      @Body() FormData formData, @Path('id') int id);
+
+  //delete classroom
+  @DELETE('classroom/delete/{id}')
+  Future deleteClassroom(@Path('id') int id);
+
+  //edit subject
+  @POST('subject/edit/{id}')
+  Future<FSubject> editSubject(@Body() FormData formData, @Path('id') int id);
+
+  //delete subject
+  @DELETE('subject/delete/{id}')
+  Future deleteSubject(@Path('id') int id);
 }

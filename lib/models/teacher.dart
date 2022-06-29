@@ -10,18 +10,19 @@ class Teacher {
   String? email;
   String? code;
   String? joining_date;
+  String? picture;
   String? salary;
-  int? subject_id;
-  int? address_id;
-  int? blood_id;
-  int? gender_id;
-  int? grade_id;
+  String? address_id;
+  String? religion_id;
+  String? gender_id;
+  String? grade_id;
   String? created_at;
   String? updated_at;
 
-  Teacher({
+  Teacher(
+      {this.picture,
       this.address_id,
-      this.blood_id,
+      this.religion_id,
       this.code,
       this.created_at,
       this.email,
@@ -32,25 +33,20 @@ class Teacher {
       this.l_name,
       this.updated_at,
       this.joining_date,
-      this.salary,
-      this.subject_id});
+      this.salary,});
 
   factory Teacher.fromJson(Map<String, dynamic> json) =>
       _$TeacherFromJson(json);
   Map<String, dynamic> toJson() => _$TeacherToJson(this);
 }
+
 @JsonSerializable()
-class FTeacher{
+class FTeacher {
   bool? status;
   String? message;
-  @JsonKey(name: 'Teacher Data')
-  List<Teacher>? teacherData;
+  List<Teacher>? teacher;
 
-  FTeacher({
-    this.status,
-    this.message,
-    this.teacherData
-});
+  FTeacher({this.status, this.message, this.teacher});
   factory FTeacher.fromJson(Map<String, dynamic> json) =>
       _$FTeacherFromJson(json);
   Map<String, dynamic> toJson() => _$FTeacherToJson(this);

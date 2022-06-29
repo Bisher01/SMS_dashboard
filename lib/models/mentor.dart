@@ -11,8 +11,8 @@ class Mentor {
   String? code;
   String? joining_date;
   String? phone;
-  int? class_id;
-  int? address_id;
+  String? class_id;
+  String? address_id;
   String? created_at;
   String? updated_at;
 

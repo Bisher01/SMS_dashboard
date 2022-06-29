@@ -11,7 +11,7 @@ Classroom _$ClassroomFromJson(Map<String, dynamic> json) => Classroom(
       id: json['id'] as int?,
       created_at: json['created_at'] as String?,
       name: json['name'] as String?,
-      max_number: json['max_number'] as int?,
+      max_number: json['max_number'] as String?,
     );
 
 Map<String, dynamic> _$ClassroomToJson(Classroom instance) => <String, dynamic>{
