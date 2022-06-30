@@ -28,6 +28,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     const AddTeacher(),
     const ShowTeacher(),
     const AddMentor(),
+    const ShowMentor(),
     const AcademicYears()
   ];
 
@@ -352,6 +353,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   onTap: () {
+                                    setState(() {
+                                      selectedTab = 6;
+                                    });
                                   },
                                 ),
                               ],
@@ -451,7 +455,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             ),
                             onTap: () {
                               setState(() {
-                                selectedTab = 5;
+                                selectedTab = 7;
                               });
                             },
                             title: const Text(

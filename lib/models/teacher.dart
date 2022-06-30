@@ -10,12 +10,13 @@ class Teacher {
   String? email;
   String? code;
   String? joining_date;
+  @JsonKey(defaultValue: '')
   String? picture;
   String? salary;
-  String? address_id;
-  String? religion_id;
-  String? gender_id;
-  String? grade_id;
+  int? address_id;
+  int? religion_id;
+  int? gender_id;
+  int? grade_id;
   String? created_at;
   String? updated_at;
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
+import '../utill/widget_size.dart';
 
 class StudentShowCard extends StatefulWidget {
   final Student student;
-  const StudentShowCard({required this.student,Key? key}) : super(key: key);
+  const StudentShowCard({required this.student, Key? key}) : super(key: key);
 
   @override
   State<StudentShowCard> createState() => _StudentShowCardState();
@@ -17,7 +18,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
       color: Colors.white70,
       elevation: 3,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.white70,
         ),
         borderRadius: BorderRadius.circular(
@@ -26,7 +27,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
       ),
       child: Column(
         children: [
-          //name email
+          //picture name email code
           Padding(
             padding: const EdgeInsets.only(
               top: 15,
@@ -34,95 +35,220 @@ class _StudentShowCardState extends State<StudentShowCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  children: [
-                    Text(
-                      "student's name:",
-                    ),
-                    Text(
-                      '${widget.student.f_name} ${widget.student.l_name}'
-                    ),
-                  ],
+                SizedBox(
+                  width: widgetSize.getWidth(70, context),
+                  height: widgetSize.getHeight(90, context),
+                  child: Image.asset(
+                    'back.jpg',
+                  ),
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      'student email',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          "student's name:",
+                        ),
+                        Text(
+                            '${widget.student.f_name} ${widget.student.l_name}'),
+                      ],
                     ),
-                    Text(
-                      '${widget.student.email}',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student email',
+                        ),
+                        Text(
+                          '${widget.student.email}',
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student code',
+                        ),
+                        Text(
+                          '${widget.student.code}',
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          //gender blood salary birth date
           Padding(
             padding: const EdgeInsets.only(
               top: 15,
             ),
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
+                //birthdate blood
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('student gender',),
-                    Text('male',),
+                    //birthdate
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student birthdate',
+                        ),
+                        Text(
+                          widget.student.birthdate.toString(),
+                        ),
+                      ],
+                    ),
+                    //blood
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student blood type',
+                        ),
+                        Text(
+                          widget.student.blood_id.toString(),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Column(
+                //gender nationality
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('student blood type',),
-                    Text('O+',),
+                    //gender
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student gender',
+                        ),
+                        Text(
+                          widget.student.gender_id.toString(),
+                        ),
+                      ],
+                    ),
+                    //nationality
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student nationality',
+                        ),
+                        Text(
+                          widget.student.nationality_id.toString(),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Column(
+                //city religion
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('student salary',),
-                    Text('20 000',),
+                    //city
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student city',
+                        ),
+                        Text(
+                          widget.student.address_id.toString(),
+                        ),
+                      ],
+                    ),
+                    //religion
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student religion',
+                        ),
+                        Text(
+                          widget.student.religion_id.toString(),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Column(
+                //town class
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('student birth date',),
-                    Text('${widget.student.birthdate}',),
+                    //town
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student town',
+                        ),
+                        Text(
+                          widget.student.address_id.toString(),
+                        ),
+                      ],
+                    ),
+                    //class
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student class',
+                        ),
+                        Text(
+                          widget.student.class_id.toString(),
+                        ),
+                      ],
+                    ),
                   ],
+                ),
+                //street classroom
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    //street
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student street',
+                        ),
+                        Text(
+                          widget.student.address_id.toString(),
+                        ),
+                      ],
+                    ),
+                    //classroom
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'student classroom',
+                        ),
+                        Text(
+                          widget.student.classroom_id.toString(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                //edit
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Edit this student info',
+                  ),
                 ),
               ],
             ),
           ),
-          //address
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text('Country',),
-                    Text('syria',),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('City',),
-                    Text('damascus',),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('Location',),
-                    Text('Malki',),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          //subjects
-
         ],
       ),
     );

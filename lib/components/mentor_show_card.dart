@@ -3,15 +3,15 @@ import 'package:sms_dashboard/models/models.dart';
 
 import '../utill/widget_size.dart';
 
-class TeacherShowCard extends StatefulWidget {
-  final Teacher teacher;
-  const TeacherShowCard({required this.teacher,Key? key}) : super(key: key);
+class MentorShowCard extends StatefulWidget {
+  final Mentor mentor;
+  const MentorShowCard({required this.mentor,Key? key}) : super(key: key);
 
   @override
-  State<TeacherShowCard> createState() => _TeacherShowCardState();
+  State<MentorShowCard> createState() => _MentorShowCardState();
 }
 
-class _TeacherShowCardState extends State<TeacherShowCard> {
+class _MentorShowCardState extends State<MentorShowCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,20 +49,20 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          "teacher's name:",
+                          "mentor's name:",
                         ),
                         Text(
-                            '${widget.teacher.f_name} ${widget.teacher.l_name}'),
+                            '${widget.mentor.f_name} ${widget.mentor.l_name}'),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher email',
+                          'mentor email',
                         ),
                         Text(
-                          '${widget.teacher.email}',
+                          '${widget.mentor.email}',
                         ),
                       ],
                     ),
@@ -70,10 +70,10 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher code',
+                          'mentor code',
                         ),
                         Text(
-                          '${widget.teacher.code}',
+                          '${widget.mentor.code}',
                         ),
                       ],
                     ),
@@ -89,7 +89,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                //joining date salary
+                //joining date phone
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -98,10 +98,10 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher joining date',
+                          'mentor joining date',
                         ),
                         Text(
-                          widget.teacher.joining_date.toString(),
+                          widget.mentor.joining_date.toString(),
                         ),
                       ],
                     ),
@@ -110,100 +110,70 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher salary',
+                          'mentor phone',
                         ),
                         Text(
-                          widget.teacher.salary.toString(),
+                          widget.mentor.phone.toString(),
                         ),
                       ],
                     ),
                   ],
                 ),
-                //gender grade
+                //class city
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    //gender
+                    //class
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher gender',
+                          'mentor class',
                         ),
                         Text(
-                          widget.teacher.gender_id.toString(),
+                          widget.mentor.class_id.toString(),
                         ),
                       ],
                     ),
-                    //nationality
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher grade',
-                        ),
-                        Text(
-                          widget.teacher.grade_id.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                //city town
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
                     //city
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher city',
+                          'mentor city',
                         ),
                         Text(
-                          widget.teacher.address_id.toString(),
-                        ),
-                      ],
-                    ),
-                    //town
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher town',
-                        ),
-                        Text(
-                          widget.teacher.address_id.toString(),
+                          widget.mentor.address_id.toString(),
                         ),
                       ],
                     ),
                   ],
                 ),
-                //street religion
+                //town street
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     //town
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher street',
-                        ),
-                        Text(
-                          widget.teacher.address_id.toString(),
-                        ),
-                      ],
-                    ),
-                    //religion
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text(
+                        'mentor town',
+                      ),
+                      Text(
+                        widget.mentor.address_id.toString(),
+                      ),
+                    ],
+                  ),
+                    //street
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'teacher religion',
+                          'mentor street',
                         ),
                         Text(
-                          widget.teacher.religion_id.toString(),
+                          widget.mentor.address_id.toString(),
                         ),
                       ],
                     ),
@@ -213,7 +183,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                 TextButton(
                   onPressed: () {},
                   child: const Text(
-                    'Edit this teacher info',
+                    'Edit this mentor info',
                   ),
                 ),
               ],

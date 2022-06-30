@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'student.g.dart';
 
 @JsonSerializable()
@@ -10,18 +9,19 @@ class Student {
   String? l_name;
   String? email;
   String? code;
-  String? nationality_id;
+  @JsonKey(defaultValue: '')
   String? picture;
   String? birthdate;
-  String? parent_id;
-  String? blood_id;
-  String? gender_id;
-  String? religion_id;
-  String? grade_id;
-  String? class_id;
-  String? classroom_id;
-  String? academic_year_id;
-  String? address_id;
+  int? nationality_id;
+  int? parent_id;
+  int? blood_id;
+  int? gender_id;
+  int? religion_id;
+  int? grade_id;
+  int? class_id;
+  int? classroom_id;
+  int? academic_year_id;
+  int? address_id;
   String? deleted_at;
   String? created_at;
   String? updated_at;
