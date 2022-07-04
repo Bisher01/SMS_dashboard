@@ -1,6 +1,19 @@
+
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'package:provider/provider.dart';
+import 'package:sms_dashboard/providers/providers.dart';
 import 'package:sms_dashboard/utill/widget_size.dart';
-import '../../components/components.dart';
+import 'dart:async';
+
+
+import 'package:flutter/foundation.dart';
+
 
 class AddStudent extends StatefulWidget {
   const AddStudent({Key? key}) : super(key: key);
@@ -58,6 +71,7 @@ class _AddStudentState extends State<AddStudent> {
   String yearDDV = 'male';
 
   DateTime? _selectedDate;
+
 
   void _presentDatePicker() {
     showDatePicker(
@@ -127,6 +141,19 @@ class _AddStudentState extends State<AddStudent> {
       setState(() {});
     });
     super.initState();
+  }
+
+  File? image;
+  Future pickImage() async {
+    try {
+      final imagee = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(imagee == null) return;
+      final imageTemp = File(imagee.path);
+      setState(() => image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+
   }
 
 
@@ -446,7 +473,12 @@ class _AddStudentState extends State<AddStudent> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                 pickImage();
+
+
+
+                },
                 child: const Text(
                   'add picture',
                   style: TextStyle(
@@ -816,7 +848,26 @@ class _AddStudentState extends State<AddStudent> {
                   child: Text(
                     'Submit',
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<AppProvider>(context, listen: false).addStudent(
+                        picture: image!,
+                        email: emailController.text,
+                        f_name: fnameController.text,
+                        l_name: lnameController.text,
+                        nationality: 1,
+                        birthdate: _selectedDate!,
+                        blood_id: 1,
+                        gender_id: 1,
+                        religion_id: 1,
+                        grade_id: 1,
+                        class_id: 1,
+                        classroom_id: 1,
+                        academic_year_id: 1,
+                        national_number: nationalController.text,
+                        city: cityController.text,
+                        town: townController.text,
+                        street: streetController.text);
+                  },
                 ),
               ),
             ],
@@ -1196,6 +1247,7 @@ class _AddStudentState extends State<AddStudent> {
       ],
     );
   }
+
   @override
   dispose() {
     focusNode1.dispose();

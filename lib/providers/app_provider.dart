@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../services/api_response.dart';
 import '../services/api_service.dart';
 import '../models/models.dart';
 import '../services/api_exception.dart';
+
 
 class AppProvider extends ChangeNotifier {
   //check connection
@@ -271,35 +276,36 @@ class AppProvider extends ChangeNotifier {
 
   ///TODO: other add student request when he has no siblings
   Future<ApiResponse<FStudent>> addStudent(
-
-      ///TODO: not string
-      String picture,
-      String email,
-      String f_name,
-      String l_name,
-      String nationality,
-
-      ///TODO: not string
-      String birthdate,
-      String blood_id,
-      String gender_id,
-      String religion_id,
-      String grade_id,
-      String class_id,
-      String classroom_id,
-      String academic_year_id,
-      String national_number,
-      String city,
-      String town,
-      String street) async {
+      {required File picture,
+      required String email,
+      required String f_name,
+      required String l_name,
+      required int nationality,
+      required DateTime birthdate,
+      required int blood_id,
+      required int gender_id,
+      required int religion_id,
+      required int grade_id,
+      required int class_id,
+      required int classroom_id,
+      required int academic_year_id,
+      required String national_number,
+      required String city,
+      required String town,
+      required String street}) async {
     ApiService apiService = ApiService(Dio());
+    // String fileName = picture.path.split('/').last;
+    // final bytes = await picture.readAsBytes();
+    // final MultipartFile file = MultipartFile.fromBytes(bytes, filename: "picture");
+    // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
-      'picture': picture,
+      //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
+      'picture':MultipartFile.fromBytes(picture.readAsBytes() as List<int>),
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
       'nationality': nationality,
-      'birthdate': birthdate,
+      'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
       'blood_id': blood_id,
       'gender_id': gender_id,
       'religion_id': religion_id,
@@ -312,6 +318,7 @@ class AppProvider extends ChangeNotifier {
       'town': town,
       'street': street
     });
+    //formData.files.add(imageEntry);
     if (await checkInternet()) {
       fAddStudentResponse = ApiResponse.loading('');
       try {
@@ -725,10 +732,10 @@ class AppProvider extends ChangeNotifier {
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
-      'joining_date':joining_date,
-      'address_id':address_id,
-      'class_id':class_id,
-      'phone':phone,
+      'joining_date': joining_date,
+      'address_id': address_id,
+      'class_id': class_id,
+      'phone': phone,
       '_method': 'PUT',
       'city': city,
       'town': town,
@@ -759,21 +766,22 @@ class AppProvider extends ChangeNotifier {
 
   //edit classroom
   ApiResponse<FClassroom>? _fEditClassroomResponse;
-  ApiResponse<FClassroom>? get fEditClassroomResponse => _fEditClassroomResponse;
+  ApiResponse<FClassroom>? get fEditClassroomResponse =>
+      _fEditClassroomResponse;
   set fEditClassroomResponse(ApiResponse<FClassroom>? value) {
     _fEditClassroomResponse = value;
     notifyListeners();
   }
 
   Future<ApiResponse<FClassroom>> editClassroom(
-      String name, String max_number,int id) async {
+      String name, String max_number, int id) async {
     ApiService apiService = ApiService(Dio());
-    FormData formData =
-    FormData.fromMap({'name': name, 'max_number': max_number,'method':'PUT'});
+    FormData formData = FormData.fromMap(
+        {'name': name, 'max_number': max_number, 'method': 'PUT'});
     if (await checkInternet()) {
       fEditClassroomResponse = ApiResponse.loading('');
       try {
-        FClassroom classroom = await apiService.editClassroom(formData,id);
+        FClassroom classroom = await apiService.editClassroom(formData, id);
         fEditClassroomResponse = ApiResponse.completed(classroom);
       } catch (e, stackTrace) {
         if (e is DioError) {
@@ -802,15 +810,14 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FSubject>> editSubject(
-       String subject_name,int id) async {
+  Future<ApiResponse<FSubject>> editSubject(String subject_name, int id) async {
     ApiService apiService = ApiService(Dio());
     FormData formData =
-    FormData.fromMap({ 'subject_name': subject_name,'method':'PUT'});
+        FormData.fromMap({'subject_name': subject_name, 'method': 'PUT'});
     if (await checkInternet()) {
       fEditSubjectResponse = ApiResponse.loading('');
       try {
-        FSubject subject = await apiService.editSubject(formData,id);
+        FSubject subject = await apiService.editSubject(formData, id);
         fEditSubjectResponse = ApiResponse.completed(subject);
       } catch (e, stackTrace) {
         if (e is DioError) {
@@ -825,8 +832,7 @@ class AppProvider extends ChangeNotifier {
         }
       }
     } else {
-      return fEditSubjectResponse =
-          ApiResponse.error('No Internet Connection');
+      return fEditSubjectResponse = ApiResponse.error('No Internet Connection');
     }
     return fEditSubjectResponse!;
   }

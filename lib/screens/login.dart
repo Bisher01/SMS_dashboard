@@ -280,22 +280,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () async {
                             FocusScope.of(context).unfocus();
-                            if (await Provider.of<AppProvider>(context,
-                                    listen: false)
-                                .checkInternet()) {
-                              var response = await Provider.of<AppProvider>(context,
-                                      listen: false)
-                                  .login(_emailController.text,
-                                      _passwordController.text);
-                              if(response.status==Status.COMPLETED){
-                                if(response.data!=null && response.data!.status!){
+                            // if (await Provider.of<AppProvider>(context,
+                            //         listen: false)
+                            //     .checkInternet()) {
+                            //   var response = await Provider.of<AppProvider>(context,
+                            //           listen: false)
+                            //       .login(_emailController.text,
+                            //           _passwordController.text);
+                            //   if(response.status==Status.COMPLETED){
+                            //     if(response.data!=null && response.data!.status!){
                                   Navigator.of(context).pushReplacementNamed('/main');
-                                }
-                              }
-                            }
-                            else{
-
-                            }
+                            //     }
+                            //   }
+                            // }
+                            // else{
+                            //
+                            // }
 
                           },
                           child: const Text(
