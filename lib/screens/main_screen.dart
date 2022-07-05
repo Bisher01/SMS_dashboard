@@ -23,7 +23,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   List<Widget> pages = [
     const Settings(),
-    const AddStudent(),
+     AddStudent(
+      onAdd: (student){},
+      onEdit: (student){},
+    ),
     const ShowStudent(),
     const AddTeacher(),
     const ShowTeacher(),

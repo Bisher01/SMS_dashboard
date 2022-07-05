@@ -1,22 +1,29 @@
-
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:provider/provider.dart';
+import 'package:sms_dashboard/models/models.dart';
 import 'package:sms_dashboard/providers/providers.dart';
 import 'package:sms_dashboard/utill/widget_size.dart';
 import 'dart:async';
 
-
 import 'package:flutter/foundation.dart';
 
-
 class AddStudent extends StatefulWidget {
-  const AddStudent({Key? key}) : super(key: key);
+  final Function(Student) onAdd;
+  final Function(Student) onEdit;
+  final Student? student;
+  final bool isEditing;
+
+  const AddStudent({
+    Key? key,
+    required this.onEdit,
+    required this.onAdd,
+    this.student,
+  })  : isEditing = (student != null),
+        super(key: key);
 
   @override
   State<AddStudent> createState() => _AddStudentState();
@@ -72,7 +79,6 @@ class _AddStudentState extends State<AddStudent> {
 
   DateTime? _selectedDate;
 
-
   void _presentDatePicker() {
     showDatePicker(
       builder: (context, child) {
@@ -102,6 +108,21 @@ class _AddStudentState extends State<AddStudent> {
 
   @override
   initState() {
+    final student = widget.student;
+    if(student != null){
+      fnameController.text =    student.f_name!;
+      lnameController.text =    student.l_name!;
+      emailController.text =    student.email!;
+      streetController.text =   student.address!.street!;
+      cityController.text =     student.address!.city!;
+      townController.text =     student.address!.town!;
+      fatherController.text =   student.parent!.father_name!;
+      motherController.text =   student.parent!.mother_name!;
+      pemailController.text =   student.parent!.email!;
+      nationalController.text = student.parent!.national_number!;
+      phoneController.text=     student.parent!.phone!;
+      jobController.text=       student.parent!.jop!;
+    }
     focusNode1.addListener(() {
       setState(() {});
     });
@@ -147,15 +168,13 @@ class _AddStudentState extends State<AddStudent> {
   Future pickImage() async {
     try {
       final imagee = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(imagee == null) return;
+      if (imagee == null) return;
       final imageTemp = File(imagee.path);
       setState(() => image = imageTemp);
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -474,10 +493,7 @@ class _AddStudentState extends State<AddStudent> {
               ),
               TextButton(
                 onPressed: () async {
-                 pickImage();
-
-
-
+                  pickImage();
                 },
                 child: const Text(
                   'add picture',
