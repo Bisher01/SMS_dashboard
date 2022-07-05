@@ -31,61 +31,15 @@ abstract class ApiService {
     ));
     return _ApiService(dio, baseUrl: baseUrl);
   }
+
+  //============TEACHER=========//
   //all teachers
   @GET('teacher/all')
   Future<FTeacher> getAllTeachers();
 
-  //all students
-  @GET('student/all')
-  Future<FStudent> getAllStudents();
-
-  //all subjects
-  @GET('subject/all')
-  Future<FSubject> getAllSubjects();
-
-  //all mentors
-  @GET('mentor/all')
-  Future<FMentor> getAllMentors();
-
-  //all classrooms
-  @GET('classroom/all')
-  Future<FClassroom> getAllClassrooms();
-
-  //admin authentication
-  @POST('admin')
-  Future<FAdmin> login(@Body() FormData formData);
-
-  //add mentor
-  @POST('mentor/add')
-  Future<FMentor> addMentor(@Body() FormData formData);
-
-  //add student
-  @POST('student/add')
-  Future<FStudent> addStudent(@Body() FormData formData);
-
   //add teacher
   @POST('teacher/add')
   Future<FTeacher> addTeacher(@Body() FormData formData);
-
-  //add academic year
-  @POST('AcademicYear/add')
-  Future<FAcademicYears> addAcademicYear(@Body() FormData formData);
-
-  //add subject
-  @POST('subject/add')
-  Future<FSubject> addSubject(@Body() FormData formData);
-
-  //add classroom
-  @POST('classroom/add')
-  Future<FClassroom> addClassroom(@Body() FormData formData);
-
-  //edit student
-  @POST('student/edit/{id}')
-  Future<FStudent> editStudent(@Body() FormData formData, @Path('id') int id);
-
-  //delete student
-  @DELETE('student/delete/{id}')
-  Future deleteStudent(@Path('id') int id);
 
   //edit teacher
   @POST('teacher/edit/{id}')
@@ -94,15 +48,52 @@ abstract class ApiService {
   //delete teacher
   @DELETE('teacher/delete/{id}')
   Future deleteTeacher(@Path('id') int id);
+  //=================================================//
 
-  //edit academic year
-  @POST('AcademicYear/update/{id}')
-  Future<FAcademicYears> editAcademicYear(
-      @Body() FormData formData, @Path('id') int id);
+  //============STUDENT=========//
+  //all students
+  @GET('student/all')
+  Future<FStudent> getAllStudents();
 
-  //delete academic year
-  @DELETE('AcademicYear/delete/{id}')
-  Future deleteAcademicYear(@Path('id') int id);
+  //add student
+  @POST('student/add')
+  Future<FStudent> addStudent(@Body() FormData formData);
+
+  //edit student
+  @POST('student/edit/{id}')
+  Future<FStudent> editStudent(@Body() FormData formData, @Path('id') int id);
+
+  //delete student
+  @DELETE('student/delete/{id}')
+  Future deleteStudent(@Path('id') int id);
+  //=================================================//
+
+  //============SUBJECT=========//
+  //all subjects
+  @GET('subject/all')
+  Future<FSubject> getAllSubjects();
+
+  //add subject
+  @POST('subject/add')
+  Future<FSubject> addSubject(@Body() FormData formData);
+
+  //edit subject
+  @POST('subject/edit/{id}')
+  Future<FSubject> editSubject(@Body() FormData formData, @Path('id') int id);
+
+  //delete subject
+  @DELETE('subject/delete/{id}')
+  Future deleteSubject(@Path('id') int id);
+  //=================================================//
+
+  //============MENTOR=========//
+  //all mentors
+  @GET('mentor/all')
+  Future<FMentor> getAllMentors();
+
+  //add mentor
+  @POST('mentor/add')
+  Future<FMentor> addMentor(@Body() FormData formData);
 
   //edit mentor
   @POST('mentor/edit/{id}')
@@ -111,6 +102,16 @@ abstract class ApiService {
   //delete mentor
   @DELETE('mentor/delete/{id}')
   Future deleteMentor(@Path('id') int id);
+  //=================================================//
+
+  //============CLASSROOM=========//
+  //all classrooms
+  @GET('classroom/all')
+  Future<FClassroom> getAllClassrooms();
+
+  //add classroom
+  @POST('classroom/add')
+  Future<FClassroom> addClassroom(@Body() FormData formData);
 
   //edit classroom
   @POST('classroom/edit/{id}')
@@ -120,14 +121,27 @@ abstract class ApiService {
   //delete classroom
   @DELETE('classroom/delete/{id}')
   Future deleteClassroom(@Path('id') int id);
+  //=================================================//
 
-  //edit subject
-  @POST('subject/edit/{id}')
-  Future<FSubject> editSubject(@Body() FormData formData, @Path('id') int id);
+  //admin authentication
+  @POST('admin')
+  Future<FAdmin> login(@Body() FormData formData);
+  //=================================================//
 
-  //delete subject
-  @DELETE('subject/delete/{id}')
-  Future deleteSubject(@Path('id') int id);
+  //============YEAR=========//
+  //add academic year
+  @POST('AcademicYear/add')
+  Future<FAcademicYears> addAcademicYear(@Body() FormData formData);
+
+  //edit academic year
+  @POST('AcademicYear/update/{id}')
+  Future<FAcademicYears> editAcademicYear(
+      @Body() FormData formData, @Path('id') int id);
+
+  //delete academic year
+  @DELETE('AcademicYear/delete/{id}')
+  Future deleteAcademicYear(@Path('id') int id);
+  //=================================================//
 
   //get seed
   @GET('general/allSeed')
