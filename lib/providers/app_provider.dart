@@ -1,15 +1,15 @@
-import 'dart:io';
+
+
+import 'dart:html';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../services/api_response.dart';
 import '../services/api_service.dart';
 import '../models/models.dart';
 import '../services/api_exception.dart';
-
 
 class AppProvider extends ChangeNotifier {
   //check connection
@@ -35,7 +35,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FTeacher teacher = await apiService.getAllTeachers();
         fTeacherResponse = ApiResponse.completed(teacher);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -68,7 +68,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FStudent fStudent = await apiService.getAllStudents();
         fStudentResponse = ApiResponse.completed(fStudent);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -100,7 +100,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FSubject fSubject = await apiService.getAllSubjects();
         fSubjectResponse = ApiResponse.completed(fSubject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -131,7 +131,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FMentor fMentor = await apiService.getAllMentors();
         fMentorResponse = ApiResponse.completed(fMentor);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -142,6 +142,9 @@ class AppProvider extends ChangeNotifier {
           fMentorResponse = ApiResponse.error(e.toString());
         }
       }
+    }
+    else{
+      return fMentorResponse = ApiResponse.error('NO Internet Connection');
     }
     return fMentorResponse!;
   }
@@ -163,7 +166,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FAdmin admin = await apiService.login(formData);
         fAdminResponse = ApiResponse.completed(admin);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -191,24 +194,24 @@ class AppProvider extends ChangeNotifier {
 
   Future<ApiResponse<FMentor>> addMentor(
       String email,
-      String f_name,
-      String l_name,
-      String address_id,
-      String joining_date,
+      String fName,
+      String lName,
+      String addressId,
+      String joiningDate,
       String phone,
-      String class_id,
+      String classId,
       String city,
       String town,
       String street) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'email': email,
-      'f_name': f_name,
-      'l_name': l_name,
-      'address_id': address_id,
-      'joining_date': joining_date,
+      'f_name': fName,
+      'l_name': lName,
+      'address_id': addressId,
+      'joining_date': joiningDate,
       'phone': phone,
-      'class_id': class_id,
+      'class_id': classId,
       'city': city,
       'town': town,
       'street': street
@@ -218,7 +221,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FMentor mentor = await apiService.addMentor(formData);
         fAddMentorResponse = ApiResponse.completed(mentor);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -251,7 +254,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FClassroom fClassroom = await apiService.getAllClassrooms();
         fClassroomResponse = ApiResponse.completed(fClassroom);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -262,6 +265,9 @@ class AppProvider extends ChangeNotifier {
           fClassroomResponse = ApiResponse.error(e.toString());
         }
       }
+    }
+    else{
+      fClassroomResponse = ApiResponse.error('No Internet Connection');
     }
     return fClassroomResponse!;
   }
@@ -300,7 +306,7 @@ class AppProvider extends ChangeNotifier {
     // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
       //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
-      'picture':MultipartFile.fromBytes(picture.readAsBytes() as List<int>),
+      'picture':picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
@@ -324,7 +330,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FStudent student = await apiService.addStudent(formData);
         fAddStudentResponse = ApiResponse.completed(student);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -355,16 +361,16 @@ class AppProvider extends ChangeNotifier {
       ///TODO: not string
       String picture,
       String email,
-      String f_name,
-      String l_name,
+      String fName,
+      String lName,
 
       ///TODO: not string
-      String joining_date,
+      String joiningDate,
       int salary,
-      String gender_id,
-      String religion_id,
-      String grade_id,
-      String subject_id,
+      String genderId,
+      String religionId,
+      String gradeId,
+      String subjectId,
       String city,
       String town,
       String street) async {
@@ -372,24 +378,24 @@ class AppProvider extends ChangeNotifier {
     FormData formData = FormData.fromMap({
       'picture': picture,
       'email': email,
-      'f_name': f_name,
-      'l_name': l_name,
-      'joining_date': joining_date,
+      'f_name': fName,
+      'l_name': lName,
+      'joining_date': joiningDate,
       'salary': salary,
-      'gender_id': gender_id,
-      'religion_id': religion_id,
-      'grade_id': grade_id,
+      'gender_id': genderId,
+      'religion_id': religionId,
+      'grade_id': gradeId,
       'city': city,
       'town': town,
       'street': street,
-      'subject_id': subject_id
+      'subject_id': subjectId
     });
     if (await checkInternet()) {
       fAddTeacherResponse = ApiResponse.loading('');
       try {
         FTeacher teacher = await apiService.addTeacher(formData);
         fAddTeacherResponse = ApiResponse.completed(teacher);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -428,7 +434,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FAcademicYears year = await apiService.addAcademicYear(formData);
         fAddYearResponse = ApiResponse.completed(year);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -455,18 +461,18 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FSubject>> addSubject(
-    String subject_name,
+    String subjectName,
   ) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
-      'subject_name': subject_name,
+      'subject_name': subjectName,
     });
     if (await checkInternet()) {
       fAddSubjectResponse = ApiResponse.loading('');
       try {
         FSubject subject = await apiService.addSubject(formData);
         fAddSubjectResponse = ApiResponse.completed(subject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -485,40 +491,40 @@ class AppProvider extends ChangeNotifier {
   }
 
   //add classroom
-  ApiResponse<FClassroom>? _fAddclassroomResponse;
-  ApiResponse<FClassroom>? get fAddclassroomResponse => _fAddclassroomResponse;
-  set fAddclassroomResponse(ApiResponse<FClassroom>? value) {
-    _fAddclassroomResponse = value;
+  ApiResponse<FClassroom>? _fAddClassroomResponse;
+  ApiResponse<FClassroom>? get fAddClassroomResponse => _fAddClassroomResponse;
+  set fAddClassroomResponse(ApiResponse<FClassroom>? value) {
+    _fAddClassroomResponse = value;
     notifyListeners();
   }
 
   Future<ApiResponse<FClassroom>> addClassroom(
-      String name, String max_number) async {
+      String name, String maxNumber) async {
     ApiService apiService = ApiService(Dio());
     FormData formData =
-        FormData.fromMap({'name': name, 'max_number': max_number});
+        FormData.fromMap({'name': name, 'max_number': maxNumber});
     if (await checkInternet()) {
-      fAddclassroomResponse = ApiResponse.loading('');
+      fAddClassroomResponse = ApiResponse.loading('');
       try {
         FClassroom classroom = await apiService.addClassroom(formData);
-        fAddclassroomResponse = ApiResponse.completed(classroom);
-      } catch (e, stackTrace) {
+        fAddClassroomResponse = ApiResponse.completed(classroom);
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
           } catch (forcedException) {
-            return fAddclassroomResponse =
+            return fAddClassroomResponse =
                 ApiResponse.error(forcedException.toString());
           }
         } else {
-          return fAddclassroomResponse = ApiResponse.error(e.toString());
+          return fAddClassroomResponse = ApiResponse.error(e.toString());
         }
       }
     } else {
-      return fAddclassroomResponse =
+      return fAddClassroomResponse =
           ApiResponse.error('No Internet Connection');
     }
-    return fAddclassroomResponse!;
+    return fAddClassroomResponse!;
   }
 
   //edit student
@@ -534,20 +540,20 @@ class AppProvider extends ChangeNotifier {
       ///TODO: not string
       String picture,
       String email,
-      String f_name,
-      String l_name,
-      String nationality_id,
+      String fName,
+      String lName,
+      String nationalityId,
 
       ///TODO: not string
       String birthdate,
-      String blood_id,
-      String gender_id,
-      String religion_id,
-      String grade_id,
-      String class_id,
-      String parent_id,
-      String classroom_id,
-      String academic_year_id,
+      String bloodId,
+      String genderId,
+      String religionId,
+      String gradeId,
+      String classId,
+      String parentId,
+      String classroomId,
+      String academicYearId,
       String city,
       String town,
       String street,
@@ -556,18 +562,18 @@ class AppProvider extends ChangeNotifier {
     FormData formData = FormData.fromMap({
       'picture': picture,
       'email': email,
-      'f_name': f_name,
-      'l_name': l_name,
-      'nationality_id': nationality_id,
+      'f_name': fName,
+      'l_name': lName,
+      'nationality_id': nationalityId,
       'birthdate': birthdate,
-      'parent_id': parent_id,
-      'blood_id': blood_id,
-      'gender_id': gender_id,
-      'religion_id': religion_id,
-      'grade_id': grade_id,
-      'class_id': class_id,
-      'classroom_id': classroom_id,
-      'academic_year_id': academic_year_id,
+      'parent_id': parentId,
+      'blood_id': bloodId,
+      'gender_id': genderId,
+      'religion_id': religionId,
+      'grade_id': gradeId,
+      'class_id': classId,
+      'classroom_id': classroomId,
+      'academic_year_id': academicYearId,
       'city': city,
       'town': town,
       'street': street,
@@ -578,7 +584,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FStudent student = await apiService.editStudent(formData, id);
         fEditStudentResponse = ApiResponse.completed(student);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -609,14 +615,14 @@ class AppProvider extends ChangeNotifier {
       ///TODO: not string
       String picture,
       String email,
-      String f_name,
-      String l_name,
+      String fName,
+      String lName,
 
       ///TODO: not string
-      String joining_date,
-      String gender_id,
-      String religion_id,
-      String grade_id,
+      String joiningDate,
+      String genderId,
+      String religionId,
+      String gradeId,
       String city,
       String town,
       int salary,
@@ -626,12 +632,12 @@ class AppProvider extends ChangeNotifier {
     FormData formData = FormData.fromMap({
       'picture': picture,
       'email': email,
-      'f_name': f_name,
-      'l_name': l_name,
-      'joining_date': joining_date,
-      'gender_id': gender_id,
-      'religion_id': religion_id,
-      'grade_id': grade_id,
+      'f_name': fName,
+      'l_name': lName,
+      'joining_date': joiningDate,
+      'gender_id': genderId,
+      'religion_id': religionId,
+      'grade_id': gradeId,
       'city': city,
       'town': town,
       'street': street,
@@ -643,7 +649,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FTeacher teacher = await apiService.editTeacher(formData, id);
         fEditTeacherResponse = ApiResponse.completed(teacher);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -686,7 +692,7 @@ class AppProvider extends ChangeNotifier {
         FAcademicYears academicYears =
             await apiService.editAcademicYear(formData, id);
         fEditAcademicYearResponse = ApiResponse.completed(academicYears);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -715,13 +721,13 @@ class AppProvider extends ChangeNotifier {
 
   Future<ApiResponse<FMentor>> editMentor(
       String email,
-      String f_name,
-      String l_name,
+      String fName,
+      String lName,
 
       ///TODO: not string
-      String joining_date,
-      String address_id,
-      String class_id,
+      String joiningDate,
+      String addressId,
+      String classId,
       String phone,
       String city,
       String town,
@@ -730,11 +736,11 @@ class AppProvider extends ChangeNotifier {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'email': email,
-      'f_name': f_name,
-      'l_name': l_name,
-      'joining_date': joining_date,
-      'address_id': address_id,
-      'class_id': class_id,
+      'f_name': fName,
+      'l_name': lName,
+      'joining_date': joiningDate,
+      'address_id': addressId,
+      'class_id': classId,
       'phone': phone,
       '_method': 'PUT',
       'city': city,
@@ -746,7 +752,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FMentor mentor = await apiService.editMentor(formData, id);
         fEditMentorResponse = ApiResponse.completed(mentor);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -774,16 +780,16 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FClassroom>> editClassroom(
-      String name, String max_number, int id) async {
+      String name, String maxNumber, int id) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap(
-        {'name': name, 'max_number': max_number, 'method': 'PUT'});
+        {'name': name, 'max_number': maxNumber, 'method': 'PUT'});
     if (await checkInternet()) {
       fEditClassroomResponse = ApiResponse.loading('');
       try {
         FClassroom classroom = await apiService.editClassroom(formData, id);
         fEditClassroomResponse = ApiResponse.completed(classroom);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -810,16 +816,16 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FSubject>> editSubject(String subject_name, int id) async {
+  Future<ApiResponse<FSubject>> editSubject(String subjectName, int id) async {
     ApiService apiService = ApiService(Dio());
     FormData formData =
-        FormData.fromMap({'subject_name': subject_name, 'method': 'PUT'});
+        FormData.fromMap({'subject_name': subjectName, 'method': 'PUT'});
     if (await checkInternet()) {
       fEditSubjectResponse = ApiResponse.loading('');
       try {
         FSubject subject = await apiService.editSubject(formData, id);
         fEditSubjectResponse = ApiResponse.completed(subject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -836,6 +842,93 @@ class AppProvider extends ChangeNotifier {
     }
     return fEditSubjectResponse!;
   }
+
+  //get seed
+  ApiResponse<FSeed>? _getSeedResponse;
+  ApiResponse<FSeed>? get getSeedResponse => _getSeedResponse;
+  set getSeedResponse(ApiResponse<FSeed>? value) {
+    _getSeedResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FSeed>> getSeed() async {
+    ApiService apiService = ApiService(Dio());
+    if(await checkInternet()){
+      getSeedResponse = ApiResponse.loading('');
+      try{
+        FSeed fSeed = await apiService.getSeed();
+        getSeedResponse = ApiResponse.completed(fSeed);
+      }catch(e){
+        if(e is DioError){
+          try{
+            throwCustomException(e);
+
+          }catch(forcedException){
+            getSeedResponse= ApiResponse.error(forcedException.toString());
+
+          }
+        }
+        else{
+          getSeedResponse = ApiResponse.error(e.toString());
+        }
+
+      }
+    }
+    else {
+      return getSeedResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getSeedResponse!;
+  }
+
+  //edit parent
+ApiResponse<FParent>? _editParentResponse;
+  ApiResponse<FParent>? get editParentResponse =>_editParentResponse;
+  set editParentResponse(ApiResponse<FParent>? value){
+    _editParentResponse = value;
+    notifyListeners();
+  }
+  Future<ApiResponse<FParent>> editParent(
+      int id,
+      String fatherName,
+      String motherName,
+      String nationalNumber,
+      String parentPhone,
+      String parentEmail,
+      String parentJop
+      )async{
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'father_name':fatherName,
+      'mother_name': motherName,
+      'national_number': nationalNumber,
+      'parentPhone': parentPhone,
+      'parentEmail':parentEmail,
+      'parentJop':parentJop,
+      '_method':'PUT',
+    });
+    if(await checkInternet()){
+      editParentResponse = ApiResponse.loading('');
+      try{
+        FParent fParent = await apiService.editParent(formData, id);
+        editParentResponse = ApiResponse.completed(fParent);
+      }catch(e){
+        if(e is DioError){
+          try{
+            throwCustomException(e);
+          }catch(forcedException){
+            editParentResponse = ApiResponse.error(forcedException.toString());
+          }
+        }
+        else{
+          editParentResponse = ApiResponse.error(e.toString());
+        }
+
+      }
+    }else{
+      return editParentResponse = ApiResponse.error('No Internet Connection');
+    }
+    return editParentResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {
@@ -843,37 +936,28 @@ dynamic throwCustomException(DioError? dioError) {
   switch (dioError!.type) {
     case DioErrorType.cancel:
       throw RequestWasCancelledException("CANCEL");
-      break;
     case DioErrorType.connectTimeout:
       throw ConnectionTimeout("CONNECT_TIMEOUT");
-      break;
     case DioErrorType.other:
       throw DefaultTimeout("DEFAULT");
-      break;
     case DioErrorType.receiveTimeout:
       throw ReceiveTimeout("RECEIVE_TIMEOUT");
-      break;
     case DioErrorType.sendTimeout:
       throw SendTimeout("SEND_TIMEOUT");
-      break;
     case DioErrorType.response:
       switch (statusCode) {
         case 400:
           throw BadRequestException(dioError.response?.statusMessage);
-          break;
         case 401:
         case 403:
           throw UnauthorisedException(dioError.response?.statusMessage);
-          break;
         case 404:
           throw FetchDataException(
               'Error while Communication with Server with StatusCode : ${dioError.response?.statusMessage}');
-          break;
         case 500:
         default:
           throw FetchDataException(
               'Error while Communication with Server with StatusCode : ${dioError.response?.statusMessage}');
       }
-      break;
   }
 }

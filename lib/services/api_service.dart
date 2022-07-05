@@ -128,4 +128,12 @@ abstract class ApiService {
   //delete subject
   @DELETE('subject/delete/{id}')
   Future deleteSubject(@Path('id') int id);
+
+  //get seed
+  @GET('general/allSeed')
+  Future<FSeed> getSeed();
+
+  //edit parent
+  @POST('parent/edit/{id}')
+  Future<FParent> editParent(@Body() FormData formData, @Path('id') int id);
 }

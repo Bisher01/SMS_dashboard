@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sms_dashboard/utill/utill.dart';
+import '../utill/utill.dart';
 import '../screens/screens.dart';
-import '../utill/widget_size.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

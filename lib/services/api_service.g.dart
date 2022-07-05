@@ -395,6 +395,38 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<FSeed> getSeed() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSeed>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'general/allSeed',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSeed.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FParent> editParent(formData, id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FParent>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'parent/edit/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FParent.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -1,5 +1,6 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
+
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -169,7 +170,7 @@ class _AddStudentState extends State<AddStudent> {
     try {
       final imagee = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (imagee == null) return;
-      final imageTemp = File(imagee.path);
+      final imageTemp = File(await imagee.readAsBytes(),'im');
       setState(() => image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
