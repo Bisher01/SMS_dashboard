@@ -47,7 +47,7 @@ abstract class ApiService {
 
   //delete teacher
   @DELETE('teacher/delete/{id}')
-  Future deleteTeacher(@Path('id') int id);
+  Future<Delete> deleteTeacher(@Path('id') int id);
   //=================================================//
 
   //============STUDENT=========//
@@ -65,7 +65,7 @@ abstract class ApiService {
 
   //delete student
   @DELETE('student/delete/{id}')
-  Future deleteStudent(@Path('id') int id);
+  Future<Delete> deleteStudent(@Path('id') int id);
   //=================================================//
 
   //============SUBJECT=========//
@@ -83,7 +83,7 @@ abstract class ApiService {
 
   //delete subject
   @DELETE('subject/delete/{id}')
-  Future deleteSubject(@Path('id') int id);
+  Future<Delete> deleteSubject(@Path('id') int id);
   //=================================================//
 
   //============MENTOR=========//
@@ -101,7 +101,7 @@ abstract class ApiService {
 
   //delete mentor
   @DELETE('mentor/delete/{id}')
-  Future deleteMentor(@Path('id') int id);
+  Future<Delete> deleteMentor(@Path('id') int id);
   //=================================================//
 
   //============CLASSROOM=========//
@@ -120,7 +120,7 @@ abstract class ApiService {
 
   //delete classroom
   @DELETE('classroom/delete/{id}')
-  Future deleteClassroom(@Path('id') int id);
+  Future<Delete> deleteClassroom(@Path('id') int id);
   //=================================================//
 
   //admin authentication
@@ -140,7 +140,7 @@ abstract class ApiService {
 
   //delete academic year
   @DELETE('AcademicYear/delete/{id}')
-  Future deleteAcademicYear(@Path('id') int id);
+  Future<Delete> deleteAcademicYear(@Path('id') int id);
   //=================================================//
 
   //get seed

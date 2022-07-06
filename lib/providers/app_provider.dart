@@ -181,6 +181,42 @@ class AppProvider extends ChangeNotifier {
     return fEditTeacherResponse!;
   }
 
+
+  //delete teacher
+  ApiResponse<Delete>? _deleteTeacherResponse;
+  ApiResponse<Delete>? get deleteTeacherResponse => _deleteTeacherResponse;
+  set deleteTeacherResponse(ApiResponse<Delete>? value) {
+    _deleteTeacherResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteTeacher(
+
+      int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteTeacherResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteTeacher(id);
+        deleteTeacherResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteTeacherResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return deleteTeacherResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return deleteTeacherResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteTeacherResponse!;
+  }
+
   ///=====================STUDENT=====================///
   //get all students
   ApiResponse<FStudent>? _fStudentResponse;
@@ -366,22 +402,22 @@ class AppProvider extends ChangeNotifier {
   }
 
   //delete student
-  ApiResponse? _deleteStudentResponse;
-  ApiResponse? get deleteStudentResponse => _deleteStudentResponse;
-  set deleteStudentResponse(ApiResponse? value) {
+  ApiResponse<Delete>? _deleteStudentResponse;
+  ApiResponse<Delete>? get deleteStudentResponse => _deleteStudentResponse;
+  set deleteStudentResponse(ApiResponse<Delete>? value) {
     _deleteStudentResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse> deleteStudent(
+  Future<ApiResponse<Delete>> deleteStudent(
       int id,
       ) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       deleteStudentResponse = ApiResponse.loading('');
       try {
-        FParent fParent = await apiService.deleteStudent(id);
-        deleteStudentResponse = ApiResponse.completed(fParent);
+        Delete delete = await apiService.deleteStudent(id);
+        deleteStudentResponse = ApiResponse.completed(delete);
       } catch (e) {
         if (e is DioError) {
           try {
@@ -507,6 +543,42 @@ class AppProvider extends ChangeNotifier {
     }
     return fEditSubjectResponse!;
   }
+
+  //delete subject
+  ApiResponse<Delete>? _deleteSubjectResponse;
+  ApiResponse<Delete>? get deleteSubjectResponse => _deleteSubjectResponse;
+  set deleteSubjectResponse(ApiResponse<Delete>? value) {
+    _deleteSubjectResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteSubject(
+
+      int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteSubjectResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteSubject(id);
+        deleteSubjectResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteSubjectResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return deleteSubjectResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return deleteSubjectResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteSubjectResponse!;
+  }
+
   ///=====================MENTOR=====================///
   //get all mentors
   ApiResponse<FMentor>? _fMentorResponse;
@@ -653,6 +725,41 @@ class AppProvider extends ChangeNotifier {
       return fEditMentorResponse = ApiResponse.error('No Internet Connection');
     }
     return fEditMentorResponse!;
+  }
+
+  //delete mentor
+  ApiResponse<Delete>? _deleteMentorResponse;
+  ApiResponse<Delete>? get deleteMentorResponse => _deleteMentorResponse;
+  set deleteMentorResponse(ApiResponse<Delete>? value) {
+    _deleteMentorResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteMentor(
+
+      int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteMentorResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteMentor(id);
+        deleteMentorResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteMentorResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return deleteMentorResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return deleteMentorResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteMentorResponse!;
   }
 
   ///=====================AUTH=====================///
@@ -802,6 +909,41 @@ class AppProvider extends ChangeNotifier {
     return fEditClassroomResponse!;
   }
 
+  //delete classroom
+  ApiResponse<Delete>? _deleteClassroomResponse;
+  ApiResponse<Delete>? get deleteClassroomResponse => _deleteClassroomResponse;
+  set deleteClassroomResponse(ApiResponse<Delete>? value) {
+    _deleteClassroomResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteClassroom(
+
+      int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteClassroomResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteClassroom(id);
+        deleteClassroomResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteClassroomResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return deleteClassroomResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return deleteClassroomResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteClassroomResponse!;
+  }
+
 
   ///=====================YEAR=====================///
   //add academic year
@@ -887,6 +1029,43 @@ class AppProvider extends ChangeNotifier {
     }
     return fEditAcademicYearResponse!;
   }
+
+  //delete academic year
+  //delete classroom
+  ApiResponse<Delete>? _deleteAcademicYearResponse;
+  ApiResponse<Delete>? get deleteAcademicYearResponse => _deleteAcademicYearResponse;
+  set deleteAcademicYearResponse(ApiResponse<Delete>? value) {
+    _deleteAcademicYearResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteAcademicYear(
+
+      int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteAcademicYearResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteAcademicYear(id);
+        deleteAcademicYearResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteAcademicYearResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return deleteAcademicYearResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return deleteAcademicYearResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteAcademicYearResponse!;
+  }
+
 
 
 

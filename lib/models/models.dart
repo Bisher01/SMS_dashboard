@@ -8,3 +8,4 @@ export 'admin.dart';
 export 'parent.dart';
 export 'address.dart';
 export 'seed.dart';
+export 'delete.dart';
