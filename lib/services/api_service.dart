@@ -150,4 +150,37 @@ abstract class ApiService {
   //edit parent
   @POST('parent/edit/{id}')
   Future<FParent> editParent(@Body() FormData formData, @Path('id') int id);
+
+//============Management=========//
+
+  @POST('management/add/lessons/{id}')
+  Future<Delete> addLessonsToDay(@Body() FormData formData, @Path('id') int id);
+
+  @POST('management/add/subject/{id}')
+  Future<Delete> addSubjectsToTeacher(
+      @Body() FormData formData, @Path('id') int id);
+
+  @POST('management/add/ClassroomToClass/{id}')
+  Future<Delete> addClassroomToClass(
+      @Body() FormData formData, @Path('id') int id);
+
+  @POST('/management/subject/{id}')
+  Future<Delete> addSubjectsToClass(
+      @Body() FormData formData, @Path('id') int id);
+
+//=================================================//
+
+//============Exams=========//
+
+//get all exams
+  @GET('exam/all')
+  Future<FExam> getAllExams();
+//=================================================//
+
+//============Syllabi=========//
+//get all syllabi
+  @GET('syllabi/all')
+  Future<FSyllabi> getAllSyllabi();
+//=================================================//
+
 }

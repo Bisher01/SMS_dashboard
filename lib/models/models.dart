@@ -9,3 +9,5 @@ export 'parent.dart';
 export 'address.dart';
 export 'seed.dart';
 export 'delete.dart';
+export 'syllabi.dart';
+export 'exam.dart';
