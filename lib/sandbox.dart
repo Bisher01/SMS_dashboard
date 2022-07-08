@@ -1,5 +1,5 @@
 void main() {
-  request('Delete', 'addSubjectsToClassResponse', 'addSubjectsToClass');
+  request('FExam', 'getClassExamResponse', 'getClassExam');
 }
 
 void request(String model, String response, String funcName) {

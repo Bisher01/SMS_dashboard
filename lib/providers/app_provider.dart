@@ -1135,6 +1135,8 @@ class AppProvider extends ChangeNotifier {
     return editParentResponse!;
   }
 
+  ///========================EXAMS==================///
+
 //get all exam
   ApiResponse<FExam>? _fExams;
   ApiResponse<FExam>? get fExamResponse => _fExams;
@@ -1164,6 +1166,168 @@ class AppProvider extends ChangeNotifier {
     }
     return fExamResponse!;
   }
+
+  //add exam
+  ApiResponse<Delete>? _addExamResponse;
+  ApiResponse<Delete>? get addExamResponse => _addExamResponse;
+  set addExamResponse(ApiResponse<Delete>? value) {
+    _addExamResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addExam() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addExamResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addExam();
+        addExamResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addExamResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addExamResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addExamResponse = ApiResponse.error('No Internet Connection');
+    }
+    return addExamResponse!;
+  }
+  //edit exam
+
+  //delete exam
+  ApiResponse<Delete>? _deleteExamResponse;
+  ApiResponse<Delete>? get deleteExamResponse => _deleteExamResponse;
+  set deleteExamResponse(ApiResponse<Delete>? value) {
+    _deleteExamResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteExam(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteExamResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteExam(id);
+        deleteExamResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteExamResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return deleteExamResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return deleteExamResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteExamResponse!;
+  }
+
+  //set student exam mark
+  ApiResponse<FMark>? _setStudentExamMarkResponse;
+  ApiResponse<FMark>? get setStudentExamMarkResponse => _setStudentExamMarkResponse;
+  set setStudentExamMarkResponse(ApiResponse<FMark>? value) {
+    _setStudentExamMarkResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMark>> setStudentExamMark(int id1,int id2) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      setStudentExamMarkResponse = ApiResponse.loading('');
+      try {
+        FMark fmark = await apiService.setStudentExamMark(id1,id2);
+        setStudentExamMarkResponse = ApiResponse.completed(fmark);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return setStudentExamMarkResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return setStudentExamMarkResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return setStudentExamMarkResponse = ApiResponse.error('No Internet Connection');
+    }
+    return setStudentExamMarkResponse!;
+  }
+
+  //get student exam
+  ApiResponse<FExam>? _getStudentExamResponse;
+  ApiResponse<FExam>? get getStudentExamResponse => _getStudentExamResponse;
+  set getStudentExamResponse(ApiResponse<FExam>? value) {
+    _getStudentExamResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FExam>> getStudentExam(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentExamResponse = ApiResponse.loading('');
+      try {
+        FExam fexam = await apiService.getStudentExam(id);
+        getStudentExamResponse = ApiResponse.completed(fexam);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentExamResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentExamResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentExamResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getStudentExamResponse!;
+  }
+
+  //get class exam
+  ApiResponse<FExam>? _getClassExamResponse;
+  ApiResponse<FExam>? get getClassExamResponse => _getClassExamResponse;
+  set getClassExamResponse(ApiResponse<FExam>? value) {
+    _getClassExamResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FExam>> getClassExam(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getClassExamResponse = ApiResponse.loading('');
+      try {
+        FExam fexam = await apiService.getClassExam(id);
+        getClassExamResponse = ApiResponse.completed(fexam);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getClassExamResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getClassExamResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getClassExamResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getClassExamResponse!;
+  }
+  ///==============================================///
 
   //get all syllabi
   ApiResponse<FSyllabi>? _fSyllabi;
