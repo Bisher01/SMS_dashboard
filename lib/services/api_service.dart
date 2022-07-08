@@ -166,7 +166,7 @@ abstract class ApiService {
 
   @POST('/management/subject/{id}')
   Future<Delete> addSubjectsToClass(
-      @Body() FormData formData, @Path('id') int id);
+      @Path('id') int id);
 
 //=================================================//
 

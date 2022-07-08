@@ -1,8 +1,8 @@
-void main(){
-  request('FStudent','studentResponse','getAllStudent');
+void main() {
+  request('Delete', 'addSubjectsToClassResponse', 'addSubjectsToClass');
 }
 
-void request(String model,String response,String funcName){
+void request(String model, String response, String funcName) {
   print('''
    ApiResponse<$model>? _$response;
       ApiResponse<$model>? get $response => _$response;
