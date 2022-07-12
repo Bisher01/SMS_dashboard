@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/app_provider.dart';
+import '../services/api_response.dart';
 import '../utill/utill.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -245,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    disabledBorder: OutlineInputBorder(
+                                    disabledBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(
                                           20,
@@ -258,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    enabledBorder: OutlineInputBorder(
+                                    enabledBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(
                                           20,
@@ -271,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    errorBorder: OutlineInputBorder(
+                                    errorBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(
                                           20,
@@ -282,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Colors.red,
                                       ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(
                                           20,
@@ -334,6 +337,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //           _passwordController.text);
                                 //   if(response.status==Status.COMPLETED){
                                 //     if(response.data!=null && response.data!.status!){
+                                //       Provider.of<AppProvider>(context,listen: false).setToken(response.data!.data!.token!.toString());
                                 Navigator.of(context)
                                     .pushReplacementNamed('/main');
                                 //     }

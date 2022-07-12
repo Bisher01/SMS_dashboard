@@ -12,3 +12,4 @@ export 'delete.dart';
 export 'syllabi.dart';
 export 'exam.dart';
 export 'mark.dart';
+export 'boxes.dart';

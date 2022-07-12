@@ -10,6 +10,14 @@ import '../models/models.dart';
 import '../services/api_exception.dart';
 
 class AppProvider extends ChangeNotifier {
+  //token box
+  void setToken(String token) {
+    var box = Boxes.getAuthBox();
+    //box.clear();
+    box.put('token', token);
+    notifyListeners();
+  }
+
   //check connection
   bool isConnected = false;
   Future<bool> checkInternet() async {
@@ -1137,7 +1145,7 @@ class AppProvider extends ChangeNotifier {
 
   ///========================EXAMS==================///
 
-//get all exam
+  //get all exam
   ApiResponse<FExam>? _fExams;
   ApiResponse<FExam>? get fExamResponse => _fExams;
   set fExamResponse(ApiResponse<FExam>? value) {
