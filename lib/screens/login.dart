@@ -226,7 +226,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       icon: Icon(
                                         isHidden
                                             ? Icons.remove_red_eye_rounded
-                                            : Icons.add,
+                                            : Icons.remove_red_eye_outlined,
+                                        color: const Color(0Xff2BC3BB),
                                       ),
                                       onPressed: () {
                                         setState(() {
@@ -328,24 +329,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 FocusScope.of(context).unfocus();
-                                // if (await Provider.of<AppProvider>(context,
-                                //         listen: false)
-                                //     .checkInternet()) {
-                                //   var response = await Provider.of<AppProvider>(context,
-                                //           listen: false)
-                                //       .login(_emailController.text,
-                                //           _passwordController.text);
-                                //   if(response.status==Status.COMPLETED){
-                                //     if(response.data!=null && response.data!.status!){
-                                //       Provider.of<AppProvider>(context,listen: false).setToken(response.data!.data!.token!.toString());
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/main');
-                                //     }
-                                //   }
-                                // }
-                                // else{
-                                //
-                                // }
+                                if (await Provider.of<AppProvider>(context,
+                                        listen: false)
+                                    .checkInternet()) {
+                                  var response = await Provider.of<AppProvider>(
+                                          context,
+                                          listen: false)
+                                      .login(_emailController.text,
+                                          _passwordController.text);
+                                  if (response.status == Status.COMPLETED) {
+                                    if (response.data != null &&
+                                        response.data!.status!) {
+                                      Provider.of<AppProvider>(context,
+                                              listen: false)
+                                          .setToken(response.data!.data![0].token!
+                                              .toString());
+                                      Navigator.of(context)
+                                          .pushReplacementNamed('/main');
+                                    }
+                                  }
+                                } else {}
                               }
                             },
                             child: const Text(

@@ -4,223 +4,365 @@ import 'package:sms_dashboard/models/models.dart';
 import '../utill/widget_size.dart';
 
 class TeacherShowCard extends StatefulWidget {
-  final Teacher teacher;
-  const TeacherShowCard({required this.teacher,Key? key}) : super(key: key);
+  final List<Teacher> teacher;
+  final int selectedTeacher;
+  const TeacherShowCard(
+      {required this.teacher, required this.selectedTeacher, Key? key})
+      : super(key: key);
 
   @override
   State<TeacherShowCard> createState() => _TeacherShowCardState();
 }
 
 class _TeacherShowCardState extends State<TeacherShowCard> {
+  late PageController controller;
+  @override
+  initState() {
+    controller = PageController(initialPage: widget.selectedTeacher);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white70,
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(
-          color: Colors.white70,
-        ),
-        borderRadius: BorderRadius.circular(
-          15,
-        ),
-      ),
-      child: Column(
-        children: [
-          //picture name email code
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  width: widgetSize.getWidth(70, context),
-                  height: widgetSize.getHeight(90, context),
-                  child: Image.asset(
-                    'back.jpg',
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          "teacher's name:",
-                        ),
-                        Text(
-                            '${widget.teacher.f_name} ${widget.teacher.l_name}'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher email',
-                        ),
-                        Text(
-                          '${widget.teacher.email}',
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher code',
-                        ),
-                        Text(
-                          '${widget.teacher.code}',
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 15,
+    return PageView.builder(
+        controller: controller,
+        itemCount: widget.teacher.length,
+        itemBuilder: (context, index) {
+          return Card(
+            color: Colors.white,
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                color: Colors.white70,
+              ),
+              borderRadius: BorderRadius.circular(
+                15,
+              ),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                //joining date salary
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    //joining date
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher joining date',
-                        ),
-                        Text(
-                          widget.teacher.joining_date.toString(),
-                        ),
-                      ],
+                //title
+                const Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                  ),
+                  child: Text(
+                    "Teacher's detailed information",
+                    style: TextStyle(
+                      color: Color(
+                        0Xff2BC3BB,
+                      ),
+                      fontWeight: FontWeight.bold,
                     ),
-                    //salary
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher salary',
-                        ),
-                        Text(
-                          widget.teacher.salary.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-                //gender grade
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    //gender
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher gender',
-                        ),
-                        Text(
-                          widget.teacher.gender_id.toString(),
-                        ),
-                      ],
+                //circle avatar
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                  ),
+                  child: SizedBox(
+                    width: widgetSize.getWidth(90, context),
+                    height: widgetSize.getHeight(90, context),
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'back.jpg',
+                      ),
                     ),
-                    //nationality
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher grade',
-                        ),
-                        Text(
-                          widget.teacher.grade_id.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-                //city town
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    //city
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher city',
+                //name
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 5,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Name:",
+                        style: TextStyle(
+                          color: Colors.black54,
                         ),
-                        Text(
-                          widget.teacher.address_id.toString(),
+                      ),
+                      Text(
+                        '${widget.teacher[index].f_name} ${widget.teacher[index].l_name}',
+                        style: const TextStyle(
+                          color: Colors.black,
                         ),
-                      ],
-                    ),
-                    //town
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher town',
-                        ),
-                        Text(
-                          widget.teacher.address_id.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-                //street religion
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    //town
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher street',
-                        ),
-                        Text(
-                          widget.teacher.address_id.toString(),
-                        ),
-                      ],
-                    ),
-                    //religion
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text(
-                          'teacher religion',
-                        ),
-                        Text(
-                          widget.teacher.religion_id.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
+                //all teacher data
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      //email code join date gender religion
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Email address: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].email!,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Code: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].code!,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Joining date: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].joining_date
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Gender: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].gender_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Religion: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].religion_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      //grade salary city town street
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Grade: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].grade_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Salary: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        widget.teacher[index].salary.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "City: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].address_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Town: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].address_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Street: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: widget.teacher[index].address_id
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                //edit
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Edit this teacher info',
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 17,
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(
+                        0Xff2BC3BB,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Edit this teacher's info",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
+  }
+
+  @override
+  dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

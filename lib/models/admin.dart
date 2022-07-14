@@ -6,7 +6,9 @@ part 'admin.g.dart';
 class Admin{
   int? id;
   String? email;
+  @JsonKey(defaultValue: '')
   String? created_at;
+  @JsonKey(defaultValue: '')
   String? updated_at;
   Admin({
     this.email,
@@ -23,12 +25,12 @@ class Admin{
 @JsonSerializable()
 class AdminData{
   Admin? admin;
-  String? type;
+  String? Bearer;
   String? token;
   AdminData({
     this.admin,
     this.token,
-    this.type,
+    this.Bearer,
 });
   factory AdminData.fromJson(Map<String, dynamic> json) =>
       _$AdminDataFromJson(json);
@@ -37,7 +39,7 @@ class AdminData{
 }
 @JsonSerializable()
 class FAdmin{
-  AdminData? data;
+  List<AdminData>? data;
   bool? status;
   String? message;
   FAdmin({

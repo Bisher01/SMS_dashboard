@@ -1,4 +1,3 @@
-
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -110,19 +109,19 @@ class _AddStudentState extends State<AddStudent> {
   @override
   initState() {
     final student = widget.student;
-    if(student != null){
-      fnameController.text =    student.f_name!;
-      lnameController.text =    student.l_name!;
-      emailController.text =    student.email!;
-      streetController.text =   student.address!.street!;
-      cityController.text =     student.address!.city!;
-      townController.text =     student.address!.town!;
-      fatherController.text =   student.parent!.father_name!;
-      motherController.text =   student.parent!.mother_name!;
-      pemailController.text =   student.parent!.email!;
+    if (student != null) {
+      fnameController.text = student.f_name!;
+      lnameController.text = student.l_name!;
+      emailController.text = student.email!;
+      streetController.text = student.address!.street!;
+      cityController.text = student.address!.city!;
+      townController.text = student.address!.town!;
+      fatherController.text = student.parent!.father_name!;
+      motherController.text = student.parent!.mother_name!;
+      pemailController.text = student.parent!.email!;
       nationalController.text = student.parent!.national_number!;
-      phoneController.text=     student.parent!.phone!;
-      jobController.text=       student.parent!.jop!;
+      phoneController.text = student.parent!.phone!;
+      jobController.text = student.parent!.jop!;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -170,7 +169,7 @@ class _AddStudentState extends State<AddStudent> {
     try {
       final imagee = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (imagee == null) return;
-      final imageTemp = File(await imagee.readAsBytes(),'im');
+      final imageTemp = File(await imagee.readAsBytes(), 'im');
       setState(() => image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');

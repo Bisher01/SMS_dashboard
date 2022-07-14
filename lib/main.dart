@@ -16,16 +16,16 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     var box = Boxes.getAuthBox();
     String? token = box.get('token');
     bool isToken;
-    if(token != 'error' && token!='' && token!=null)
+    if(token != 'error' && token!='' && token!=null) {
       isToken = true;
-    else
+    } else {
       isToken = false;
+    }
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         initialRoute: !isToken?'/login':'/main',
         routes: {
           '/main': (context) => const MainScreen(),
-          'login':(context) => const LoginScreen(),
+          '/login':(context) => const LoginScreen(),
         },
       ),
     );
