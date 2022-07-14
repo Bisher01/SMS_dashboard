@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../services/api_response.dart';
@@ -329,23 +330,37 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 FocusScope.of(context).unfocus();
-                                if (await Provider.of<AppProvider>(context,
-                                        listen: false)
-                                    .checkInternet()) {
-                                  var response = await Provider.of<AppProvider>(
-                                          context,
-                                          listen: false)
-                                      .login(_emailController.text,
-                                          _passwordController.text);
+                                final provider = Provider.of<AppProvider>(
+                                    context,
+                                    listen: false);
+                                final navigator = Navigator.of(context);
+                                if (await provider.checkInternet()) {
+                                  var response = await provider.login(
+                                      _emailController.text,
+                                      _passwordController.text);
+
+                                  if (response.status == Status.LOADING) {
+                                    EasyLoading.showToast(
+                                      'Loading...',
+                                      duration: Duration(
+                                        milliseconds: 300,
+                                      ),
+                                    );
+                                  }
+                                  if (response.status == Status.ERROR) {
+                                    EasyLoading.showError(response.message!,
+                                        dismissOnTap: true);
+                                  }
                                   if (response.status == Status.COMPLETED) {
                                     if (response.data != null &&
                                         response.data!.status!) {
-                                      Provider.of<AppProvider>(context,
-                                              listen: false)
-                                          .setToken(response.data!.data![0].token!
-                                              .toString());
-                                      Navigator.of(context)
-                                          .pushReplacementNamed('/main');
+                                      EasyLoading.showSuccess(
+                                          response.data!.message!,
+                                          dismissOnTap: true);
+                                      provider.setToken(response
+                                          .data!.data![0].token!
+                                          .toString());
+                                      navigator.pushReplacementNamed('/main');
                                     }
                                   }
                                 } else {}

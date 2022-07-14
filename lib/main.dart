@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './providers/providers.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        builder: EasyLoading.init(),
         title: 'School Management System Dashboard',
         theme: ThemeData(
             //primarySwatch: Colors.blue,

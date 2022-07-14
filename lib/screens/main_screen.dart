@@ -22,9 +22,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   List<Widget> pages = [
     const Settings(),
-     AddStudent(
-      onAdd: (student){},
-      onEdit: (student){},
+    AddStudent(
+      onAdd: (student) {},
+      onEdit: (student) {},
     ),
     const ShowStudent(),
     const AddTeacher(),
@@ -71,8 +71,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             icon: const Icon(
               Icons.menu,
               color: Colors.white,
+              //color: ColorResources.green,
             ),
           ),
+          //backgroundColor: Colors.white,
           backgroundColor: ColorResources.green,
         ),
         body: Row(
@@ -84,6 +86,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   return Container(
                     width: _drawerAnimation.value,
                     color: Colors.white,
+                    // color: ColorResources.green,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView(
@@ -98,6 +101,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           const Text(
                             'School Name',
                             style: TextStyle(
+                              //color: ColorResources.green,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
@@ -107,15 +111,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             height: 10,
                           ),
                           InkWell(
-                            onTap: (){
-                              setState((){
-                                if(studentCardHeight==0){
-                                  studentCardHeight=80;
+                            onTap: () {
+                              setState(() {
+                                if (studentCardHeight == 0) {
+                                  studentCardHeight = 80;
                                   //teacherCardHeight=0;
                                   //mentorsCardHeight=0;
-                                }
-                                else{
-                                  studentCardHeight=0;
+                                } else {
+                                  studentCardHeight = 0;
                                 }
                               });
                             },
@@ -124,10 +127,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                 Icon(
                                   Icons.arrow_drop_down_circle_outlined,
                                   color: ColorResources.green,
+                                  //color: Colors.white,
                                 ),
                                 Text(
                                   'Students',
                                   style: TextStyle(
+                                    //color: Colors.white,
                                     color: ColorResources.green,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24,
@@ -142,7 +147,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: ListView(
                               primary: false,
                               physics: const NeverScrollableScrollPhysics(),
-                              padding: EdgeInsets.only(left: 25,top: 10),
+                              padding: EdgeInsets.only(left: 25, top: 10),
                               children: [
                                 InkWell(
                                   child: SizedBox(
@@ -151,6 +156,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                       'Add Students',
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -162,13 +168,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                     });
                                   },
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 InkWell(
                                   child: SizedBox(
                                     width: _drawerAnimation.value,
                                     child: const Text(
                                       'Show Students',
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -184,6 +193,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           // ListTile(
@@ -207,15 +217,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           //   color: Colors.white,
                           // ),
                           InkWell(
-                            onTap: (){
-                              setState((){
-                                if(teacherCardHeight==0){
-                                  teacherCardHeight=80;
+                            onTap: () {
+                              setState(() {
+                                if (teacherCardHeight == 0) {
+                                  teacherCardHeight = 80;
                                   //studentCardHeight=0;
                                   //mentorsCardHeight=0;
-                                }
-                                else{
-                                  teacherCardHeight=0;
+                                } else {
+                                  teacherCardHeight = 0;
                                 }
                               });
                             },
@@ -224,10 +233,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                 Icon(
                                   Icons.arrow_drop_down_circle_outlined,
                                   color: ColorResources.green,
+                                  //color: Colors.white,
                                 ),
                                 Text(
                                   'Teachers',
                                   style: TextStyle(
+                                    //color: Colors.white,
                                     color: ColorResources.green,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24,
@@ -242,7 +253,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: ListView(
                               primary: false,
                               physics: const NeverScrollableScrollPhysics(),
-                              padding: const EdgeInsets.only(left: 25,top: 10),
+                              padding: const EdgeInsets.only(left: 25, top: 10),
                               children: [
                                 InkWell(
                                   child: SizedBox(
@@ -251,6 +262,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                       'Add Teachers',
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -262,13 +274,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                     });
                                   },
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 InkWell(
                                   child: SizedBox(
                                     width: _drawerAnimation.value,
                                     child: const Text(
                                       'Show Teachers',
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -284,18 +299,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           InkWell(
-                            onTap: (){
-                              setState((){
-                                if(mentorsCardHeight==0){
-                                  mentorsCardHeight=80;
+                            onTap: () {
+                              setState(() {
+                                if (mentorsCardHeight == 0) {
+                                  mentorsCardHeight = 80;
                                   //studentCardHeight=0;
                                   //teacherCardHeight=0;
-                                }
-                                else{
-                                  mentorsCardHeight=0;
+                                } else {
+                                  mentorsCardHeight = 0;
                                 }
                               });
                             },
@@ -304,10 +319,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                 Icon(
                                   Icons.arrow_drop_down_circle_outlined,
                                   color: ColorResources.green,
+                                  //color: Colors.white,
                                 ),
                                 Text(
                                   'Mentors',
                                   style: TextStyle(
+                                    //color: Colors.white,
                                     color: ColorResources.green,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24,
@@ -322,7 +339,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: ListView(
                               primary: false,
                               physics: const NeverScrollableScrollPhysics(),
-                              padding: const EdgeInsets.only(left: 25,top: 10),
+                              padding: const EdgeInsets.only(left: 25, top: 10),
                               children: [
                                 InkWell(
                                   child: SizedBox(
@@ -331,6 +348,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                       'Add Mentors',
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -342,13 +360,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                     });
                                   },
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 InkWell(
                                   child: SizedBox(
                                     width: _drawerAnimation.value,
                                     child: const Text(
                                       'Show Mentors',
                                       style: TextStyle(
+                                        //color: Colors.white,
                                         color: ColorResources.green,
                                         fontSize: 20,
                                       ),
@@ -364,6 +385,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           // ListTile(
@@ -389,70 +411,83 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             onTap: () {},
                             title: const Text(
                               'Classes and Classrooms',
                               style: TextStyle(
+                                //color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             onTap: () {},
                             title: const Text(
                               'Daily Schedule',
                               style: TextStyle(
+                                // color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             onTap: () {},
                             title: const Text(
                               'Exam Schedule',
                               style: TextStyle(
+                                //color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             onTap: () {},
                             title: const Text(
                               'Exams',
                               style: TextStyle(
+                                //color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             onTap: () {
@@ -463,21 +498,25 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             title: const Text(
                               'Academic Years',
                               style: TextStyle(
+                                //color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                           ListTile(
                             leading: const Icon(
                               Icons.ac_unit,
+                              //color: Colors.white,
                               color: ColorResources.green,
                             ),
                             title: const Text(
                               'Settings',
                               style: TextStyle(
+                                //color: Colors.white,
                                 color: ColorResources.green,
                               ),
                             ),
@@ -488,6 +527,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             },
                           ),
                           const Divider(
+                            //color: Colors.white,
                             color: ColorResources.green,
                           ),
                         ],
