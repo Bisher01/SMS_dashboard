@@ -108,22 +108,27 @@ class _StudentShowCardState extends State<StudentShowCard> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                    text: "Email address: ",
-                                    style: TextStyle(
-                                      color: Colors.black54,
+                            child: SizedBox(
+                              width: widgetSize.getWidth(90, context),
+                              child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: "Email address: ",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                      ),
                                     ),
-                                  ),
-                                  TextSpan(
-                                    text: widget.student[index].email!,
-                                    style: const TextStyle(
-                                      color: Colors.black,
+                                    TextSpan(
+                                      text: widget.student[index].email!,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -515,22 +520,27 @@ class _StudentShowCardState extends State<StudentShowCard> {
                               ],
                             ),
                           ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: "Email Address: ",
-                                  style: TextStyle(
-                                    color: Colors.black54,
+                          SizedBox(
+                            width: widgetSize.getWidth(50, context),
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Email Address: ",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: widget.student[index].parent!.email!,
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                  TextSpan(
+                                    text: widget.student[index].parent!.email!,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           RichText(
