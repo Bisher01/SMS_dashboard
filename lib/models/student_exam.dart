@@ -72,8 +72,8 @@ class Questions {
   });
 
   factory Questions.fromJson(Map<String, dynamic> json) =>
-      _$QuestionFromJson(json);
-  Map<String, dynamic> toJson() => _$QuestionToJson(this);
+      _$QuestionsFromJson(json);
+  Map<String, dynamic> toJson() => _$QuestionsToJson(this);
 }
 
 @JsonSerializable()
@@ -95,6 +95,6 @@ class Choices {
     this.updatedAt,
   });
 
-  factory Choices.fromJson(Map<String, dynamic> json) => _$ChoiceFromJson(json);
-  Map<String, dynamic> toJson() => _$ChoiceToJson(this);
+  factory Choices.fromJson(Map<String, dynamic> json) => _$ChoicesFromJson(json);
+  Map<String, dynamic> toJson() => _$ChoicesToJson(this);
 }
