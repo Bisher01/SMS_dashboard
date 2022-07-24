@@ -13,3 +13,7 @@ export 'syllabi.dart';
 export 'exam.dart';
 export 'mark.dart';
 export 'boxes.dart';
+export 'add_question.dart';
+export 'exam.dart';
+export 'exam_answers.dart';
+export 'student_exam.dart';
