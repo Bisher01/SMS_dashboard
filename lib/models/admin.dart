@@ -6,15 +6,9 @@ part 'admin.g.dart';
 class Admin{
   int? id;
   String? email;
-  @JsonKey(defaultValue: '')
-  String? created_at;
-  @JsonKey(defaultValue: '')
-  String? updated_at;
   Admin({
     this.email,
-    this.created_at,
     this.id,
-    this.updated_at
 });
 
   factory Admin.fromJson(Map<String, dynamic> json) =>
