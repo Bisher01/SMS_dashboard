@@ -333,6 +333,84 @@ class AppProvider extends ChangeNotifier {
     return fAddStudentResponse!;
   }
 
+  Future<ApiResponse<FStudent>> addStudentWithParent({
+    required File picture,
+    required String email,
+    required String f_name,
+    required String l_name,
+    required int nationality,
+    required DateTime birthdate,
+    required int blood_id,
+    required int gender_id,
+    required int religion_id,
+    required int grade_id,
+    required int class_id,
+    required int classroom_id,
+    required int academic_year_id,
+    required String national_number,
+    required String city,
+    required String town,
+    required String street,
+    required String mother_name,
+    required String father_name,
+    required String parentPhone,
+    required String parentEmail,
+    required String parentJop,
+  }) async {
+    ApiService apiService = ApiService(Dio());
+    // String fileName = picture.path.split('/').last;
+    // final bytes = await picture.readAsBytes();
+    // final MultipartFile file = MultipartFile.fromBytes(bytes, filename: "picture");
+    // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
+    FormData formData = FormData.fromMap({
+      //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
+      'picture': picture,
+      'email': email,
+      'f_name': f_name,
+      'l_name': l_name,
+      'nationality': nationality,
+      'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
+      'blood_id': blood_id,
+      'gender_id': gender_id,
+      'religion_id': religion_id,
+      'grade_id': grade_id,
+      'class_id': class_id,
+      'classroom_id': classroom_id,
+      'academic_year_id': academic_year_id,
+      'mother_name' : mother_name,
+      'father_name':father_name,
+      'national_number': national_number,
+      'parentPhone':parentPhone,
+      'parentEmail':parentEmail,
+      'parentJop':parentJop,
+      'city': city,
+      'town': town,
+      'street': street
+    });
+    //formData.files.add(imageEntry);
+    if (await checkInternet()) {
+      fAddStudentResponse = ApiResponse.loading('');
+      try {
+        FStudent student = await apiService.addStudent(formData);
+        fAddStudentResponse = ApiResponse.completed(student);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return fAddStudentResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          return fAddStudentResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return fAddStudentResponse = ApiResponse.error('No Internet Connection');
+    }
+    return fAddStudentResponse!;
+  }
+
   //edit student
   ApiResponse<FStudent>? _fEditStudentResponse;
   ApiResponse<FStudent>? get fEditStudentResponse => _fEditStudentResponse;
@@ -1242,18 +1320,19 @@ class AppProvider extends ChangeNotifier {
 
   //set student exam mark
   ApiResponse<FMark>? _setStudentExamMarkResponse;
-  ApiResponse<FMark>? get setStudentExamMarkResponse => _setStudentExamMarkResponse;
+  ApiResponse<FMark>? get setStudentExamMarkResponse =>
+      _setStudentExamMarkResponse;
   set setStudentExamMarkResponse(ApiResponse<FMark>? value) {
     _setStudentExamMarkResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FMark>> setStudentExamMark(int id1,int id2) async {
+  Future<ApiResponse<FMark>> setStudentExamMark(int id1, int id2) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       setStudentExamMarkResponse = ApiResponse.loading('');
       try {
-        FMark fmark = await apiService.setStudentExamMark(id1,id2);
+        FMark fmark = await apiService.setStudentExamMark(id1, id2);
         setStudentExamMarkResponse = ApiResponse.completed(fmark);
       } catch (e) {
         if (e is DioError) {
@@ -1267,7 +1346,8 @@ class AppProvider extends ChangeNotifier {
         return setStudentExamMarkResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return setStudentExamMarkResponse = ApiResponse.error('No Internet Connection');
+      return setStudentExamMarkResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return setStudentExamMarkResponse!;
   }
@@ -1299,7 +1379,8 @@ class AppProvider extends ChangeNotifier {
         return getStudentExamResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return getStudentExamResponse = ApiResponse.error('No Internet Connection');
+      return getStudentExamResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return getStudentExamResponse!;
   }
@@ -1335,6 +1416,7 @@ class AppProvider extends ChangeNotifier {
     }
     return getClassExamResponse!;
   }
+
   ///==============================================///
 
   //get all syllabi

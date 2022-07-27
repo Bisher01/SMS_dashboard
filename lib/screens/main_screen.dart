@@ -28,11 +28,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       onAdd: (student) {},
       onEdit: (student) {},
     ),
-    const ShowStudent(),
+    //const ShowStudent(),
     const AddTeacher(),
-    const ShowTeacher(),
+    //const ShowTeacher(),
     const AddMentor(),
-    const ShowMentor(),
+    //const ShowMentor(),
     const AcademicYears()
   ];
 
