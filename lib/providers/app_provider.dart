@@ -1157,6 +1157,8 @@ class AppProvider extends ChangeNotifier {
         FSeed fSeed = await apiService.getSeed();
         getSeedResponse = ApiResponse.completed(fSeed);
       } catch (e) {
+        print('====================');
+        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);

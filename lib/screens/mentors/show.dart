@@ -29,112 +29,64 @@ class _ShowMentorState extends State<ShowMentor> {
       if (provider.fMentorResponse != null) {
         switch (provider.fMentorResponse?.status) {
           case Status.LOADING:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return MentorSmallCard(
-                    mentor: Mentor(),
-                  );
-                },
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           case Status.COMPLETED:
-            return Container(
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: provider.fMentorResponse!.data!.mentor!.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: widgetSize.getWidth(200, context) /
-                      widgetSize.getHeight(300, context),
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                      color: Colors.white70,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      15,
-                                    ),
-                                  ),
-                                  content: SizedBox(
-                                      width: widgetSize.getWidth(200, context),
-                                      height:
-                                          widgetSize.getHeight(400, context),
-                                      child: MentorShowCard(
-                                        mentor: provider
-                                            .fMentorResponse!.data!.mentor!,
-                                        selectedMentor: index,
-                                      )),
-                                );
-                              });
-                        },
-                        child: MentorSmallCard(
-                          mentor:
-                              provider.fMentorResponse!.data!.mentor![index],
-                        )),
-                  );
-                },
+            return GridView.builder(
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              itemCount: provider.fMentorResponse!.data!.mentor!.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: widgetSize.getWidth(200, context) /
+                    widgetSize.getHeight(300, context),
               ),
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                    color: Colors.white70,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    15,
+                                  ),
+                                ),
+                                content: SizedBox(
+                                    width: widgetSize.getWidth(200, context),
+                                    height:
+                                        widgetSize.getHeight(400, context),
+                                    child: MentorShowCard(
+                                      mentor: provider
+                                          .fMentorResponse!.data!.mentor!,
+                                      selectedMentor: index,
+                                    )),
+                              );
+                            });
+                      },
+                      child: MentorSmallCard(
+                        mentor:
+                            provider.fMentorResponse!.data!.mentor![index],
+                      )),
+                );
+              },
             );
           case Status.ERROR:
             return Error(
               errorMsg: provider.fMentorResponse!.message!,
             );
           default:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return MentorSmallCard(
-                    mentor: Mentor(),
-                  );
-                },
-              ),
-            );
+            return Container();
         }
       }
-      return Shimmer.fromColors(
-        baseColor: Colors.grey,
-        highlightColor: Colors.white,
-        child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          itemCount: 10,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return MentorSmallCard(
-              mentor: Mentor(),
-            );
-          },
-        ),
-      );
+      return Container();
     });
   }
 }

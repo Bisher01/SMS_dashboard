@@ -27,22 +27,8 @@ class _ShowStudentState extends State<ShowStudent> {
       if (provider.fStudentResponse != null) {
         switch (provider.fStudentResponse?.status) {
           case Status.LOADING:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return StudentSmallCard(
-                    student: Student(),
-                  );
-                },
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           case Status.ERROR:
             return Error(
@@ -97,42 +83,10 @@ class _ShowStudentState extends State<ShowStudent> {
               ),
             );
           default:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return StudentSmallCard(
-                    student: Student(),
-                  );
-                },
-              ),
-            );
+            return Container();
         }
       }
-      return Shimmer.fromColors(
-        baseColor: Colors.grey,
-        highlightColor: Colors.white,
-        child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          itemCount: 10,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return StudentSmallCard(
-              student: Student(),
-            );
-          },
-        ),
-      );
+      return Container();
     });
   }
 }

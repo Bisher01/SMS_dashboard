@@ -8,7 +8,7 @@ part of 'classroom.dart';
 
 Classroom _$ClassroomFromJson(Map<String, dynamic> json) => Classroom(
       id: json['id'] as int?,
-      name: json['name'] as int?,
+      name: json['name'] as String?,
       max_number: json['max_number'] as int?,
     );
 

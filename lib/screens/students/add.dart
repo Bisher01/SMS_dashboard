@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,9 +7,7 @@ import 'package:sms_dashboard/models/models.dart';
 import 'package:sms_dashboard/providers/providers.dart';
 import 'package:sms_dashboard/utill/widget_size.dart';
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
-
 import '../../services/api_response.dart';
 
 class AddStudent extends StatefulWidget {
@@ -65,19 +62,19 @@ class _AddStudentState extends State<AddStudent> {
   final FocusNode focusNode11 = FocusNode();
   final FocusNode focusNode12 = FocusNode();
 
-  String? genderDDV;
-  String? nationalityDDV;
-  String? bloodDDV;
-  String? religionDDV;
+  int? genderDDV;
+  int? nationalityDDV;
+  int? bloodDDV;
+  int? religionDDV;
 
-  String? gradeDDv;
-  String? classDDV;
-  String? classroomDDv;
-  String? mnationalityDDV;
-  String? fnationalityDDV;
-  String? fbloodDDV;
-  String? preligionDDV;
-  String? yearDDV;
+  int? gradeDDv;
+  int? classDDV;
+  int? classroomDDv;
+  int? mnationalityDDV;
+  int? fnationalityDDV;
+  int? fbloodDDV;
+  int? preligionDDV;
+  int? yearDDV;
 
   DateTime? _selectedDate;
 
@@ -185,9 +182,7 @@ class _AddStudentState extends State<AddStudent> {
       if (provider.getSeedResponse != null) {
         switch (provider.getSeedResponse!.status) {
           case Status.LOADING:
-            return Container(
-              child: Center(child: Text('loading')),
-            );
+            return const Center(child: Text('loading'));
           case Status.COMPLETED:
             return ListView(
               controller: ScrollController(),
@@ -366,7 +361,7 @@ class _AddStudentState extends State<AddStudent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      DropdownButton<String>(
+                      DropdownButton<int>(
                           hint: const Text(
                             'Gender',
                           ),
@@ -378,20 +373,20 @@ class _AddStudentState extends State<AddStudent> {
                               0Xff2BC3BB,
                             ),
                           ),
-                          onChanged: (String? newValue) {
+                          onChanged: (int? newValue) {
                             setState(() {
-                              genderDDV = newValue ?? 'Gender';
+                              genderDDV = newValue ?? 0;
                             });
                           },
                           items: provider
                               .getSeedResponse!.data!.data![0].genders!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.type,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.type!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
+                      DropdownButton<int>(
                           hint: const Text(
                             'Nationality',
                           ),
@@ -403,66 +398,66 @@ class _AddStudentState extends State<AddStudent> {
                               0Xff2BC3BB,
                             ),
                           ),
-                          onChanged: (String? newValue) {
+                          onChanged: (int? newValue) {
                             setState(() {
-                              nationalityDDV = newValue ?? 'Nationality';
+                              nationalityDDV = newValue ?? 0;
                             });
                           },
                           items: provider
                               .getSeedResponse!.data!.data![0].nationality!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.name!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Blood type',
-                        ),
-                        value: bloodDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Blood type',
                           ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            bloodDDV = newValue ?? 'Blood type';
-                          });
-                        },
+                          value: bloodDDV,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: const Color(
+                              0Xff2BC3BB,
+                            ),
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              bloodDDV = newValue ?? 0;
+                            });
+                          },
                           items: provider
                               .getSeedResponse!.data!.data![0].bloods!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.type,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.type!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Religion',
-                        ),
-                        value: religionDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Religion',
                           ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            religionDDV = newValue ?? 'Religion';
-                          });
-                        },
+                          value: religionDDV,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: const Color(
+                              0Xff2BC3BB,
+                            ),
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              religionDDV = newValue ?? 0;
+                            });
+                          },
                           items: provider
                               .getSeedResponse!.data!.data![0].religtions!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.name!),
                             );
                           }).toList()),
@@ -526,82 +521,82 @@ class _AddStudentState extends State<AddStudent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Grade',
-                        ),
-                        value: gradeDDv,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Grade',
                           ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            gradeDDv = newValue ?? 'Grade';
-                          });
-                        },
+                          value: gradeDDv,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: const Color(
+                              0Xff2BC3BB,
+                            ),
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              gradeDDv = newValue ?? 0;
+                            });
+                          },
                           items: provider
                               .getSeedResponse!.data!.data![0].grades!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.name!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Class',
-                        ),
-                        value: classDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Class',
                           ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            classDDV = newValue ?? 'Class';
-                          });
-                        },
+                          value: classDDV,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: const Color(
+                              0Xff2BC3BB,
+                            ),
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              classDDV = newValue ?? 0;
+                            });
+                          },
                           items: provider
                               .getSeedResponse!.data!.data![0].classes!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.name!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Classroom',
-                        ),
-                        value: classroomDDv,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Classroom',
                           ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            classroomDDv = newValue ?? 'Classroom';
-                          });
-                        },
-                          items: provider
-                              .getSeedResponse!.data!.data![0].classes![classDDV].classroom!
+                          value: classroomDDv,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: const Color(
+                              0Xff2BC3BB,
+                            ),
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              classroomDDv = newValue ?? 0;
+                            });
+                          },
+                          items: provider.getSeedResponse!.data!.data![0]
+                              .classes![(classDDV ?? 1) - 1].classroom!
                               .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
+                            return DropdownMenuItem<int>(
+                              value: e.id,
                               child: Text(e.name!),
                             );
                           }).toList()),
-                      DropdownButton<String>(
+                      DropdownButton<int>(
                         hint: const Text(
                           'Academic Year',
                         ),
@@ -613,19 +608,19 @@ class _AddStudentState extends State<AddStudent> {
                             0Xff2BC3BB,
                           ),
                         ),
-                        onChanged: (String? newValue) {
+                        onChanged: (int? newValue) {
                           setState(() {
-                            yearDDV = newValue ?? 'Academic Year';
+                            yearDDV = newValue ?? 0;
                           });
                         },
-                          items: provider
-                              .getSeedResponse!.data!.data![0].academicYears!
-                              .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.date,
-                              child: Text(e.date!),
-                            );
-                          }).toList(),
+                        items: provider
+                            .getSeedResponse!.data!.data![0].academicYears!
+                            .map((e) {
+                          return DropdownMenuItem<int>(
+                            value: e.id,
+                            child: Text(e.date!),
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
@@ -846,381 +841,384 @@ class _AddStudentState extends State<AddStudent> {
 
                 //parents
                 //mother father email
-                isParent?const SizedBox():Padding(
-                  padding: const EdgeInsets.only(
-                    top: 30,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: widgetSize.getWidth(
-                          70,
-                          context,
+                isParent
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                          top: 30,
                         ),
-                        child: TextFormField(
-                          focusNode: focusNode7,
-                          cursorColor: const Color(
-                            0Xff2BC3BB,
-                          ),
-                          decoration: InputDecoration(
-                            hoverColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            focusColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            labelStyle: TextStyle(
-                              color: focusNode7.hasFocus
-                                  ? const Color(
-                                      0Xff2BC3BB,
-                                    )
-                                  : Colors.black54,
-                            ),
-                            labelText: "Father name",
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: widgetSize.getWidth(
+                                70,
+                                context,
                               ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 2,
+                              child: TextFormField(
+                                focusNode: focusNode7,
+                                cursorColor: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                                decoration: InputDecoration(
+                                  hoverColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  focusColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: focusNode7.hasFocus
+                                        ? const Color(
+                                            0Xff2BC3BB,
+                                          )
+                                        : Colors.black54,
+                                  ),
+                                  labelText: "Father name",
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                controller: fatherController,
                               ),
                             ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
+                            SizedBox(
+                              width: widgetSize.getWidth(
+                                70,
+                                context,
                               ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 1,
+                              child: TextFormField(
+                                focusNode: focusNode8,
+                                cursorColor: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                                decoration: InputDecoration(
+                                  hoverColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  focusColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: focusNode8.hasFocus
+                                        ? const Color(
+                                            0Xff2BC3BB,
+                                          )
+                                        : Colors.black54,
+                                  ),
+                                  labelText: "Mother name",
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                controller: motherController,
                               ),
                             ),
-                          ),
-                          controller: fatherController,
+                            SizedBox(
+                              width: widgetSize.getWidth(
+                                70,
+                                context,
+                              ),
+                              child: TextFormField(
+                                focusNode: focusNode9,
+                                cursorColor: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                                decoration: InputDecoration(
+                                  hoverColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  focusColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: focusNode9.hasFocus
+                                        ? const Color(
+                                            0Xff2BC3BB,
+                                          )
+                                        : Colors.black54,
+                                  ),
+                                  labelText: "Parent email address",
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                controller: pemailController,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        width: widgetSize.getWidth(
-                          70,
-                          context,
-                        ),
-                        child: TextFormField(
-                          focusNode: focusNode8,
-                          cursorColor: const Color(
-                            0Xff2BC3BB,
-                          ),
-                          decoration: InputDecoration(
-                            hoverColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            focusColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            labelStyle: TextStyle(
-                              color: focusNode8.hasFocus
-                                  ? const Color(
-                                      0Xff2BC3BB,
-                                    )
-                                  : Colors.black54,
-                            ),
-                            labelText: "Mother name",
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 2,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          controller: motherController,
-                        ),
-                      ),
-                      SizedBox(
-                        width: widgetSize.getWidth(
-                          70,
-                          context,
-                        ),
-                        child: TextFormField(
-                          focusNode: focusNode9,
-                          cursorColor: const Color(
-                            0Xff2BC3BB,
-                          ),
-                          decoration: InputDecoration(
-                            hoverColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            focusColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            labelStyle: TextStyle(
-                              color: focusNode9.hasFocus
-                                  ? const Color(
-                                      0Xff2BC3BB,
-                                    )
-                                  : Colors.black54,
-                            ),
-                            labelText: "Parent email address",
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 2,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          controller: pemailController,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
                 //job and phone
-                isParent?const SizedBox():Padding(
-                  padding: EdgeInsets.only(
-                    top: 30,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: widgetSize.getWidth(
-                          70,
-                          context,
+                isParent
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                          top: 30,
                         ),
-                        child: TextFormField(
-                          focusNode: focusNode11,
-                          cursorColor: const Color(
-                            0Xff2BC3BB,
-                          ),
-                          decoration: InputDecoration(
-                            hoverColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            focusColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            labelStyle: TextStyle(
-                              color: focusNode11.hasFocus
-                                  ? const Color(
-                                0Xff2BC3BB,
-                              )
-                                  : Colors.black54,
-                            ),
-                            labelText: "Phone number",
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: widgetSize.getWidth(
+                                70,
+                                context,
                               ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 2,
+                              child: TextFormField(
+                                focusNode: focusNode11,
+                                cursorColor: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                                decoration: InputDecoration(
+                                  hoverColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  focusColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: focusNode11.hasFocus
+                                        ? const Color(
+                                            0Xff2BC3BB,
+                                          )
+                                        : Colors.black54,
+                                  ),
+                                  labelText: "Phone number",
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                controller: phoneController,
                               ),
                             ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
+                            SizedBox(
+                              width: widgetSize.getWidth(
+                                70,
+                                context,
                               ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 1,
+                              child: TextFormField(
+                                focusNode: focusNode12,
+                                cursorColor: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                                decoration: InputDecoration(
+                                  hoverColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  focusColor: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: focusNode12.hasFocus
+                                        ? const Color(
+                                            0Xff2BC3BB,
+                                          )
+                                        : Colors.black54,
+                                  ),
+                                  labelText: "Job",
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                    borderSide: const BorderSide(
+                                      color: Color(0Xff2BC3BB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                controller: jobController,
                               ),
                             ),
-                          ),
-                          controller: phoneController,
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        width: widgetSize.getWidth(
-                          70,
-                          context,
-                        ),
-                        child: TextFormField(
-                          focusNode: focusNode12,
-                          cursorColor: const Color(
-                            0Xff2BC3BB,
-                          ),
-                          decoration: InputDecoration(
-                            hoverColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            focusColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            labelStyle: TextStyle(
-                              color: focusNode12.hasFocus
-                                  ? const Color(
-                                0Xff2BC3BB,
-                              )
-                                  : Colors.black54,
-                            ),
-                            labelText: "Job",
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 2,
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: const BorderSide(
-                                color: Color(0Xff2BC3BB),
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          controller: jobController,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
                 //blood religion nationality
-                isParent?const SizedBox():Padding(
-                  padding: const EdgeInsets.only(
-                    top: 30.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Mother nationality',
+                isParent
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                          top: 30.0,
                         ),
-                        value: mnationalityDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            DropdownButton<int>(
+                                hint: const Text(
+                                  'Mother nationality',
+                                ),
+                                value: mnationalityDDV,
+                                elevation: 16,
+                                underline: Container(
+                                  height: 2,
+                                  color: const Color(
+                                    0Xff2BC3BB,
+                                  ),
+                                ),
+                                onChanged: (int? newValue) {
+                                  setState(() {
+                                    mnationalityDDV = newValue ?? 0;
+                                  });
+                                },
+                                items: provider.getSeedResponse!.data!.data![0]
+                                    .nationality!
+                                    .map((e) {
+                                  return DropdownMenuItem<int>(
+                                    value: e.id,
+                                    child: Text(e.name!),
+                                  );
+                                }).toList()),
+                            DropdownButton<int>(
+                              hint: const Text(
+                                'Father nationality',
+                              ),
+                              value: fnationalityDDV,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                              ),
+                              onChanged: (int? newValue) {
+                                setState(() {
+                                  fnationalityDDV = newValue ?? 0;
+                                });
+                              },
+                              items: provider
+                                  .getSeedResponse!.data!.data![0].nationality!
+                                  .map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
+                                  child: Text(e.name!),
+                                );
+                              }).toList(),
+                            ),
+                            DropdownButton<int>(
+                              hint: const Text(
+                                'Father blood type',
+                              ),
+                              value: fbloodDDV,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                              ),
+                              onChanged: (int? newValue) {
+                                setState(() {
+                                  fbloodDDV = newValue ?? 0;
+                                });
+                              },
+                              items: provider
+                                  .getSeedResponse!.data!.data![0].bloods!
+                                  .map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
+                                  child: Text(e.type!),
+                                );
+                              }).toList(),
+                            ),
+                            DropdownButton<int>(
+                              hint: const Text(
+                                'Parents religion',
+                              ),
+                              value: preligionDDV,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: const Color(
+                                  0Xff2BC3BB,
+                                ),
+                              ),
+                              onChanged: (int? newValue) {
+                                setState(() {
+                                  preligionDDV = newValue ?? 0;
+                                });
+                              },
+                              items: provider
+                                  .getSeedResponse!.data!.data![0].religtions!
+                                  .map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
+                                  child: Text(e.name!),
+                                );
+                              }).toList(),
+                            ),
+                          ],
                         ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            mnationalityDDV = newValue??'Mother nationality';
-                          });
-                        },
-                          items: provider
-                              .getSeedResponse!.data!.data![0].nationality!
-                              .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
-                              child: Text(e.name!),
-                            );
-                          }).toList()
                       ),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Father nationality',
-                        ),
-                        value: fnationalityDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
-                          ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            fnationalityDDV = newValue??'Father nationality';
-                          });
-                        },
-                          items: provider
-                              .getSeedResponse!.data!.data![0].nationality!
-                              .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.name,
-                              child: Text(e.name!),
-                            );
-                          }).toList(),
-
-                      ),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Father blood type',
-                        ),
-                        value: fbloodDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
-                          ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            fbloodDDV = newValue??'Father blood type';
-                          });
-                        },
-                        items: provider
-                            .getSeedResponse!.data!.data![0].bloods!
-                            .map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e.type,
-                            child: Text(e.type!),
-                          );
-                        }).toList(),
-
-                      ),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          'Parents religion',
-                        ),
-                        value: preligionDDV,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: const Color(
-                            0Xff2BC3BB,
-                          ),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            preligionDDV = newValue??'Parents religion';
-                          });
-                        },
-                        items: provider
-                            .getSeedResponse!.data!.data![0].religtions!
-                            .map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e.name,
-                            child: Text(e.name!),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ),
                 //submit
                 Padding(
                   padding: const EdgeInsets.only(
@@ -1255,60 +1253,85 @@ class _AddStudentState extends State<AddStudent> {
                             'Submit',
                           ),
                           onPressed: () async {
-                            if(isParent){
-                              try{
-                                Provider.of<AppProvider>(context, listen: false)
+                            if (isParent) {
+                              try {
+                                var res = await Provider.of<AppProvider>(
+                                        context,
+                                        listen: false)
                                     .addStudent(
-                                    picture: image!,
-                                    email: emailController.text,
-                                    f_name: fnameController.text,
-                                    l_name: lnameController.text,
-                                    nationality: 1,
-                                    birthdate: _selectedDate!,
-                                    blood_id: 1,
-                                    gender_id: 1,
-                                    religion_id: 1,
-                                    grade_id: 1,
-                                    class_id: 1,
-                                    classroom_id: 1,
-                                    academic_year_id: 1,
-                                    national_number: nationalController.text,
-                                    city: cityController.text,
-                                    town: townController.text,
-                                    street: streetController.text);
+                                        picture: image!,
+                                        email: emailController.text,
+                                        f_name: fnameController.text,
+                                        l_name: lnameController.text,
+                                        nationality: nationalityDDV!,
+                                        birthdate: _selectedDate!,
+                                        blood_id: bloodDDV!,
+                                        gender_id: genderDDV!,
+                                        religion_id: religionDDV!,
+                                        grade_id: gradeDDv!,
+                                        class_id: classDDV!,
+                                        classroom_id: classroomDDv!,
+                                        academic_year_id: yearDDV!,
+                                        national_number:
+                                            nationalController.text,
+                                        city: cityController.text,
+                                        town: townController.text,
+                                        street: streetController.text);
+                                if (res.data != null) {
+                                  if (res.data!.status!) {
+                                    print('added');
+                                  } else {
+                                    setState(() {
+                                      isParent = false;
+                                    });
+                                  }
+                                }
+                              } catch (e) {
+                                setState(() {
+                                  isParent = false;
+                                });
                               }
-                              catch(e){
+                            } else {
+                              try {
+                                var res = await Provider.of<AppProvider>(
+                                        context,
+                                        listen: false)
+                                    .addStudentWithParent(
+                                        picture: image!,
+                                        email: emailController.text,
+                                        f_name: fnameController.text,
+                                        l_name: lnameController.text,
+                                        nationality: nationalityDDV!,
+                                        birthdate: _selectedDate!,
+                                        blood_id: bloodDDV!,
+                                        gender_id: genderDDV!,
+                                        religion_id: religionDDV!,
+                                        grade_id: gradeDDv!,
+                                        class_id: classDDV!,
+                                        classroom_id: classroomDDv!,
+                                        academic_year_id: yearDDV!,
+                                        mother_name: motherController.text,
+                                        father_name: fatherController.text,
+                                        parentEmail: pemailController.text,
+                                        parentJop: jobController.text,
+                                        parentPhone: phoneController.text,
+                                        national_number:
+                                            nationalController.text,
+                                        city: cityController.text,
+                                        town: townController.text,
+                                        street: streetController.text);
+                                if (res.data != null) {
+                                  if (res.data!.status!) {
+                                    print('added');
+                                  } else {
+                                    print('not add');
+                                  }
+                                }
+                              } catch (e) {
+                                print('here');
                                 print(e);
-                                setState((){isParent = false;});
                               }
                             }
-                            else{
-                              Provider.of<AppProvider>(context, listen: false)
-                                  .addStudentWithParent(
-                                  picture: image!,
-                                  email: emailController.text,
-                                  f_name: fnameController.text,
-                                  l_name: lnameController.text,
-                                  nationality: 1,
-                                  birthdate: _selectedDate!,
-                                  blood_id: 1,
-                                  gender_id: 1,
-                                  religion_id: 1,
-                                  grade_id: 1,
-                                  class_id: 1,
-                                  classroom_id: 1,
-                                  academic_year_id: 1,
-                                  mother_name: motherController.text,
-                                  father_name: fatherController.text,
-                                  parentEmail: pemailController.text,
-                                  parentJop: jobController.text,
-                                  parentPhone: phoneController.text,
-                                  national_number: nationalController.text,
-                                  city: cityController.text,
-                                  town: townController.text,
-                                  street: streetController.text);
-                            }
-
                           },
                         ),
                       ),
@@ -1318,18 +1341,13 @@ class _AddStudentState extends State<AddStudent> {
               ],
             );
           case Status.ERROR:
-            return Container(
-              child: Center(child: Text(provider.getSeedResponse!.message!.toString())),
-            );
+            return Center(
+                child: Text(provider.getSeedResponse!.message!.toString()));
           default:
-            return Container(
-              child: Center(child: Text('def')),
-            );
+            return const Center(child: Text('def'));
         }
       }
-      return Container(
-        child: Center(child: Text('else')),
-      );
+      return const Center(child: Text('else'));
     });
   }
 

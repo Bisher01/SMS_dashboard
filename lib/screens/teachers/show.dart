@@ -28,112 +28,64 @@ class _ShowTeacherState extends State<ShowTeacher> {
       if (provider.fTeacherResponse != null) {
         switch (provider.fTeacherResponse?.status) {
           case Status.LOADING:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return TeacherSmallCard(
-                    teacher: Teacher(),
-                  );
-                },
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           case Status.COMPLETED:
-            return Container(
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: provider.fTeacherResponse!.data!.teacher!.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: widgetSize.getWidth(200, context) /
-                      widgetSize.getHeight(300, context),
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                      color: Colors.white70,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      15,
-                                    ),
-                                  ),
-                                  content: SizedBox(
-                                    width: widgetSize.getWidth(200, context),
-                                    height: widgetSize.getHeight(500, context),
-                                    child: TeacherShowCard(
-                                      teacher: provider
-                                          .fTeacherResponse!.data!.teacher!,
-                                      selectedTeacher: index,
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: TeacherSmallCard(
-                          teacher:
-                              provider.fTeacherResponse!.data!.teacher![index],
-                        )),
-                  );
-                },
+            return GridView.builder(
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              itemCount: provider.fTeacherResponse!.data!.teacher!.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: widgetSize.getWidth(200, context) /
+                    widgetSize.getHeight(300, context),
               ),
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                    color: Colors.white70,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    15,
+                                  ),
+                                ),
+                                content: SizedBox(
+                                  width: widgetSize.getWidth(200, context),
+                                  height: widgetSize.getHeight(500, context),
+                                  child: TeacherShowCard(
+                                    teacher: provider
+                                        .fTeacherResponse!.data!.teacher!,
+                                    selectedTeacher: index,
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                      child: TeacherSmallCard(
+                        teacher:
+                            provider.fTeacherResponse!.data!.teacher![index],
+                      )),
+                );
+              },
             );
           case Status.ERROR:
             return Error(
               errorMsg: provider.fTeacherResponse!.message!,
             );
           default:
-            return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                controller: ScrollController(),
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return TeacherSmallCard(
-                    teacher: Teacher(),
-                  );
-                },
-              ),
-            );
+            return Container();
         }
       }
-      return Shimmer.fromColors(
-        baseColor: Colors.grey,
-        highlightColor: Colors.white,
-        child: GridView.builder(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          itemCount: 10,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return TeacherSmallCard(
-              teacher: Teacher(),
-            );
-          },
-        ),
-      );
+      return Container();
     });
   }
 }
