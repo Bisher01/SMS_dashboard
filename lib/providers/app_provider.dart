@@ -267,7 +267,8 @@ class AppProvider extends ChangeNotifier {
 
   ///TODO: other add student request when he has no siblings
   Future<ApiResponse<FStudent>> addStudent(
-      {required File picture,
+      {
+        //File? picture,
       required String email,
       required String f_name,
       required String l_name,
@@ -291,11 +292,11 @@ class AppProvider extends ChangeNotifier {
     // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
       //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
-      'picture': picture,
+      //'picture': picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
-      'nationality': nationality,
+      'nationality_id': nationality,
       'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
       'blood_id': blood_id,
       'gender_id': gender_id,
@@ -334,7 +335,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FStudent>> addStudentWithParent({
-    required File picture,
+    //required File picture,
     required String email,
     required String f_name,
     required String l_name,
@@ -364,11 +365,11 @@ class AppProvider extends ChangeNotifier {
     // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
       //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
-      'picture': picture,
+      //'picture': picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
-      'nationality': nationality,
+      'nationality_id': nationality,
       'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
       'blood_id': blood_id,
       'gender_id': gender_id,

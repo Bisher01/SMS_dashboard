@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/models/models.dart';
@@ -593,7 +594,7 @@ class _AddStudentState extends State<AddStudent> {
                               .map((e) {
                             return DropdownMenuItem<int>(
                               value: e.id,
-                              child: Text(e.name!),
+                              child: Text(e.name.toString()),
                             );
                           }).toList()),
                       DropdownButton<int>(
@@ -1253,85 +1254,179 @@ class _AddStudentState extends State<AddStudent> {
                             'Submit',
                           ),
                           onPressed: () async {
-                            if (isParent) {
-                              try {
-                                var res = await Provider.of<AppProvider>(
-                                        context,
-                                        listen: false)
-                                    .addStudent(
-                                        picture: image!,
-                                        email: emailController.text,
-                                        f_name: fnameController.text,
-                                        l_name: lnameController.text,
-                                        nationality: nationalityDDV!,
-                                        birthdate: _selectedDate!,
-                                        blood_id: bloodDDV!,
-                                        gender_id: genderDDV!,
-                                        religion_id: religionDDV!,
-                                        grade_id: gradeDDv!,
-                                        class_id: classDDV!,
-                                        classroom_id: classroomDDv!,
-                                        academic_year_id: yearDDV!,
-                                        national_number:
-                                            nationalController.text,
-                                        city: cityController.text,
-                                        town: townController.text,
-                                        street: streetController.text);
-                                if (res.data != null) {
-                                  if (res.data!.status!) {
-                                    print('added');
-                                  } else {
-                                    setState(() {
-                                      isParent = false;
-                                    });
+                            final provider = Provider.of<AppProvider>(context,
+                                listen: false);
+                            if (await provider.checkInternet()) {
+                              if (isParent) {
+                                var response = await provider.addStudent(
+                                    email: emailController.text,
+                                    f_name: fnameController.text,
+                                    l_name: lnameController.text,
+                                    nationality: nationalityDDV!,
+                                    birthdate: _selectedDate!,
+                                    blood_id: bloodDDV!,
+                                    gender_id: genderDDV!,
+                                    religion_id: religionDDV!,
+                                    grade_id: gradeDDv!,
+                                    class_id: classDDV!,
+                                    classroom_id: classroomDDv!,
+                                    academic_year_id: yearDDV!,
+                                    national_number: nationalController.text,
+                                    city: cityController.text,
+                                    town: townController.text,
+                                    street: streetController.text);
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                  setState(() {
+                                    isParent = false;
+                                  });
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    EasyLoading.showSuccess(
+                                        response.data!.message!,
+                                        dismissOnTap: true);
                                   }
                                 }
-                              } catch (e) {
-                                setState(() {
-                                  isParent = false;
-                                });
+                              } else {
+                                var response =
+                                    await provider.addStudentWithParent(
+                                  email: emailController.text,
+                                  f_name: fnameController.text,
+                                  l_name: lnameController.text,
+                                  nationality: nationalityDDV!,
+                                  birthdate: _selectedDate!,
+                                  blood_id: bloodDDV!,
+                                  gender_id: genderDDV!,
+                                  religion_id: religionDDV!,
+                                  grade_id: gradeDDv!,
+                                  class_id: classDDV!,
+                                  classroom_id: classroomDDv!,
+                                  academic_year_id: yearDDV!,
+                                  national_number: nationalController.text,
+                                  city: cityController.text,
+                                  town: townController.text,
+                                  street: streetController.text,
+                                  mother_name: motherController.text,
+                                  father_name: fatherController.text,
+                                  parentEmail: pemailController.text,
+                                  parentPhone: phoneController.text,
+                                  parentJop: jobController.text,
+                                );
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    EasyLoading.showSuccess(
+                                        response.data!.message!,
+                                        dismissOnTap: true);
+                                  }
+                                }
                               }
                             } else {
-                              try {
-                                var res = await Provider.of<AppProvider>(
-                                        context,
-                                        listen: false)
-                                    .addStudentWithParent(
-                                        picture: image!,
-                                        email: emailController.text,
-                                        f_name: fnameController.text,
-                                        l_name: lnameController.text,
-                                        nationality: nationalityDDV!,
-                                        birthdate: _selectedDate!,
-                                        blood_id: bloodDDV!,
-                                        gender_id: genderDDV!,
-                                        religion_id: religionDDV!,
-                                        grade_id: gradeDDv!,
-                                        class_id: classDDV!,
-                                        classroom_id: classroomDDv!,
-                                        academic_year_id: yearDDV!,
-                                        mother_name: motherController.text,
-                                        father_name: fatherController.text,
-                                        parentEmail: pemailController.text,
-                                        parentJop: jobController.text,
-                                        parentPhone: phoneController.text,
-                                        national_number:
-                                            nationalController.text,
-                                        city: cityController.text,
-                                        town: townController.text,
-                                        street: streetController.text);
-                                if (res.data != null) {
-                                  if (res.data!.status!) {
-                                    print('added');
-                                  } else {
-                                    print('not add');
-                                  }
-                                }
-                              } catch (e) {
-                                print('here');
-                                print(e);
-                              }
+                              EasyLoading.showError('No Internet Connection',
+                                  dismissOnTap: true);
                             }
+                            // if (isParent) {
+                            //   try {
+                            //     var res = await Provider.of<AppProvider>(
+                            //             context,
+                            //             listen: false)
+                            //         .addStudent(
+                            //             picture: image!,
+                            //             email: emailController.text,
+                            //             f_name: fnameController.text,
+                            //             l_name: lnameController.text,
+                            //             nationality: nationalityDDV!,
+                            //             birthdate: _selectedDate!,
+                            //             blood_id: bloodDDV!,
+                            //             gender_id: genderDDV!,
+                            //             religion_id: religionDDV!,
+                            //             grade_id: gradeDDv!,
+                            //             class_id: classDDV!,
+                            //             classroom_id: classroomDDv!,
+                            //             academic_year_id: yearDDV!,
+                            //             national_number:
+                            //                 nationalController.text,
+                            //             city: cityController.text,
+                            //             town: townController.text,
+                            //             street: streetController.text);
+                            //     if (res.data != null) {
+                            //       if (res.data!.status!) {
+                            //         print('added');
+                            //       } else {
+                            //         setState(() {
+                            //           isParent = false;
+                            //         });
+                            //       }
+                            //     }
+                            //   } catch (e) {
+                            //     setState(() {
+                            //       isParent = false;
+                            //     });
+                            //   }
+                            // } else {
+                            //   try {
+                            //     var res = await Provider.of<AppProvider>(
+                            //             context,
+                            //             listen: false)
+                            //         .addStudentWithParent(
+                            //             picture: image!,
+                            //             email: emailController.text,
+                            //             f_name: fnameController.text,
+                            //             l_name: lnameController.text,
+                            //             nationality: nationalityDDV!,
+                            //             birthdate: _selectedDate!,
+                            //             blood_id: bloodDDV!,
+                            //             gender_id: genderDDV!,
+                            //             religion_id: religionDDV!,
+                            //             grade_id: gradeDDv!,
+                            //             class_id: classDDV!,
+                            //             classroom_id: classroomDDv!,
+                            //             academic_year_id: yearDDV!,
+                            //             mother_name: motherController.text,
+                            //             father_name: fatherController.text,
+                            //             parentEmail: pemailController.text,
+                            //             parentJop: jobController.text,
+                            //             parentPhone: phoneController.text,
+                            //             national_number:
+                            //                 nationalController.text,
+                            //             city: cityController.text,
+                            //             town: townController.text,
+                            //             street: streetController.text);
+                            //     if (res.data != null) {
+                            //       if (res.data!.status!) {
+                            //         print('added');
+                            //       } else {
+                            //         print('not add');
+                            //       }
+                            //     }
+                            //   } catch (e) {
+                            //     print('here');
+                            //     print(e);
+                            //   }
+                            // }
                           },
                         ),
                       ),
