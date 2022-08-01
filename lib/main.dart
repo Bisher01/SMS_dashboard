@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        showSemanticsDebugger: false,
         builder: EasyLoading.init(),
         title: 'School Management System Dashboard',
         theme: ThemeData(

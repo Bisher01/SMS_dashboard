@@ -85,9 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: widgetSize.getWidth(40, context),
-                        vertical: widgetSize.getHeight(150, context),
+                        //vertical: widgetSize.getHeight(150, context),
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
                             'Welcome to our system',
