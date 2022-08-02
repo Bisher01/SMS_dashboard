@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/providers/providers.dart';
 
+import '../../models/models.dart';
 import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
+
 class AddMentor extends StatefulWidget {
-  const AddMentor({Key? key}) : super(key: key);
+  final Function(Mentor) onAdd;
+  final Function(Mentor) onEdit;
+  final Mentor? mentor;
+  final bool isEditing;
+
+  const AddMentor({
+    Key? key,
+    required this.onEdit,
+    required this.onAdd,
+    this.mentor,
+  })  : isEditing = (mentor != null),
+        super(key: key);
 
   @override
   State<AddMentor> createState() => _AddMentorState();
 }
 
 class _AddMentorState extends State<AddMentor> {
-
   final fnameController = TextEditingController();
   final lnameController = TextEditingController();
   final emailController = TextEditingController();
@@ -33,10 +46,21 @@ class _AddMentorState extends State<AddMentor> {
 
   final FocusNode focusNode7 = FocusNode();
 
-  String? classDDV;
+  int? classDDV;
 
   @override
   initState() {
+    Provider.of<AppProvider>(context, listen: false).getSeed();
+    final mentor = widget.mentor;
+    if (mentor != null) {
+      fnameController.text = mentor.f_name!;
+      lnameController.text = mentor.l_name!;
+      emailController.text = mentor.email!;
+      streetController.text = mentor.address!.street!;
+      cityController.text = mentor.address!.city!;
+      townController.text = mentor.address!.town!;
+      phoneController.text = mentor.phone!;
+    }
     focusNode1.addListener(() {
       setState(() {});
     });
@@ -63,25 +87,25 @@ class _AddMentorState extends State<AddMentor> {
   }
 
   DateTime? _selectedDate;
+
   void _presentDatePicker() {
     showDatePicker(
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: const Color(0Xff2BC3BB),
-              colorScheme:
-              const ColorScheme.light(primary: Color(0Xff2BC3BB)),
-              buttonTheme:
-              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime.now())
-        .then((pickedDate) {
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0Xff2BC3BB),
+            colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+    ).then((pickedDate) {
       if (pickedDate == null) {
         return;
       }
@@ -90,492 +114,528 @@ class _AddMentorState extends State<AddMentor> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppProvider>(
-      builder: (context,provider,child) {
-        if (provider.getSeedResponse != null) {
-          switch (provider.getSeedResponse!.status) {
-            case Status.LOADING:
-              return Container();
-            case Status.COMPLETED:
-              return ListView(
-                padding: const EdgeInsets.all(
-                  30,
+    return Consumer<AppProvider>(builder: (context, provider, child) {
+      if (provider.getSeedResponse != null) {
+        switch (provider.getSeedResponse!.status) {
+          case Status.LOADING:
+            return const Center(child: Text('loading'));
+          case Status.COMPLETED:
+            return ListView(
+              padding: const EdgeInsets.all(
+                30,
+              ),
+              children: [
+                const Center(
+                  child: Text(
+                    'Add Mentor',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
-                children: [
-                  const Center(
-                    child: Text(
-                      'Add Mentor',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                //fname lname email
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode1,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode1.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "First name",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: fnameController,
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode2,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode2.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "Last name",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: lnameController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode3,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode3.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "Email address",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: emailController,
+                        ),
+                      ),
+                    ],
                   ),
-                  //fname lname email
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode1,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode1.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "First name",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: fnameController,
-                          ),
-                        ),
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode2,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode2.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "Last name",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: lnameController,
-                          ),
-                        ),
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode3,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode3.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "Email address",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: emailController,
-                          ),
-                        ),
-                      ],
-                    ),
+                ),
+                //joining date class
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
                   ),
-                  //joining date class
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: widgetSize.getWidth(60, context),
-                          height: widgetSize.getHeight(100, context),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Color(
-                                0Xff2BC3BB,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  15,
-                                ),
-                              ),
-                            ),
-                            onPressed: () {
-                              _presentDatePicker();
-                            },
-                            child: const Text(
-                              'Joining date',
-                              style: TextStyle(
-                                fontSize: 22,
-                              ),
-                            ),
-                          ),
-                        ),
-                        DropdownButton<String>(
-                          hint: const Text(
-                            'Gender',
-                          ),
-                          value: classDDV,
-                          elevation: 16,
-                          underline: Container(
-                            height: 2,
-                            color: const Color(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: widgetSize.getWidth(60, context),
+                        height: widgetSize.getHeight(100, context),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(
                               0Xff2BC3BB,
                             ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                15,
+                              ),
+                            ),
                           ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              classDDV = newValue??'Gender';
-                            });
+                          onPressed: () {
+                            _presentDatePicker();
                           },
-                          items: provider.getSeedResponse!.data!.data![0].genders!
-                              .map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e.type,
-                              child: Text(e.type!),
-                            );
-                          }).toList(),
+                          child: const Text(
+                            'Joining date',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      DropdownButton<int>(
+                        hint: const Text(
+                          'Class',
+                        ),
+                        value: classDDV,
+                        elevation: 16,
+                        underline: Container(
+                          height: 2,
+                          color: const Color(
+                            0Xff2BC3BB,
+                          ),
+                        ),
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            classDDV = newValue ?? 0;
+                          });
+                        },
+                        items: provider.getSeedResponse!.data!.data![0].classes!
+                            .map((e) {
+                          return DropdownMenuItem<int>(
+                            value: e.id,
+                            child: Text(e.name!),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
-                  //address
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode4,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode4.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "City",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: cityController,
-                          ),
-                        ),
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode5,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode5.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "Town",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: townController,
-                          ),
-                        ),
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          child: TextFormField(
-                            focusNode: focusNode6,
-                            cursorColor: const Color(
-                              0Xff2BC3BB,
-                            ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode6.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "Street",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                            controller: streetController,
-                          ),
-                        ),
-                      ],
-                    ),
+                ),
+                //address
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
                   ),
-                  // phone submit
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode4,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
                           ),
-                          child: TextFormField(
-                            focusNode: focusNode7,
-                            cursorColor: const Color(
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
                               0Xff2BC3BB,
                             ),
-                            decoration: InputDecoration(
-                              hoverColor: const Color(
-                                0Xff2BC3BB,
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode4.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "City",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
                               ),
-                              focusColor: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              labelStyle: TextStyle(
-                                color: focusNode7.hasFocus
-                                    ? const Color(
-                                  0Xff2BC3BB,
-                                )
-                                    : Colors.black54,
-                              ),
-                              labelText: "Phone",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10,
-                                ),
-                                borderSide: const BorderSide(
-                                  color: Color(0Xff2BC3BB),
-                                  width: 1,
-                                ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
                               ),
                             ),
-                            controller: phoneController,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
                           ),
+                          controller: cityController,
                         ),
-                        SizedBox(
-                          width: widgetSize.getWidth(
-                            70,
-                            context,
-                          ),
-                          height: widgetSize.getHeight(
-                            60,
-                            context,
-                          ),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: const Color(
-                                0Xff2BC3BB,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  15,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              'Submit',
-                            ),
-                            onPressed: () {},
-                          ),
+                      ),
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
                         ),
-                      ],
-                    ),
+                        child: TextFormField(
+                          focusNode: focusNode5,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode5.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "Town",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: townController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode6,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode6.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "Street",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: streetController,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            case Status.ERROR:
-              return Container();
-            default:
-              return Container();
-          }
+                ),
+                // phone submit
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        child: TextFormField(
+                          focusNode: focusNode7,
+                          cursorColor: const Color(
+                            0Xff2BC3BB,
+                          ),
+                          decoration: InputDecoration(
+                            hoverColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            focusColor: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            labelStyle: TextStyle(
+                              color: focusNode7.hasFocus
+                                  ? const Color(
+                                      0Xff2BC3BB,
+                                    )
+                                  : Colors.black54,
+                            ),
+                            labelText: "Phone",
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 2,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                              borderSide: const BorderSide(
+                                color: Color(0Xff2BC3BB),
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          controller: phoneController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: widgetSize.getWidth(
+                          70,
+                          context,
+                        ),
+                        height: widgetSize.getHeight(
+                          60,
+                          context,
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(
+                              0Xff2BC3BB,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                15,
+                              ),
+                            ),
+                          ),
+                          child: const Text(
+                            'Submit',
+                          ),
+                          onPressed: () async {
+                            final provider = Provider.of<AppProvider>(context,
+                                listen: false);
+                            if (await provider.checkInternet()) {
+                              var response = await provider.addMentor(
+                                email: emailController.text,
+                                phone: phoneController.text,
+                                city: cityController.text,
+                                town: townController.text,
+                                street: streetController.text,
+                                lName: lnameController.text,
+                                fName: fnameController.text,
+                                joiningDate: _selectedDate!,
+                                classId: classDDV!,
+                              );
+                              if (response.status == Status.LOADING) {
+                                EasyLoading.showToast(
+                                  'Loading...',
+                                  duration: const Duration(
+                                    milliseconds: 300,
+                                  ),
+                                );
+                              }
+                              if (response.status == Status.ERROR) {
+                                EasyLoading.showError(response.message!,
+                                    dismissOnTap: true);
+                              }
+                              if (response.status == Status.COMPLETED) {
+                                if (response.data != null &&
+                                    response.data!.status!) {
+                                  EasyLoading.showSuccess(
+                                      response.data!.message!,
+                                      dismissOnTap: true);
+                                }
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          case Status.ERROR:
+            return Center(
+                child: Text(provider.getSeedResponse!.message!.toString()));
+          default:
+            return const Center(child: Text('def'));
         }
-        return Container();
-
       }
-    );
+      return const Center(child: Text('else'));
+    });
   }
+
   @override
   dispose() {
     focusNode1.dispose();
@@ -588,5 +648,3 @@ class _AddMentorState extends State<AddMentor> {
     super.dispose();
   }
 }
-
-

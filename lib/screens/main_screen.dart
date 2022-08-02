@@ -30,7 +30,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     const ShowStudent(),
     const AddTeacher(),
     const ShowTeacher(),
-    const AddMentor(),
+    AddMentor(
+      onAdd: (mentor) {},
+      onEdit: (mentor) {},
+    ),
     const ShowMentor(),
     const AcademicYears()
   ];
@@ -145,7 +148,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         children: [
                           SingleChildScrollView(
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 10.0,bottom: 2,left: 10),
+                              padding: const EdgeInsets.only(
+                                  top: 10.0, bottom: 2, left: 10),
                               child: RotatedBox(
                                 quarterTurns: 1,
                                 child: AnimatedSmoothIndicator(
@@ -158,7 +162,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                     dotWidth: 12,
                                     spacing: 25,
                                   ),
-                                  activeIndex: selectedTab-1,
+                                  activeIndex: selectedTab - 1,
                                 ),
                               ),
                             ),
@@ -273,16 +277,18 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       child: Row(
                         children: [
                           SingleChildScrollView(
-                            child: Column(children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.grey[600],
-                                radius:6,
-                              ),
-                              CircleAvatar(
-                                backgroundColor: Colors.grey[600],
-                                radius: 6,
-                              ),
-                            ],),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.grey[600],
+                                  radius: 6,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.grey[600],
+                                  radius: 6,
+                                ),
+                              ],
+                            ),
                           ),
                           Expanded(
                             child: ListView(

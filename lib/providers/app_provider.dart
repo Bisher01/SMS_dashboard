@@ -69,15 +69,11 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FTeacher>> addTeacher(
-
-      ///TODO: not string
       String picture,
       String email,
       String fName,
       String lName,
-
-      ///TODO: not string
-      String joiningDate,
+      DateTime joiningDate,
       int salary,
       String genderId,
       String religionId,
@@ -268,7 +264,7 @@ class AppProvider extends ChangeNotifier {
   ///TODO: other add student request when he has no siblings
   Future<ApiResponse<FStudent>> addStudent(
       {
-        //File? picture,
+        required String? picture,
       required String email,
       required String f_name,
       required String l_name,
@@ -286,13 +282,8 @@ class AppProvider extends ChangeNotifier {
       required String town,
       required String street}) async {
     ApiService apiService = ApiService(Dio());
-    // String fileName = picture.path.split('/').last;
-    // final bytes = await picture.readAsBytes();
-    // final MultipartFile file = MultipartFile.fromBytes(bytes, filename: "picture");
-    // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
-      //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
-      //'picture': picture,
+      'picture':picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
@@ -310,7 +301,6 @@ class AppProvider extends ChangeNotifier {
       'town': town,
       'street': street
     });
-    //formData.files.add(imageEntry);
     if (await checkInternet()) {
       fAddStudentResponse = ApiResponse.loading('');
       try {
@@ -705,22 +695,20 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FMentor>> addMentor(
-      String email,
-      String fName,
-      String lName,
-      String addressId,
-      String joiningDate,
-      String phone,
-      String classId,
-      String city,
-      String town,
-      String street) async {
+      {required String email,
+        required String fName,
+        required String lName,
+        required DateTime joiningDate,
+        required String phone,
+        required int classId,
+        required String city,
+        required String town,
+        required String street}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'email': email,
       'f_name': fName,
       'l_name': lName,
-      'address_id': addressId,
       'joining_date': joiningDate,
       'phone': phone,
       'class_id': classId,

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/providers/providers.dart';
@@ -36,6 +39,23 @@ class _AddTeacherState extends State<AddTeacher> {
   String? genderDDV;
   String? religionDDV;
   String? gradeDDV;
+
+  String? picture;
+  FilePickerResult? result;
+  void selectFile() async {
+    try {
+      result = await FilePicker.platform
+          .pickFiles(type: FileType.any, allowMultiple: false);
+    } catch (e) {
+      print(e);
+    }
+
+    if (result != null && result!.files.isNotEmpty) {
+      final fileBytes = result!.files.first.bytes;
+      final fileName = result!.files.first.name;
+      picture= base64Encode(fileBytes!);
+    }
+  }
 
   @override
   initState() {

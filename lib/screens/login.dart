@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   late final FocusNode _emailFocusNode;
   late final FocusNode _passwordFocusNode;
-  bool isHidden = false;
+  bool isHidden = true;
 
   @override
   void initState() {

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:html';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -77,6 +79,8 @@ class _AddStudentState extends State<AddStudent> {
   int? preligionDDV;
   int? yearDDV;
 
+  String? picture;
+
   DateTime? _selectedDate;
 
   void _presentDatePicker() {
@@ -104,6 +108,22 @@ class _AddStudentState extends State<AddStudent> {
         _selectedDate = pickedDate;
       });
     });
+  }
+
+  FilePickerResult? result;
+  void selectFile() async {
+    try {
+      result = await FilePicker.platform
+          .pickFiles(type: FileType.any, allowMultiple: false);
+    } catch (e) {
+      print(e);
+    }
+
+    if (result != null && result!.files.isNotEmpty) {
+      final fileBytes = result!.files.first.bytes;
+      final fileName = result!.files.first.name;
+       picture= base64Encode(fileBytes!);
+    }
   }
 
   @override
@@ -1259,6 +1279,7 @@ class _AddStudentState extends State<AddStudent> {
                             if (await provider.checkInternet()) {
                               if (isParent) {
                                 var response = await provider.addStudent(
+                                  picture: picture,
                                     email: emailController.text,
                                     f_name: fnameController.text,
                                     l_name: lnameController.text,
