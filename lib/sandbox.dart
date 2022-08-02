@@ -1,5 +1,5 @@
 void main() {
-  request('Delete', 'addQuizResponse', 'addQuiz');
+  request('QuizSchedule', 'getClassroomQuizScheduleResponse', 'getClassroomQuizSchedule');
 }
 
 void request(String model, String response, String funcName) {

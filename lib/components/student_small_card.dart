@@ -128,8 +128,8 @@ class _StudentSmallCardState extends State<StudentSmallCard> {
           //picture
           ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image.asset(
-              'back.jpg',
+            child: Image.network(
+              'http://127.0.0.1:8000/storage${widget.student.picture!}',
               fit: BoxFit.cover,
               width: widgetSize.getWidth(80, context),
               height: widgetSize.getHeight(230, context),

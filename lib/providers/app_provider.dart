@@ -325,7 +325,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FStudent>> addStudentWithParent({
-    //required File picture,
+    required String picture,
     required String email,
     required String f_name,
     required String l_name,
@@ -349,13 +349,8 @@ class AppProvider extends ChangeNotifier {
     required String parentJop,
   }) async {
     ApiService apiService = ApiService(Dio());
-    // String fileName = picture.path.split('/').last;
-    // final bytes = await picture.readAsBytes();
-    // final MultipartFile file = MultipartFile.fromBytes(bytes, filename: "picture");
-    // MapEntry<String, MultipartFile> imageEntry = MapEntry('picture', file);
     FormData formData = FormData.fromMap({
-      //'picture': await MultipartFile.fromFile(picture.path, filename:fileName),
-      //'picture': picture,
+      'picture': picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,

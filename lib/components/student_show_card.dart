@@ -27,6 +27,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
         itemCount: widget.student.length,
         controller: controller,
         itemBuilder: (context, index) {
+          print(widget.student[index].picture);
           return Card(
             color: Colors.white,
             elevation: 3,
@@ -63,9 +64,9 @@ class _StudentShowCardState extends State<StudentShowCard> {
                   child: SizedBox(
                     width: widgetSize.getWidth(90, context),
                     height: widgetSize.getHeight(90, context),
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'back.jpg',
+                    child:  CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        'http://127.0.0.1:8000/storage${widget.student[index].picture!}',
                       ),
                     ),
                   ),

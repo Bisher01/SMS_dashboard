@@ -123,6 +123,7 @@ class _AddStudentState extends State<AddStudent> {
       final fileBytes = result!.files.first.bytes;
       final fileName = result!.files.first.name;
        picture= base64Encode(fileBytes!);
+       print('done');
     }
   }
 
@@ -185,17 +186,7 @@ class _AddStudentState extends State<AddStudent> {
     super.initState();
   }
 
-  File? image;
-  Future pickImage() async {
-    try {
-      final imagee = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (imagee == null) return;
-      final imageTemp = File(await imagee.readAsBytes(), 'im');
-      setState(() => image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -520,7 +511,7 @@ class _AddStudentState extends State<AddStudent> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          pickImage();
+                          selectFile();
                         },
                         child: const Text(
                           'add picture',
@@ -1279,7 +1270,7 @@ class _AddStudentState extends State<AddStudent> {
                             if (await provider.checkInternet()) {
                               if (isParent) {
                                 var response = await provider.addStudent(
-                                  picture: picture,
+                                  picture: '$picture',
                                     email: emailController.text,
                                     f_name: fnameController.text,
                                     l_name: lnameController.text,
@@ -1322,6 +1313,7 @@ class _AddStudentState extends State<AddStudent> {
                               } else {
                                 var response =
                                     await provider.addStudentWithParent(
+                                      picture: picture!,
                                   email: emailController.text,
                                   f_name: fnameController.text,
                                   l_name: lnameController.text,

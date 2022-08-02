@@ -47,7 +47,7 @@ class _AddTeacherState extends State<AddTeacher> {
       result = await FilePicker.platform
           .pickFiles(type: FileType.any, allowMultiple: false);
     } catch (e) {
-      print(e);
+
     }
 
     if (result != null && result!.files.isNotEmpty) {
