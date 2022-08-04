@@ -40,25 +40,28 @@ class _AddTeacherState extends State<AddTeacher> {
   String? religionDDV;
   String? gradeDDV;
 
+  int? subjectDDV;
+  int? classDDV;
+  int? classroomDDV;
+
   String? picture;
   FilePickerResult? result;
   void selectFile() async {
     try {
       result = await FilePicker.platform
           .pickFiles(type: FileType.any, allowMultiple: false);
-    } catch (e) {
-
-    }
+    } catch (e) {}
 
     if (result != null && result!.files.isNotEmpty) {
       final fileBytes = result!.files.first.bytes;
       final fileName = result!.files.first.name;
-      picture= base64Encode(fileBytes!);
+      picture = base64Encode(fileBytes!);
     }
   }
 
   @override
   initState() {
+    Provider.of<AppProvider>(context, listen: false).getSubjectClassClassroom();
     focusNode1.addListener(() {
       setState(() {});
     });
@@ -382,10 +385,11 @@ class _AddTeacherState extends State<AddTeacher> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            religionDDV = newValue??'Religion';
+                            religionDDV = newValue ?? 'Religion';
                           });
                         },
-                        items: provider.getSeedResponse!.data!.data![0].religtions!
+                        items: provider
+                            .getSeedResponse!.data!.data![0].religtions!
                             .map((e) {
                           return DropdownMenuItem<String>(
                             value: e.name,
@@ -407,7 +411,7 @@ class _AddTeacherState extends State<AddTeacher> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            gradeDDV = newValue??'Grade';
+                            gradeDDV = newValue ?? 'Grade';
                           });
                         },
                         items: provider.getSeedResponse!.data!.data![0].grades!
@@ -569,6 +573,96 @@ class _AddTeacherState extends State<AddTeacher> {
                           ),
                           controller: streetController,
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                ///TODO: i had a consumer here and when i deleted it things got worse
+                //subject class classroom
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DropdownButton<int>(
+                        hint: const Text(
+                          'Subject',
+                        ),
+                        value: subjectDDV,
+                        elevation: 16,
+                        underline: Container(
+                          height: 2,
+                          color: const Color(
+                            0Xff2BC3BB,
+                          ),
+                        ),
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            subjectDDV = newValue ?? 0;
+                          });
+                        },
+                        items: provider
+                            .getSubjectClassClassroomResponse!.data!.classes!
+                            .map((e) {
+                          return DropdownMenuItem<int>(
+                            value: e.id,
+                            child: Text(e.name!),
+                          );
+                        }).toList(),
+                      ),
+                      DropdownButton<int>(
+                        hint: Text(
+                          'Class',
+                        ),
+                        value: classDDV,
+                        elevation: 16,
+                        underline: Container(
+                          height: 2,
+                          color: const Color(
+                            0Xff2BC3BB,
+                          ),
+                        ),
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            classDDV = newValue ?? 0;
+                          });
+                        },
+                        items: provider
+                            .getSubjectClassClassroomResponse!.data!.classes!
+                            .map((e) {
+                          return DropdownMenuItem<int>(
+                            value: e.id,
+                            child: Text(e.name!),
+                          );
+                        }).toList(),
+                      ),
+                      DropdownButton<int>(
+                        hint: Text(
+                          'Classroom',
+                        ),
+                        value: classroomDDV,
+                        elevation: 16,
+                        underline: Container(
+                          height: 2,
+                          color: const Color(
+                            0Xff2BC3BB,
+                          ),
+                        ),
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            classroomDDV = newValue ?? 0;
+                          });
+                        },
+                        items: provider
+                            .getSubjectClassClassroomResponse!.data!.classes!
+                            .map((e) {
+                          return DropdownMenuItem<int>(
+                            value: e.id,
+                            child: Text(e.name!),
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),

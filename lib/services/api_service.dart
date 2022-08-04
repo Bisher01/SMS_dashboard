@@ -168,6 +168,10 @@ abstract class ApiService {
   Future<Delete> addSubjectsToClass(
       @Path('id') int id);
 
+  //get all subjects  with classes and classrooms
+  @GET('management/get-subjects')
+  Future<AllSubjectsModel> getSubjectClassClassroom();
+
 //=================================================//
 
 //============Exams=========//

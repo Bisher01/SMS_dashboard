@@ -1595,6 +1595,41 @@ class AppProvider extends ChangeNotifier {
     }
     return addSubjectsToClassResponse!;
   }
+
+
+  //get subjects classes classrooms
+  ApiResponse<AllSubjectsModel>? _getSubjectClassClassroomResponse;
+  ApiResponse<AllSubjectsModel>? get getSubjectClassClassroomResponse => _getSubjectClassClassroomResponse;
+  set getSubjectClassClassroomResponse(ApiResponse<AllSubjectsModel>? value) {
+    _getSubjectClassClassroomResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<AllSubjectsModel>> getSubjectClassClassroom() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getSubjectClassClassroomResponse = ApiResponse.loading('');
+      try {
+        AllSubjectsModel allsubjectsmodel = await apiService.getSubjectClassClassroom();
+        getSubjectClassClassroomResponse = ApiResponse.completed(allsubjectsmodel);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getSubjectClassClassroomResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getSubjectClassClassroomResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getSubjectClassClassroomResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getSubjectClassClassroomResponse!;
+  }
+
+
 }
 
 dynamic throwCustomException(DioError? dioError) {
