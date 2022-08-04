@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sms_dashboard/providers/providers.dart';
+import 'package:sms_dashboard/screens/subjects/add.dart';
 import '../utill/utill.dart';
 import '../screens/screens.dart';
 
@@ -35,7 +36,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       onEdit: (mentor) {},
     ),
     const ShowMentor(),
-    const AcademicYears()
+    const AcademicYears(),
+    AddSubject(onEdit: (subject) {}, onAdd: (subject) {}),
+    AddClassroom(onEdit: (classroom) {}, onAdd: (classroom) {}),
   ];
 
   @override
@@ -455,9 +458,37 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         //color: Colors.white,
                         color: ColorResources.green,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          selectedTab = 8;
+                        });
+                      },
                       title: const Text(
-                        'Classes and Classrooms',
+                        'Subjects',
+                        style: TextStyle(
+                          //color: Colors.white,
+                          color: ColorResources.green,
+                        ),
+                      ),
+                    ),
+                    const Divider(
+                      //color: Colors.white,
+                      color: ColorResources.green,
+                      height: 0,
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.ac_unit,
+                        //color: Colors.white,
+                        color: ColorResources.green,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          selectedTab = 9;
+                        });
+                      },
+                      title: const Text(
+                        'Classrooms',
                         style: TextStyle(
                           //color: Colors.white,
                           color: ColorResources.green,

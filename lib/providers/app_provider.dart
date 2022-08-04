@@ -263,8 +263,7 @@ class AppProvider extends ChangeNotifier {
 
   ///TODO: other add student request when he has no siblings
   Future<ApiResponse<FStudent>> addStudent(
-      {
-        required String? picture,
+      {required String? picture,
       required String email,
       required String f_name,
       required String l_name,
@@ -283,7 +282,7 @@ class AppProvider extends ChangeNotifier {
       required String street}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
-      'picture':picture,
+      'picture': picture,
       'email': email,
       'f_name': f_name,
       'l_name': l_name,
@@ -363,12 +362,12 @@ class AppProvider extends ChangeNotifier {
       'class_id': class_id,
       'classroom_id': classroom_id,
       'academic_year_id': academic_year_id,
-      'mother_name' : mother_name,
-      'father_name':father_name,
+      'mother_name': mother_name,
+      'father_name': father_name,
       'national_number': national_number,
-      'parentPhone':parentPhone,
-      'parentEmail':parentEmail,
-      'parentJop':parentJop,
+      'parentPhone': parentPhone,
+      'parentEmail': parentEmail,
+      'parentJop': parentJop,
       'city': city,
       'town': town,
       'street': street
@@ -550,11 +549,14 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FSubject>> addSubject(
-    String subjectName,
-  ) async {
+      {required String subjectName,
+      required int classId,
+      required int mark}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'subject_name': subjectName,
+      'class_id[0]': classId,
+      'mark[0]': mark,
     });
     if (await checkInternet()) {
       fAddSubjectResponse = ApiResponse.loading('');
@@ -691,14 +693,14 @@ class AppProvider extends ChangeNotifier {
 
   Future<ApiResponse<FMentor>> addMentor(
       {required String email,
-        required String fName,
-        required String lName,
-        required DateTime joiningDate,
-        required String phone,
-        required int classId,
-        required String city,
-        required String town,
-        required String street}) async {
+      required String fName,
+      required String lName,
+      required DateTime joiningDate,
+      required String phone,
+      required int classId,
+      required String city,
+      required String town,
+      required String street}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'email': email,
@@ -905,10 +907,15 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FClassroom>> addClassroom(
-      String name, String maxNumber) async {
+      {required int classId, required String maxNumber}) async {
     ApiService apiService = ApiService(Dio());
-    FormData formData =
-        FormData.fromMap({'name': name, 'max_number': maxNumber});
+    Map<String, dynamic> map = ({
+      'max_number': maxNumber,
+      'class_id': [classId],
+    });
+    FormData formData = FormData.fromMap({
+      'classroom': [map],
+    });
     if (await checkInternet()) {
       fAddClassroomResponse = ApiResponse.loading('');
       try {
