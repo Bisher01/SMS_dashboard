@@ -36,7 +36,7 @@ class _AddSubjectState extends State<AddSubject> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getSeed();
+    // Provider.of<AppProvider>(context, listen: false).getSeed();
     final subject = widget.subject;
     if (subject != null) {
       _subjectNameController.text = subject.name!;

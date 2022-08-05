@@ -170,7 +170,7 @@ abstract class ApiService {
 
   //get all subjects  with classes and classrooms
   @GET('management/get-subjects')
-  Future<AllSubjectsModel> getSubjectClassClassroom();
+  Future<FAllSubjectsModel> getSubjectClassClassroom();
 
 //=================================================//
 

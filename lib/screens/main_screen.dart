@@ -43,6 +43,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    Provider.of<AppProvider>(context,listen: false).getSeed();
     super.initState();
   }
 
@@ -213,6 +214,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   onTap: () {
                                     setState(() {
                                       selectedTab = 2;
+                                      Provider.of<AppProvider>(context, listen: false).getAllStudents();
                                     });
                                   },
                                 ),
@@ -317,6 +319,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   onTap: () {
                                     setState(() {
                                       selectedTab = 3;
+                                      Provider.of<AppProvider>(context, listen: false).getSubjectClassClassroom();
                                     });
                                   },
                                 ),
@@ -336,6 +339,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   onTap: () {
                                     setState(() {
                                       selectedTab = 4;
+                                      Provider.of<AppProvider>(context, listen: false).getAllTeachers();
                                     });
                                   },
                                 ),
@@ -441,6 +445,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             onTap: () {
                               setState(() {
                                 selectedTab = 6;
+                                Provider.of<AppProvider>(context, listen: false).getAllMentors();
                               });
                             },
                           ),

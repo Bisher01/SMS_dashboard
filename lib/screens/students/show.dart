@@ -17,7 +17,7 @@ class ShowStudent extends StatefulWidget {
 class _ShowStudentState extends State<ShowStudent> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getAllStudents();
+    // Provider.of<AppProvider>(context, listen: false).getAllStudents();
     super.initState();
   }
 

@@ -695,7 +695,7 @@ class AppProvider extends ChangeNotifier {
       {required String email,
       required String fName,
       required String lName,
-      required DateTime joiningDate,
+      required String joiningDate,
       required String phone,
       required int classId,
       required String city,
@@ -1598,19 +1598,19 @@ class AppProvider extends ChangeNotifier {
 
 
   //get subjects classes classrooms
-  ApiResponse<AllSubjectsModel>? _getSubjectClassClassroomResponse;
-  ApiResponse<AllSubjectsModel>? get getSubjectClassClassroomResponse => _getSubjectClassClassroomResponse;
-  set getSubjectClassClassroomResponse(ApiResponse<AllSubjectsModel>? value) {
+  ApiResponse<FAllSubjectsModel>? _getSubjectClassClassroomResponse;
+  ApiResponse<FAllSubjectsModel>? get getSubjectClassClassroomResponse => _getSubjectClassClassroomResponse;
+  set getSubjectClassClassroomResponse(ApiResponse<FAllSubjectsModel>? value) {
     _getSubjectClassClassroomResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<AllSubjectsModel>> getSubjectClassClassroom() async {
+  Future<ApiResponse<FAllSubjectsModel>> getSubjectClassClassroom() async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getSubjectClassClassroomResponse = ApiResponse.loading('');
       try {
-        AllSubjectsModel allsubjectsmodel = await apiService.getSubjectClassClassroom();
+        FAllSubjectsModel allsubjectsmodel = await apiService.getSubjectClassClassroom();
         getSubjectClassClassroomResponse = ApiResponse.completed(allsubjectsmodel);
       } catch (e) {
         if (e is DioError) {

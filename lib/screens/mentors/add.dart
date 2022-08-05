@@ -50,7 +50,7 @@ class _AddMentorState extends State<AddMentor> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getSeed();
+    //Provider.of<AppProvider>(context, listen: false).getSeed();
     final mentor = widget.mentor;
     if (mentor != null) {
       fnameController.text = mentor.f_name!;
@@ -60,6 +60,8 @@ class _AddMentorState extends State<AddMentor> {
       cityController.text = mentor.address!.city!;
       townController.text = mentor.address!.town!;
       phoneController.text = mentor.phone!;
+      classDDV = mentor.class_id!;
+      _selectedDate=mentor.joining_date!;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -86,7 +88,7 @@ class _AddMentorState extends State<AddMentor> {
     super.initState();
   }
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
   void _presentDatePicker() {
     showDatePicker(
@@ -110,7 +112,7 @@ class _AddMentorState extends State<AddMentor> {
         return;
       }
       setState(() {
-        _selectedDate = pickedDate;
+        _selectedDate = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
       });
     });
   }
@@ -611,9 +613,31 @@ class _AddMentorState extends State<AddMentor> {
                               if (response.status == Status.COMPLETED) {
                                 if (response.data != null &&
                                     response.data!.status!) {
-                                  EasyLoading.showSuccess(
-                                      response.data!.message!,
-                                      dismissOnTap: true);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(response.data!.message!),
+                                          content: Text(
+                                            'The code is: ${response.data!.mentor![0].code}',
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                  fnameController.clear();
+                                  lnameController.clear();
+                                  emailController.clear();
+                                  streetController.clear();
+                                  cityController.clear();
+                                  townController.clear();
+                                  phoneController.clear();
                                 }
                               }
                             }

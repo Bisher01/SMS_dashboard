@@ -116,20 +116,21 @@ class _AddStudentState extends State<AddStudent> {
       result = await FilePicker.platform
           .pickFiles(type: FileType.any, allowMultiple: false);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     if (result != null && result!.files.isNotEmpty) {
       final fileBytes = result!.files.first.bytes;
       final fileName = result!.files.first.name;
-       picture= base64Encode(fileBytes!);
-       print('done');
+      picture = base64Encode(fileBytes!);
     }
   }
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getSeed();
+    // Provider.of<AppProvider>(context, listen: false).getSeed();
     final student = widget.student;
     if (student != null) {
       fnameController.text = student.f_name!;
@@ -185,8 +186,6 @@ class _AddStudentState extends State<AddStudent> {
     });
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -1270,7 +1269,7 @@ class _AddStudentState extends State<AddStudent> {
                             if (await provider.checkInternet()) {
                               if (isParent) {
                                 var response = await provider.addStudent(
-                                  picture: '$picture',
+                                    picture: '$picture',
                                     email: emailController.text,
                                     f_name: fnameController.text,
                                     l_name: lnameController.text,
@@ -1305,15 +1304,30 @@ class _AddStudentState extends State<AddStudent> {
                                 if (response.status == Status.COMPLETED) {
                                   if (response.data != null &&
                                       response.data!.status!) {
-                                    EasyLoading.showSuccess(
-                                        response.data!.message!,
-                                        dismissOnTap: true);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text(response.message!),
+                                            content: Text(
+                                              'The code is: ${response.data!.student![0].code}',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        });
                                   }
                                 }
                               } else {
                                 var response =
                                     await provider.addStudentWithParent(
-                                      picture: picture!,
+                                  picture: picture!,
                                   email: emailController.text,
                                   f_name: fnameController.text,
                                   l_name: lnameController.text,
@@ -1351,9 +1365,24 @@ class _AddStudentState extends State<AddStudent> {
                                 if (response.status == Status.COMPLETED) {
                                   if (response.data != null &&
                                       response.data!.status!) {
-                                    EasyLoading.showSuccess(
-                                        response.data!.message!,
-                                        dismissOnTap: true);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text(response.message!),
+                                            content: Text(
+                                              'The code is: ${response.data!.student![0].code}',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        });
                                   }
                                 }
                               }

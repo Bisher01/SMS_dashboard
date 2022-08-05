@@ -34,7 +34,7 @@ class _AddClassroomState extends State<AddClassroom> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getSeed();
+    //Provider.of<AppProvider>(context, listen: false).getSeed();
     final classroom = widget.classroom;
     if (classroom != null) {
       _maxNumberController.text = classroom.name.toString();

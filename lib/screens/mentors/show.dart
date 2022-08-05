@@ -19,7 +19,7 @@ class ShowMentor extends StatefulWidget {
 class _ShowMentorState extends State<ShowMentor> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getAllMentors();
+    // Provider.of<AppProvider>(context, listen: false).getAllMentors();
     super.initState();
   }
 
