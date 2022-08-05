@@ -14,9 +14,9 @@ class Teacher {
   String? picture;
   String? salary;
   int? address_id;
-  int? religion_id;
-  int? gender_id;
-  int? grade_id;
+  String? religion_id;
+  String? gender_id;
+  String? grade_id;
   Gender? gender;
   Religion? religion;
   Address? address;

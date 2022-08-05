@@ -73,12 +73,11 @@ class AppProvider extends ChangeNotifier {
       String email,
       String fName,
       String lName,
-      DateTime joiningDate,
-      int salary,
-      String genderId,
-      String religionId,
-      String gradeId,
-      String subjectId,
+      String joiningDate,
+      String salary,
+      int genderId,
+      int religionId,
+      int gradeId,
       String city,
       String town,
       String street) async {
@@ -96,7 +95,6 @@ class AppProvider extends ChangeNotifier {
       'city': city,
       'town': town,
       'street': street,
-      'subject_id': subjectId
     });
     if (await checkInternet()) {
       fAddTeacherResponse = ApiResponse.loading('');
@@ -1494,7 +1492,7 @@ class AppProvider extends ChangeNotifier {
     int subjectId,
   ) async {
     FormData formData = FormData.fromMap({
-      '_method': 'put',
+      '_method': 'PUT',
       'subject_id': subjectId,
       'classroom_id': classroomId,
       'class_id': classId,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/providers/providers.dart';
 import '../../services/api_response.dart';
@@ -35,9 +36,9 @@ class _AddTeacherState extends State<AddTeacher> {
 
   final FocusNode focusNode7 = FocusNode();
 
-  String? genderDDV;
-  String? religionDDV;
-  String? gradeDDV;
+  int? genderDDV;
+  int? religionDDV;
+  int? gradeDDV;
 
   int? subjectDDV;
   int? classDDV;
@@ -93,7 +94,7 @@ class _AddTeacherState extends State<AddTeacher> {
     super.initState();
   }
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
   void _presentDatePicker() {
     showDatePicker(
@@ -118,7 +119,7 @@ class _AddTeacherState extends State<AddTeacher> {
         return;
       }
       setState(() {
-        _selectedDate = pickedDate;
+        _selectedDate = "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
       });
     });
   }
@@ -335,7 +336,9 @@ class _AddTeacherState extends State<AddTeacher> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                selectFile();
+                              },
                               child: const Text(
                                 'add picture',
                                 style: TextStyle(
@@ -356,7 +359,7 @@ class _AddTeacherState extends State<AddTeacher> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            DropdownButton<String>(
+                            DropdownButton<int>(
                               hint: const Text(
                                 'Gender',
                               ),
@@ -368,21 +371,21 @@ class _AddTeacherState extends State<AddTeacher> {
                                   0Xff2BC3BB,
                                 ),
                               ),
-                              onChanged: (String? newValue) {
+                              onChanged: (int? newValue) {
                                 setState(() {
-                                  genderDDV = newValue ?? 'Gender';
+                                  genderDDV = newValue ?? 0;
                                 });
                               },
                               items: provider
                                   .getSeedResponse!.data!.data![0].genders!
                                   .map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e.type,
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
                                   child: Text(e.type!),
                                 );
                               }).toList(),
                             ),
-                            DropdownButton<String>(
+                            DropdownButton<int>(
                               hint: const Text(
                                 'Religion',
                               ),
@@ -394,21 +397,21 @@ class _AddTeacherState extends State<AddTeacher> {
                                   0Xff2BC3BB,
                                 ),
                               ),
-                              onChanged: (String? newValue) {
+                              onChanged: (int? newValue) {
                                 setState(() {
-                                  religionDDV = newValue ?? 'Religion';
+                                  religionDDV = newValue ?? 0;
                                 });
                               },
                               items: provider
                                   .getSeedResponse!.data!.data![0].religtions!
                                   .map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e.name,
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
                                   child: Text(e.name!),
                                 );
                               }).toList(),
                             ),
-                            DropdownButton<String>(
+                            DropdownButton<int>(
                               hint: const Text(
                                 'Grade',
                               ),
@@ -420,16 +423,16 @@ class _AddTeacherState extends State<AddTeacher> {
                                   0Xff2BC3BB,
                                 ),
                               ),
-                              onChanged: (String? newValue) {
+                              onChanged: (int? newValue) {
                                 setState(() {
-                                  gradeDDV = newValue ?? 'Grade';
+                                  gradeDDV = newValue ?? 0;
                                 });
                               },
                               items: provider
                                   .getSeedResponse!.data!.data![0].grades!
                                   .map((e) {
-                                return DropdownMenuItem<String>(
-                                  value: e.name,
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
                                   child: Text(e.name!),
                                 );
                               }).toList(),
@@ -808,7 +811,44 @@ class _AddTeacherState extends State<AddTeacher> {
                   child: const Text(
                     'Submit',
                   ),
-                  onPressed: () {},
+                  onPressed: () async{
+                    if(await Provider.of<AppProvider>(context,listen: false).checkInternet()){
+                      Provider.of<AppProvider>(context,listen: false).addTeacher(picture!, emailController.text, fnameController.text, lnameController.text, _selectedDate!, salaryController.text, genderDDV!, religionDDV!, gradeDDV!, cityController.text, townController.text, streetController.text).then((value) async {
+                        if(value.status==Status.COMPLETED){
+                          var response = await Provider.of<AppProvider>(context,listen: false).addSubjectsToTeacher(value.data!.teacher![0].id!, classDDV!, classroomDDV!, subjectDDV!);
+                          if(response.data != null){
+                            if(response.status == Status.COMPLETED && response.data!.status!){
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(value.data!.message!),
+                                      content: Text(
+                                        'The code is: ${value.data!.teacher![0].code}',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                              setState((){
+                                subjectDDV=null;
+                              });
+                            }
+                            else{
+                              EasyLoading.showError(response.message!);
+                            }
+                          }
+                        }
+                      });
+                    }
+
+                  },
                 ),
               ),
             ],
