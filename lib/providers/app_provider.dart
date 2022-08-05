@@ -128,14 +128,10 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FTeacher>> editTeacher(
-
-      ///TODO: not string
       String picture,
       String email,
       String fName,
       String lName,
-
-      ///TODO: not string
       String joiningDate,
       String genderId,
       String religionId,
@@ -403,15 +399,11 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FStudent>> editStudent(
-
-      ///TODO: not string
       String picture,
       String email,
       String fName,
       String lName,
       String nationalityId,
-
-      ///TODO: not string
       String birthdate,
       String bloodId,
       String genderId,
@@ -746,8 +738,6 @@ class AppProvider extends ChangeNotifier {
       String email,
       String fName,
       String lName,
-
-      ///TODO: not string
       String joiningDate,
       String addressId,
       String classId,

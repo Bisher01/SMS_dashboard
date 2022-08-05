@@ -281,6 +281,7 @@ class _ExamCardState extends State<ExamCard> {
                           if (response.data != null && response.data!.status!) {
                             EasyLoading.showSuccess(response.data!.message!,
                                 dismissOnTap: true);
+                            Provider.of<AppProvider>(context,listen: false).getAllExams();
                           }
                         }
                       } else {}
@@ -313,6 +314,7 @@ class _ExamCardState extends State<ExamCard> {
                         if (response.data != null && response.data!.status!) {
                           EasyLoading.showSuccess(response.data!.message!,
                               dismissOnTap: true);
+                          Provider.of<AppProvider>(context,listen: false).getAllExams();
                         }
                       }
                     } else {}

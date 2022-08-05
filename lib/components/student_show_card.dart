@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sms_dashboard/screens/screens.dart';
 import '../models/models.dart';
 import '../utill/widget_size.dart';
 
@@ -63,7 +64,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                   child: SizedBox(
                     width: widgetSize.getWidth(90, context),
                     height: widgetSize.getHeight(90, context),
-                    child:  CircleAvatar(
+                    child: CircleAvatar(
                       backgroundImage: NetworkImage(
                         'http://127.0.0.1:8000/storage${widget.student[index].picture!}',
                       ),
@@ -577,7 +578,16 @@ class _StudentShowCardState extends State<StudentShowCard> {
                         0Xff2BC3BB,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return AddStudent(
+                          onEdit: (student) {},
+                          onAdd: (student) {},
+                          student: widget.student[index],
+                        );
+                      }));
+                    },
                     child: const Text(
                       "Edit this student's info",
                       style: TextStyle(color: Colors.white),

@@ -545,25 +545,25 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       //color: Colors.white,
                       color: ColorResources.green,
                     ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.ac_unit,
-                        //color: Colors.white,
-                        color: ColorResources.green,
-                      ),
-                      onTap: () {},
-                      title: const Text(
-                        'Exams',
-                        style: TextStyle(
-                          //color: Colors.white,
-                          color: ColorResources.green,
-                        ),
-                      ),
-                    ),
-                    const Divider(
-                      //color: Colors.white,
-                      color: ColorResources.green,
-                    ),
+                    // ListTile(
+                    //   leading: const Icon(
+                    //     Icons.ac_unit,
+                    //     //color: Colors.white,
+                    //     color: ColorResources.green,
+                    //   ),
+                    //   onTap: () {},
+                    //   title: const Text(
+                    //     'Exams',
+                    //     style: TextStyle(
+                    //       //color: Colors.white,
+                    //       color: ColorResources.green,
+                    //     ),
+                    //   ),
+                    // ),
+                    // const Divider(
+                    //   //color: Colors.white,
+                    //   color: ColorResources.green,
+                    // ),
                     ListTile(
                       leading: const Icon(
                         Icons.ac_unit,
