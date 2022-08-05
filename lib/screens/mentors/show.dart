@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/components/components.dart';
-import 'package:sms_dashboard/components/mentor_show_card.dart';
 import 'package:sms_dashboard/providers/app_provider.dart';
 import 'package:sms_dashboard/services/api_response.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../../models/models.dart';
 import '../../utill/widget_size.dart';
 
 class ShowMentor extends StatefulWidget {

@@ -6,3 +6,4 @@ export 'student_small_card.dart';
 export 'mentor_show_card.dart';
 export 'teacher_small_card.dart';
 export 'mentor_small_card.dart';
+export 'exam_card.dart';

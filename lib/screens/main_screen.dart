@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sms_dashboard/providers/providers.dart';
-import 'package:sms_dashboard/screens/subjects/add.dart';
 import '../utill/utill.dart';
 import '../screens/screens.dart';
 
@@ -39,6 +38,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     const AcademicYears(),
     AddSubject(onEdit: (subject) {}, onAdd: (subject) {}),
     AddClassroom(onEdit: (classroom) {}, onAdd: (classroom) {}),
+    ShowExams(),
   ];
 
   @override
@@ -529,9 +529,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         //color: Colors.white,
                         color: ColorResources.green,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        setState((){selectedTab=10;});
+                        Provider.of<AppProvider>(context,listen: false).getAllExams();
+                      },
                       title: const Text(
-                        'Exam Schedule',
+                        'Exams',
                         style: TextStyle(
                           //color: Colors.white,
                           color: ColorResources.green,

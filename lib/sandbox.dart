@@ -1,5 +1,5 @@
 void main() {
-  request('FMentorClassrooms', 'getMentorClassroomsResponse', 'getMentorClassrooms');
+  request('Delete', 'editExamDateResponse', 'editExamDate');
 }
 
 void request(String model, String response, String funcName) {

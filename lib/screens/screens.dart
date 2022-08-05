@@ -13,3 +13,4 @@ export './mentors/edit.dart';
 export './mentors/show.dart';
 export './classrooms/add.dart';
 export './subjects/add.dart';
+export '././exams.dart';

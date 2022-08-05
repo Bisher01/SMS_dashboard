@@ -24,3 +24,4 @@ export 'nationality.dart';
 export 'religion.dart';
 export 'grade.dart';
 export 'subjects.dart';
+export 'all_exams.dart';

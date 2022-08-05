@@ -1215,34 +1215,34 @@ class AppProvider extends ChangeNotifier {
   ///========================EXAMS==================///
 
   //get all exam
-  ApiResponse<FExam>? _fExams;
-  ApiResponse<FExam>? get fExamResponse => _fExams;
-  set fExamResponse(ApiResponse<FExam>? value) {
-    _fExams = value;
-    notifyListeners();
-  }
-
-  Future<ApiResponse<FExam>> getAllExams() async {
-    ApiService apiService = ApiService(Dio());
-    if (await checkInternet()) {
-      fExamResponse = ApiResponse.loading('');
-      try {
-        FExam fExam = await apiService.getAllExams();
-        fExamResponse = ApiResponse.completed(fExam);
-      } catch (e) {
-        if (e is DioError) {
-          try {
-            throwCustomException(e);
-          } catch (forcedException) {
-            fExamResponse = ApiResponse.error(forcedException.toString());
-          }
-        } else {
-          fExamResponse = ApiResponse.error(e.toString());
-        }
-      }
-    }
-    return fExamResponse!;
-  }
+  // ApiResponse<FExam>? _fExams;
+  // ApiResponse<FExam>? get fExamResponse => _fExams;
+  // set fExamResponse(ApiResponse<FExam>? value) {
+  //   _fExams = value;
+  //   notifyListeners();
+  // }
+  //
+  // Future<ApiResponse<FExam>> getAllExams() async {
+  //   ApiService apiService = ApiService(Dio());
+  //   if (await checkInternet()) {
+  //     fExamResponse = ApiResponse.loading('');
+  //     try {
+  //       FExam fExam = await apiService.getAllExams();
+  //       fExamResponse = ApiResponse.completed(fExam);
+  //     } catch (e) {
+  //       if (e is DioError) {
+  //         try {
+  //           throwCustomException(e);
+  //         } catch (forcedException) {
+  //           fExamResponse = ApiResponse.error(forcedException.toString());
+  //         }
+  //       } else {
+  //         fExamResponse = ApiResponse.error(e.toString());
+  //       }
+  //     }
+  //   }
+  //   return fExamResponse!;
+  // }
 
   //add exam
   ApiResponse<Delete>? _addExamResponse;
@@ -1626,6 +1626,112 @@ class AppProvider extends ChangeNotifier {
     }
     return getSubjectClassClassroomResponse!;
   }
+
+
+  //get all exams
+  ApiResponse<FAllExams>? _getAllExamsResponse;
+  ApiResponse<FAllExams>? get getAllExamsResponse => _getAllExamsResponse;
+  set getAllExamsResponse(ApiResponse<FAllExams>? value) {
+    _getAllExamsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FAllExams>> getAllExams() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getAllExamsResponse = ApiResponse.loading('');
+      try {
+        FAllExams fallexams = await apiService.getAllExams();
+        getAllExamsResponse = ApiResponse.completed(fallexams);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getAllExamsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getAllExamsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getAllExamsResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getAllExamsResponse!;
+  }
+
+  //accept exam
+  ApiResponse<Delete>? _acceptExamResponse;
+  ApiResponse<Delete>? get acceptExamResponse => _acceptExamResponse;
+  set acceptExamResponse(ApiResponse<Delete>? value) {
+    _acceptExamResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> acceptExam(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      acceptExamResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.acceptExam(id);
+        acceptExamResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return acceptExamResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return acceptExamResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return acceptExamResponse = ApiResponse.error('No Internet Connection');
+    }
+    return acceptExamResponse!;
+  }
+
+
+//edit exam date
+  ApiResponse<Delete>? _editExamDateResponse;
+  ApiResponse<Delete>? get editExamDateResponse => _editExamDateResponse;
+  set editExamDateResponse(ApiResponse<Delete>? value) {
+    _editExamDateResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> editExamDate(int id,DateTime start,DateTime end) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'start': start,
+      'end': end,
+    });
+    if (await checkInternet()) {
+      editExamDateResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.editExamDate(id,formData);
+        editExamDateResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return editExamDateResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return editExamDateResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return editExamDateResponse = ApiResponse.error('No Internet Connection');
+    }
+    return editExamDateResponse!;
+  }
+
+
+
+
 
 
 }

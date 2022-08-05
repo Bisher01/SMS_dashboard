@@ -1308,7 +1308,7 @@ class _AddStudentState extends State<AddStudent> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: Text(response.message!),
+                                            title: Text(response.data!.message!),
                                             content: Text(
                                               'The code is: ${response.data!.student![0].code}',
                                             ),
@@ -1369,7 +1369,7 @@ class _AddStudentState extends State<AddStudent> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: Text(response.message!),
+                                            title: Text(response.data!.message!),
                                             content: Text(
                                               'The code is: ${response.data!.student![0].code}',
                                             ),

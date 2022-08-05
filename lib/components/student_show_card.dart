@@ -27,7 +27,6 @@ class _StudentShowCardState extends State<StudentShowCard> {
         itemCount: widget.student.length,
         controller: controller,
         itemBuilder: (context, index) {
-          print(widget.student[index].picture);
           return Card(
             color: Colors.white,
             elevation: 3,
