@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_dashboard/providers/providers.dart';
 import 'package:sms_dashboard/screens/screens.dart';
 import '../models/models.dart';
+import '../providers/app_provider.dart';
+import '../services/api_response.dart';
 import '../utill/widget_size.dart';
 
 class StudentShowCard extends StatefulWidget {
@@ -349,7 +351,8 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].class_id
+                                    text: widget.student[index].class_classroom!
+                                        .classes!.id
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -371,7 +374,8 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].classroom_id
+                                    text: widget.student[index].class_classroom!
+                                        .classrooms!.id
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -581,14 +585,96 @@ class _StudentShowCardState extends State<StudentShowCard> {
                       ),
                     ),
                     onPressed: () {
-                      Provider.of<TabManager>(context,listen:false).setStudent(widget.student[0]);
-                      Provider.of<TabManager>(context,listen:false).goToTab(1);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return AddStudent(
+                          student: widget.student[index],
+                        );
+                      }));
                     },
                     child: const Text(
                       "Edit this student's info",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
+                ),
+                //delete
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 17,
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Delete this student'),
+                                content: const Text(
+                                    'Are you sure you want to delete this student?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      final provider = Provider.of<AppProvider>(
+                                          context,
+                                          listen: false);
+                                      if (await provider.checkInternet()) {
+                                        var response =
+                                            await provider.deleteStudent(
+                                                widget.student[index].id!);
+                                        if (response.status == Status.LOADING) {
+                                          EasyLoading.showToast(
+                                            'Loading...',
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          );
+                                        }
+                                        if (response.status == Status.ERROR) {
+                                          EasyLoading.showError(
+                                              response.data!.message!,
+                                              dismissOnTap: true);
+                                        }
+                                        if (response.status ==
+                                            Status.COMPLETED) {
+                                          if (response.data != null &&
+                                              response.data!.status!) {
+                                            EasyLoading.showSuccess(
+                                                response.data!.message!,
+                                                dismissOnTap: true);
+                                            Provider.of<AppProvider>(context,
+                                                    listen: false)
+                                                .getAllStudents();
+                                            Navigator.pop(context);
+                                          }
+                                        }
+                                      } else {}
+                                    },
+                                    child: const Text(
+                                      'delete',
+                                      style: TextStyle(
+                                        color: Color(0Xff2BC3BB),
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'cancel',
+                                      style: TextStyle(
+                                        color: Color(0Xff2BC3BB),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      icon: const Icon(
+                        Icons.delete_outline_sharp,
+                      )),
                 ),
               ],
             ),

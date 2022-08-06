@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'models.dart';
-import '../models/models.dart';
 part 'student.g.dart';
 
 @JsonSerializable()
@@ -19,13 +18,11 @@ class Student {
   int? nationality_id;
   int? religion_id;
   int? grade_id;
-  int? class_id;
-  int? classroom_id;
+  int? class_classroom_id;
   int? academic_year_id;
   int? address_id;
   Grade? grade;
-  Class? claass;
-  Classroom? classroom;
+  ClassClassroom? class_classroom;
   AcademicYears? academic_year;
   Address? address;
   Parent? parent;
@@ -34,13 +31,12 @@ class Student {
   Gender? gender;
   Nationality? nationality;
 
+
   Student({
     this.academic_year_id,
     this.address_id,
     this.birthdate,
     this.blood_id,
-    this.class_id,
-    this.classroom_id,
     this.code,
     this.email,
     this.f_name,
@@ -55,13 +51,13 @@ class Student {
     this.address,
     this.religion_id,
     this.religion,
-    this.classroom,
     this.nationality,
     this.academic_year,
     this.blood,
-    this.claass,
     this.gender,
     this.grade,
+    this.class_classroom_id,
+    this.class_classroom
   });
 
   factory Student.fromJson(Map<String, dynamic> json) =>
@@ -78,4 +74,25 @@ class FStudent {
   factory FStudent.fromJson(Map<String, dynamic> json) =>
       _$FStudentFromJson(json);
   Map<String, dynamic> toJson() => _$FStudentToJson(this);
+}
+
+@JsonSerializable()
+class ClassClassroom {
+  int? id;
+  int? class_id;
+  int? classroom_id;
+  Classes? classes;
+  Classroom? classrooms;
+
+  ClassClassroom({
+    this.id,
+    this.classes,
+    this.class_id,
+    this.classroom_id,
+    this.classrooms,
+  });
+
+  factory ClassClassroom.fromJson(Map<String, dynamic> json) =>
+      _$ClassClassroomFromJson(json);
+  Map<String, dynamic> toJson() => _$ClassClassroomToJson(this);
 }

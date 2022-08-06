@@ -399,24 +399,24 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FStudent>> editStudent(
-      String picture,
-      String email,
-      String fName,
-      String lName,
-      String nationalityId,
-      String birthdate,
-      String bloodId,
-      String genderId,
-      String religionId,
-      String gradeId,
-      String classId,
-      String parentId,
-      String classroomId,
-      String academicYearId,
-      String city,
-      String town,
-      String street,
-      int id) async {
+      {required String picture,
+      required String email,
+      required String fName,
+      required String lName,
+      required int nationalityId,
+      required String birthdate,
+      required int bloodId,
+      required int genderId,
+      required int religionId,
+      required int gradeId,
+      required int classId,
+      required int parentId,
+      required int classroomId,
+      required int academicYearId,
+      required String city,
+      required String town,
+      required String street,
+      required int id}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'picture': picture,
@@ -1584,10 +1584,10 @@ class AppProvider extends ChangeNotifier {
     return addSubjectsToClassResponse!;
   }
 
-
   //get subjects classes classrooms
   ApiResponse<FAllSubjectsModel>? _getSubjectClassClassroomResponse;
-  ApiResponse<FAllSubjectsModel>? get getSubjectClassClassroomResponse => _getSubjectClassClassroomResponse;
+  ApiResponse<FAllSubjectsModel>? get getSubjectClassClassroomResponse =>
+      _getSubjectClassClassroomResponse;
   set getSubjectClassClassroomResponse(ApiResponse<FAllSubjectsModel>? value) {
     _getSubjectClassClassroomResponse = value;
     notifyListeners();
@@ -1598,8 +1598,10 @@ class AppProvider extends ChangeNotifier {
     if (await checkInternet()) {
       getSubjectClassClassroomResponse = ApiResponse.loading('');
       try {
-        FAllSubjectsModel allsubjectsmodel = await apiService.getSubjectClassClassroom();
-        getSubjectClassClassroomResponse = ApiResponse.completed(allsubjectsmodel);
+        FAllSubjectsModel allsubjectsmodel =
+            await apiService.getSubjectClassClassroom();
+        getSubjectClassClassroomResponse =
+            ApiResponse.completed(allsubjectsmodel);
       } catch (e) {
         if (e is DioError) {
           try {
@@ -1609,14 +1611,15 @@ class AppProvider extends ChangeNotifier {
                 ApiResponse.error(forcedException.toString());
           }
         }
-        return getSubjectClassClassroomResponse = ApiResponse.error(e.toString());
+        return getSubjectClassClassroomResponse =
+            ApiResponse.error(e.toString());
       }
     } else {
-      return getSubjectClassClassroomResponse = ApiResponse.error('No Internet Connection');
+      return getSubjectClassClassroomResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return getSubjectClassClassroomResponse!;
   }
-
 
   //get all exams
   ApiResponse<FAllExams>? _getAllExamsResponse;
@@ -1682,7 +1685,6 @@ class AppProvider extends ChangeNotifier {
     return acceptExamResponse!;
   }
 
-
 //edit exam date
   ApiResponse<Delete>? _editExamDateResponse;
   ApiResponse<Delete>? get editExamDateResponse => _editExamDateResponse;
@@ -1691,7 +1693,8 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<Delete>> editExamDate(int id,DateTime start,DateTime end) async {
+  Future<ApiResponse<Delete>> editExamDate(
+      int id, DateTime start, DateTime end) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'start': start,
@@ -1700,7 +1703,7 @@ class AppProvider extends ChangeNotifier {
     if (await checkInternet()) {
       editExamDateResponse = ApiResponse.loading('');
       try {
-        Delete delete = await apiService.editExamDate(id,formData);
+        Delete delete = await apiService.editExamDate(id, formData);
         editExamDateResponse = ApiResponse.completed(delete);
       } catch (e) {
         if (e is DioError) {
@@ -1751,7 +1754,6 @@ class AppProvider extends ChangeNotifier {
     return getSyllabiResponse!;
   }
 
-
 //accept syllabi
   ApiResponse<Delete>? _acceptSyllabiResponse;
   ApiResponse<Delete>? get acceptSyllabiResponse => _acceptSyllabiResponse;
@@ -1779,11 +1781,11 @@ class AppProvider extends ChangeNotifier {
         return acceptSyllabiResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return acceptSyllabiResponse = ApiResponse.error('No Internet Connection');
+      return acceptSyllabiResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return acceptSyllabiResponse!;
   }
-
 
 //delete syllabi
   ApiResponse<Delete>? _deleteSyllabiResponse;
@@ -1812,13 +1814,11 @@ class AppProvider extends ChangeNotifier {
         return deleteSyllabiResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return deleteSyllabiResponse = ApiResponse.error('No Internet Connection');
+      return deleteSyllabiResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return deleteSyllabiResponse!;
   }
-
-
-
 }
 
 dynamic throwCustomException(DioError? dioError) {

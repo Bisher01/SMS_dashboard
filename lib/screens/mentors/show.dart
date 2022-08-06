@@ -58,7 +58,7 @@ class _ShowMentorState extends State<ShowMentor> {
                                 content: SizedBox(
                                     width: widgetSize.getWidth(200, context),
                                     height:
-                                        widgetSize.getHeight(400, context),
+                                        widgetSize.getHeight(500, context),
                                     child: MentorShowCard(
                                       mentor: provider
                                           .fMentorResponse!.data!.mentor!,

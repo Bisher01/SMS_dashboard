@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'package:sms_dashboard/models/models.dart';
 
+import '../providers/app_provider.dart';
+import '../services/api_response.dart';
 import '../utill/widget_size.dart';
 
 class TeacherShowCard extends StatefulWidget {
@@ -358,6 +362,84 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
+                ),
+                //delete
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 17,
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Delete this teacher'),
+                                content: const Text(
+                                    'Are you sure you want to delete this tecaher?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      final provider = Provider.of<AppProvider>(
+                                          context,
+                                          listen: false);
+                                      if (await provider.checkInternet()) {
+                                        var response =
+                                        await provider.deleteTeacher(
+                                            widget.teacher[index].id!);
+                                        if (response.status == Status.LOADING) {
+                                          EasyLoading.showToast(
+                                            'Loading...',
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          );
+                                        }
+                                        if (response.status == Status.ERROR) {
+                                          EasyLoading.showError(
+                                              response.data!.message!,
+                                              dismissOnTap: true);
+                                        }
+                                        if (response.status ==
+                                            Status.COMPLETED) {
+                                          if (response.data != null &&
+                                              response.data!.status!) {
+                                            EasyLoading.showSuccess(
+                                                response.data!.message!,
+                                                dismissOnTap: true);
+                                            Provider.of<AppProvider>(context,
+                                                listen: false)
+                                                .getAllTeachers();
+                                            Navigator.pop(context);
+                                          }
+                                        }
+                                      } else {}
+                                    },
+                                    child: const Text(
+                                      'delete',
+                                      style: TextStyle(
+                                        color: Color(0Xff2BC3BB),
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'cancel',
+                                      style: TextStyle(
+                                        color: Color(0Xff2BC3BB),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      icon: const Icon(
+                        Icons.delete_outline_sharp,
+                      )),
                 ),
               ],
             ),

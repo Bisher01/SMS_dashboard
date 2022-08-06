@@ -141,6 +141,14 @@ class _AddStudentState extends State<AddStudent> {
       nationalController.text = student.parent!.national_number!;
       phoneController.text = student.parent!.phone!;
       jobController.text = student.parent!.jop!;
+      classDDV = student.class_classroom!.classes!.id!;
+      genderDDV=student.gender_id;
+      nationalityDDV=student.nationality_id;
+      bloodDDV=student.blood_id;
+      religionDDV=student.religion_id;
+      gradeDDv=student.grade_id;
+      classroomDDv=student.class_classroom!.classrooms!.id;
+      yearDDV=student.academic_year_id;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -1263,25 +1271,27 @@ class _AddStudentState extends State<AddStudent> {
                             final provider = Provider.of<AppProvider>(context,
                                 listen: false);
                             if (await provider.checkInternet()) {
-                              if (isParent) {
-                                var response = await provider.addStudent(
+                              if (widget.isEditing) {
+                                var response = await provider.editStudent(
                                     picture: '$picture',
                                     email: emailController.text,
-                                    f_name: fnameController.text,
-                                    l_name: lnameController.text,
-                                    nationality: nationalityDDV!,
-                                    birthdate: _selectedDate!,
-                                    blood_id: bloodDDV!,
-                                    gender_id: genderDDV!,
-                                    religion_id: religionDDV!,
-                                    grade_id: gradeDDv!,
-                                    class_id: classDDV!,
-                                    classroom_id: classroomDDv!,
-                                    academic_year_id: yearDDV!,
-                                    national_number: nationalController.text,
+                                    fName: fnameController.text,
+                                    lName: lnameController.text,
+                                    nationalityId: nationalityDDV!,
+                                    birthdate:
+                                        '${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}',
+                                    bloodId: bloodDDV!,
+                                    genderId: genderDDV!,
+                                    religionId: religionDDV!,
+                                    gradeId: gradeDDv!,
+                                    classId: classDDV!,
+                                    classroomId: classroomDDv!,
+                                    academicYearId: yearDDV!,
                                     city: cityController.text,
                                     town: townController.text,
-                                    street: streetController.text);
+                                    street: streetController.text,
+                                    id: widget.student!.id!,
+                                    parentId: widget.student!.parent_id!);
                                 if (response.status == Status.LOADING) {
                                   EasyLoading.showToast(
                                     'Loading...',
@@ -1304,7 +1314,8 @@ class _AddStudentState extends State<AddStudent> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                            title: Text(response.data!.message!),
+                                            title:
+                                                Text(response.data!.message!),
                                             content: Text(
                                               'The code is: ${response.data!.student![0].code}',
                                             ),
@@ -1321,64 +1332,125 @@ class _AddStudentState extends State<AddStudent> {
                                   }
                                 }
                               } else {
-                                var response =
-                                    await provider.addStudentWithParent(
-                                  picture: picture!,
-                                  email: emailController.text,
-                                  f_name: fnameController.text,
-                                  l_name: lnameController.text,
-                                  nationality: nationalityDDV!,
-                                  birthdate: _selectedDate!,
-                                  blood_id: bloodDDV!,
-                                  gender_id: genderDDV!,
-                                  religion_id: religionDDV!,
-                                  grade_id: gradeDDv!,
-                                  class_id: classDDV!,
-                                  classroom_id: classroomDDv!,
-                                  academic_year_id: yearDDV!,
-                                  national_number: nationalController.text,
-                                  city: cityController.text,
-                                  town: townController.text,
-                                  street: streetController.text,
-                                  mother_name: motherController.text,
-                                  father_name: fatherController.text,
-                                  parentEmail: pemailController.text,
-                                  parentPhone: phoneController.text,
-                                  parentJop: jobController.text,
-                                );
-                                if (response.status == Status.LOADING) {
-                                  EasyLoading.showToast(
-                                    'Loading...',
-                                    duration: const Duration(
-                                      milliseconds: 300,
-                                    ),
-                                  );
-                                }
-                                if (response.status == Status.ERROR) {
-                                  EasyLoading.showError(response.message!,
-                                      dismissOnTap: true);
-                                }
-                                if (response.status == Status.COMPLETED) {
-                                  if (response.data != null &&
-                                      response.data!.status!) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text(response.data!.message!),
-                                            content: Text(
-                                              'The code is: ${response.data!.student![0].code}',
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('Ok'),
+                                if (isParent) {
+                                  var response = await provider.addStudent(
+                                      picture: '$picture',
+                                      email: emailController.text,
+                                      f_name: fnameController.text,
+                                      l_name: lnameController.text,
+                                      nationality: nationalityDDV!,
+                                      birthdate: _selectedDate!,
+                                      blood_id: bloodDDV!,
+                                      gender_id: genderDDV!,
+                                      religion_id: religionDDV!,
+                                      grade_id: gradeDDv!,
+                                      class_id: classDDV!,
+                                      classroom_id: classroomDDv!,
+                                      academic_year_id: yearDDV!,
+                                      national_number: nationalController.text,
+                                      city: cityController.text,
+                                      town: townController.text,
+                                      street: streetController.text);
+                                  if (response.status == Status.LOADING) {
+                                    EasyLoading.showToast(
+                                      'Loading...',
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
+                                    );
+                                  }
+                                  if (response.status == Status.ERROR) {
+                                    EasyLoading.showError(response.message!,
+                                        dismissOnTap: true);
+                                    setState(() {
+                                      isParent = false;
+                                    });
+                                  }
+                                  if (response.status == Status.COMPLETED) {
+                                    if (response.data != null &&
+                                        response.data!.status!) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text(response.data!.message!),
+                                              content: Text(
+                                                'The code is: ${response.data!.student![0].code}',
                                               ),
-                                            ],
-                                          );
-                                        });
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  }
+                                } else {
+                                  var response =
+                                      await provider.addStudentWithParent(
+                                    picture: picture!,
+                                    email: emailController.text,
+                                    f_name: fnameController.text,
+                                    l_name: lnameController.text,
+                                    nationality: nationalityDDV!,
+                                    birthdate: _selectedDate!,
+                                    blood_id: bloodDDV!,
+                                    gender_id: genderDDV!,
+                                    religion_id: religionDDV!,
+                                    grade_id: gradeDDv!,
+                                    class_id: classDDV!,
+                                    classroom_id: classroomDDv!,
+                                    academic_year_id: yearDDV!,
+                                    national_number: nationalController.text,
+                                    city: cityController.text,
+                                    town: townController.text,
+                                    street: streetController.text,
+                                    mother_name: motherController.text,
+                                    father_name: fatherController.text,
+                                    parentEmail: pemailController.text,
+                                    parentPhone: phoneController.text,
+                                    parentJop: jobController.text,
+                                  );
+                                  if (response.status == Status.LOADING) {
+                                    EasyLoading.showToast(
+                                      'Loading...',
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
+                                    );
+                                  }
+                                  if (response.status == Status.ERROR) {
+                                    EasyLoading.showError(response.message!,
+                                        dismissOnTap: true);
+                                  }
+                                  if (response.status == Status.COMPLETED) {
+                                    if (response.data != null &&
+                                        response.data!.status!) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text(response.data!.message!),
+                                              content: Text(
+                                                'The code is: ${response.data!.student![0].code}',
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    }
                                   }
                                 }
                               }

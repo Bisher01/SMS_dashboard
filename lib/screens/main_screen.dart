@@ -491,7 +491,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         const Divider(
                           //color: Colors.white,
                           color: ColorResources.green,
-                          height: 0,
+
                         ),
                         ListTile(
                           leading: const Icon(

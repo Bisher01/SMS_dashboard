@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox<bool>('local');
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     var box = Boxes.getAuthBox();
     String? token = box.get('token');
     bool isToken;
-    if(token != 'error' && token!='' && token!=null) {
+    if (token != 'error' && token != '' && token != null) {
       isToken = true;
     } else {
       isToken = false;
@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => AppProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TabManager(),
         ),
       ],
       child: MaterialApp(
@@ -41,10 +44,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             //primarySwatch: Colors.blue,
             ),
-        initialRoute: !isToken?'/login':'/main',
+        initialRoute: !isToken ? '/login' : '/main',
         routes: {
           '/main': (context) => const MainScreen(),
-          '/login':(context) => const LoginScreen(),
+          '/login': (context) => const LoginScreen(),
         },
       ),
     );
