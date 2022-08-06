@@ -203,19 +203,27 @@ abstract class ApiService {
 //=================================================//
 
 //============Syllabi=========//
-//get all syllabi
-  @GET('syllabi/all')
-  Future<FSyllabi> getAllSyllabi();
+// //get all syllabi
+//   @GET('syllabi/all')
+//   Future<FSyllabi> getAllSyllabi();
 //=================================================//
 
 //============Admin=========//
+  //all exams
   @GET('admin/all-exam')
   Future<FAllExams> getAllExams();
-  //acceptExam
+  //accept Exam
   @POST('admin/accept-exam/{id}')
   Future<Delete> acceptExam(@Path('id') int id);
   //edit exam date
-@POST('admin/edit-exam-date/{id}')
-  Future<Delete> editExamDate(@Path('id') int id,@Body()FormData formData);
+  @POST('admin/edit-exam-date/{id}')
+  Future<Delete> editExamDate(@Path('id') int id, @Body() FormData formData);
+
+  //all syllabi
+  @GET('admin/all-syllabi')
+  Future<FSyllabi> getSyllabi();
+  //accept syllabi
+  @POST('admin/accept-syllabi/{id}')
+  Future<Delete> acceptSyllabi(@Path('id') int id);
 //=================================================//
 }

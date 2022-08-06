@@ -1,5 +1,5 @@
 void main() {
-  request('Delete', 'editExamDateResponse', 'editExamDate');
+  request('FSyllabi', 'getSyllabiResponse', 'getSyllabi');
 }
 
 void request(String model, String response, String funcName) {
