@@ -298,8 +298,13 @@ class _ExamCardState extends State<ExamCard> {
                             }
                           } else {}
                         },
-                        child: const Icon(
-                          Icons.check_sharp,
+                        child:  Icon(
+                        _selectedStartDate == widget.exam.start &&
+                        _selectedStartTime ==
+                        TimeOfDay.fromDateTime(
+                        widget.exam.start!) &&
+                            _selectedEndTime ==
+                                TimeOfDay.fromDateTime(widget.exam.end!)?Icons.check_sharp:Icons.edit,
                         ),
                       ),
                     ],
