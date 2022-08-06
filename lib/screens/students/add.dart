@@ -14,15 +14,11 @@ import 'package:flutter/foundation.dart';
 import '../../services/api_response.dart';
 
 class AddStudent extends StatefulWidget {
-  final Function(Student) onAdd;
-  final Function(Student) onEdit;
   final Student? student;
   final bool isEditing;
 
   const AddStudent({
     Key? key,
-    required this.onEdit,
-    required this.onAdd,
     this.student,
   })  : isEditing = (student != null),
         super(key: key);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sms_dashboard/providers/providers.dart';
 import 'package:sms_dashboard/screens/screens.dart';
 import '../models/models.dart';
 import '../utill/widget_size.dart';
@@ -579,14 +581,8 @@ class _StudentShowCardState extends State<StudentShowCard> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AddStudent(
-                          onEdit: (student) {},
-                          onAdd: (student) {},
-                          student: widget.student[index],
-                        );
-                      }));
+                      Provider.of<TabManager>(context,listen:false).setStudent(widget.student[0]);
+                      Provider.of<TabManager>(context,listen:false).goToTab(1);
                     },
                     child: const Text(
                       "Edit this student's info",
