@@ -158,25 +158,26 @@ class _SyllabiCardState extends State<SyllabiCard> {
                         : Icons.playlist_remove_sharp,
                   ),
                 ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => PdfScreen(
-                //           book: widget.syllabi.content,
-                //         ),
-                //       ),
-                //     );
-                //   },
-                //   child: const Text(
-                //     'Preview book',
-                //     style: TextStyle(
-                //         color: Color(
-                //       0Xff2BC3BB,
-                //     )),
-                //   ),
-                // ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PinchPage(
+                          content:
+                              'http://127.0.0.1:8000/storage/${widget.syllabi.content}',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Preview book',
+                    style: TextStyle(
+                        color: Color(
+                      0Xff2BC3BB,
+                    )),
+                  ),
+                ),
               ],
             ),
           ],
