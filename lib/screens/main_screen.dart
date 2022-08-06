@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       onEdit: (mentor) {},
     ),
     const ShowMentor(),
-    const AcademicYears(),
+    const ShowSyllabi(),
     AddSubject(onEdit: (subject) {}, onAdd: (subject) {}),
     AddClassroom(onEdit: (classroom) {}, onAdd: (classroom) {}),
     ShowExams(),
@@ -573,10 +573,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       onTap: () {
                         setState(() {
                           selectedTab = 7;
+                          Provider.of<AppProvider>(context,listen: false).getSyllabi();
                         });
                       },
                       title: const Text(
-                        'Academic Years',
+                        'Syllabi',
                         style: TextStyle(
                           //color: Colors.white,
                           color: ColorResources.green,

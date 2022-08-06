@@ -1400,35 +1400,35 @@ class AppProvider extends ChangeNotifier {
 
   ///==============================================///
 
-  //get all syllabi
-  ApiResponse<FSyllabi>? _fSyllabi;
-  ApiResponse<FSyllabi>? get fSyllabiResponse => _fSyllabi;
-  set fSyllabiResponse(ApiResponse<FSyllabi>? value) {
-    _fSyllabi = value;
-    notifyListeners();
-  }
-
-  Future<ApiResponse<FSyllabi>> getAllSyllabi() async {
-    ApiService apiService = ApiService(Dio());
-    if (await checkInternet()) {
-      fSyllabiResponse = ApiResponse.loading('');
-      try {
-        FSyllabi fSyllabi = await apiService.getAllSyllabi();
-        fSyllabiResponse = ApiResponse.completed(fSyllabi);
-      } catch (e) {
-        if (e is DioError) {
-          try {
-            throwCustomException(e);
-          } catch (forcedException) {
-            fSyllabiResponse = ApiResponse.error(forcedException.toString());
-          }
-        } else {
-          fSyllabiResponse = ApiResponse.error(e.toString());
-        }
-      }
-    }
-    return fSyllabiResponse!;
-  }
+  // //get all syllabi
+  // ApiResponse<FSyllabi>? _fSyllabi;
+  // ApiResponse<FSyllabi>? get fSyllabiResponse => _fSyllabi;
+  // set fSyllabiResponse(ApiResponse<FSyllabi>? value) {
+  //   _fSyllabi = value;
+  //   notifyListeners();
+  // }
+  //
+  // Future<ApiResponse<FSyllabi>> getAllSyllabi() async {
+  //   ApiService apiService = ApiService(Dio());
+  //   if (await checkInternet()) {
+  //     fSyllabiResponse = ApiResponse.loading('');
+  //     try {
+  //       FSyllabi fSyllabi = await apiService.getAllSyllabi();
+  //       fSyllabiResponse = ApiResponse.completed(fSyllabi);
+  //     } catch (e) {
+  //       if (e is DioError) {
+  //         try {
+  //           throwCustomException(e);
+  //         } catch (forcedException) {
+  //           fSyllabiResponse = ApiResponse.error(forcedException.toString());
+  //         }
+  //       } else {
+  //         fSyllabiResponse = ApiResponse.error(e.toString());
+  //       }
+  //     }
+  //   }
+  //   return fSyllabiResponse!;
+  // }
 
   //add lessons to day
   ApiResponse<Delete>? _addLessonsToDayResponse;
@@ -1719,6 +1719,70 @@ class AppProvider extends ChangeNotifier {
     return editExamDateResponse!;
   }
 
+//all syllabi
+  ApiResponse<FSyllabi>? _getSyllabiResponse;
+  ApiResponse<FSyllabi>? get getSyllabiResponse => _getSyllabiResponse;
+  set getSyllabiResponse(ApiResponse<FSyllabi>? value) {
+    _getSyllabiResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FSyllabi>> getSyllabi() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getSyllabiResponse = ApiResponse.loading('');
+      try {
+        FSyllabi fsyllabi = await apiService.getSyllabi();
+        getSyllabiResponse = ApiResponse.completed(fsyllabi);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getSyllabiResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getSyllabiResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getSyllabiResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getSyllabiResponse!;
+  }
+
+
+//accept syllabi
+  ApiResponse<Delete>? _acceptSyllabiResponse;
+  ApiResponse<Delete>? get acceptSyllabiResponse => _acceptSyllabiResponse;
+  set acceptSyllabiResponse(ApiResponse<Delete>? value) {
+    _acceptSyllabiResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> acceptSyllabi(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      acceptSyllabiResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.acceptSyllabi(id);
+        acceptSyllabiResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return acceptSyllabiResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return acceptSyllabiResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return acceptSyllabiResponse = ApiResponse.error('No Internet Connection');
+    }
+    return acceptSyllabiResponse!;
+  }
 
 
 

@@ -14,3 +14,5 @@ export './mentors/show.dart';
 export './classrooms/add.dart';
 export './subjects/add.dart';
 export '././exams.dart';
+export './syllabi.dart';
+export './pdf_screen.dart';
