@@ -225,5 +225,8 @@ abstract class ApiService {
   //accept syllabi
   @POST('admin/accept-syllabi/{id}')
   Future<Delete> acceptSyllabi(@Path('id') int id);
+  //delete syllabi
+  @DELETE('syllabi/delete/{id}')
+  Future<Delete> deleteSyllabi(@Path('id') int id);
 //=================================================//
 }

@@ -1785,6 +1785,37 @@ class AppProvider extends ChangeNotifier {
   }
 
 
+//delete syllabi
+  ApiResponse<Delete>? _deleteSyllabiResponse;
+  ApiResponse<Delete>? get deleteSyllabiResponse => _deleteSyllabiResponse;
+  set deleteSyllabiResponse(ApiResponse<Delete>? value) {
+    _deleteSyllabiResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteSyllabi(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteSyllabiResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteSyllabi(id);
+        deleteSyllabiResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteSyllabiResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return deleteSyllabiResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return deleteSyllabiResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteSyllabiResponse!;
+  }
 
 
 

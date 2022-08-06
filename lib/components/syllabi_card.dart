@@ -178,6 +178,39 @@ class _SyllabiCardState extends State<SyllabiCard> {
                     )),
                   ),
                 ),
+                IconButton(
+                  onPressed: () async {
+                    final provider =
+                    Provider.of<AppProvider>(context, listen: false);
+                    if (await provider.checkInternet()) {
+                      var response =
+                      await provider.deleteSyllabi(widget.syllabi.id!);
+                      if (response.status == Status.LOADING) {
+                        EasyLoading.showToast(
+                          'Loading...',
+                          duration: const Duration(
+                            milliseconds: 300,
+                          ),
+                        );
+                      }
+                      if (response.status == Status.ERROR) {
+                        EasyLoading.showError(response.data!.message!,
+                            dismissOnTap: true);
+                      }
+                      if (response.status == Status.COMPLETED) {
+                        if (response.data != null && response.data!.status!) {
+                          EasyLoading.showSuccess(response.data!.message!,
+                              dismissOnTap: true);
+                          Provider.of<AppProvider>(context, listen: false)
+                              .getSyllabi();
+                        }
+                      }
+                    } else {}
+                  },
+                  icon: Icon(
+                    Icons.delete_outline_sharp,
+                  ),
+                ),
               ],
             ),
           ],

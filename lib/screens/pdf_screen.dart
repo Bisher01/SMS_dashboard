@@ -43,7 +43,7 @@ class _PinchPageState extends State<PinchPage> {
         backgroundColor: Color(
           0Xff2BC3BB,
         ),
-        title: const Text('Pdfx example'),
+        title: const Text('PDF preview'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -74,26 +74,15 @@ class _PinchPageState extends State<PinchPage> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              if (_isSampleDoc) {
-                _pdfControllerPinch.loadDocument(
-                    PdfDocument.openAsset('assets/flutter_tutorial.pdf'));
-              } else {
-                _pdfControllerPinch
-                    .loadDocument(PdfDocument.openAsset('assets/hello.pdf'));
-              }
-              _isSampleDoc = !_isSampleDoc;
-            },
-          )
         ],
       ),
       body: PdfViewPinch(
         builders: PdfViewPinchBuilders<DefaultBuilderOptions>(
           options: const DefaultBuilderOptions(),
-          documentLoaderBuilder: (_) =>
-              const Center(child: CircularProgressIndicator()),
+          documentLoaderBuilder: (_) => const Center(
+              child: CircularProgressIndicator(
+            color: Color(0Xff2BC3BB),
+          )),
           pageLoaderBuilder: (_) =>
               const Center(child: CircularProgressIndicator()),
           errorBuilder: (_, error) => Center(child: Text(error.toString())),
