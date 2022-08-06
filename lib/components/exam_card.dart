@@ -22,8 +22,10 @@ class _ExamCardState extends State<ExamCard> {
   @override
   initState() {
     _selectedStartDate = widget.exam.start!;
-    _selectedStartTime = TimeOfDay(hour: widget.exam.start!.hour, minute: widget.exam.start!.minute);
-    _selectedEndTime=TimeOfDay(hour: widget.exam.end!.hour, minute: widget.exam.end!.minute);
+    _selectedStartTime = TimeOfDay(
+        hour: widget.exam.start!.hour, minute: widget.exam.start!.minute);
+    _selectedEndTime =
+        TimeOfDay(hour: widget.exam.end!.hour, minute: widget.exam.end!.minute);
     super.initState();
   }
 
@@ -56,55 +58,55 @@ class _ExamCardState extends State<ExamCard> {
 
   void _presentStartTimePicker(TimeOfDay start) {
     showTimePicker(
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: const Color(0Xff2BC3BB),
-              colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
-              buttonTheme:
-                  const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialTime: start).then((pickedTime) {
-          if(pickedTime==null) {
-            return;
-          }
-          else{
-            setState((){
-              _selectedStartTime = pickedTime;
-            });
-          }
-
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: const Color(0Xff2BC3BB),
+                  colorScheme:
+                      const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: start)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _selectedStartTime = pickedTime;
+        });
+      }
     });
   }
 
   void _presentEndTimePicker(TimeOfDay end) {
     showTimePicker(
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: const Color(0Xff2BC3BB),
-              colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
-              buttonTheme:
-              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialTime: end).then((pickedTime) {
-      if(pickedTime==null) {
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: const Color(0Xff2BC3BB),
+                  colorScheme:
+                      const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: end)
+        .then((pickedTime) {
+      if (pickedTime == null) {
         return;
-      }
-      else{
-        setState((){
+      } else {
+        setState(() {
           _selectedEndTime = pickedTime;
         });
       }
-
     });
   }
 
@@ -216,35 +218,84 @@ class _ExamCardState extends State<ExamCard> {
                       InkWell(
                         onTap: () async {
                           if (widget.exam.active == 0) {
-                            final provider = Provider.of<AppProvider>(context,
-                                listen: false);
-                            if (await provider.checkInternet()) {
-                              var response =
-                                  await provider.acceptExam(widget.exam.id!);
-                              if (response.status == Status.LOADING) {
-                                EasyLoading.showToast(
-                                  'Loading...',
-                                  duration: const Duration(
-                                    milliseconds: 300,
-                                  ),
-                                );
-                              }
-                              if (response.status == Status.ERROR) {
-                                EasyLoading.showError(response.message!,
-                                    dismissOnTap: true);
-                              }
-                              if (response.status == Status.COMPLETED) {
-                                if (response.data != null &&
-                                    response.data!.status!) {
-                                  EasyLoading.showSuccess(
-                                      response.data!.message!,
-                                      dismissOnTap: true);
-                                  Provider.of<AppProvider>(context,
-                                          listen: false)
-                                      .getAllExams();
+                            if (_selectedStartDate == widget.exam.start &&
+                                _selectedStartTime ==
+                                    TimeOfDay.fromDateTime(
+                                        widget.exam.start!) &&
+                                _selectedEndTime ==
+                                    TimeOfDay.fromDateTime(widget.exam.end!)) {
+                              final provider = Provider.of<AppProvider>(context,
+                                  listen: false);
+                              if (await provider.checkInternet()) {
+                                var response =
+                                    await provider.acceptExam(widget.exam.id!);
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
                                 }
-                              }
-                            } else {}
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    EasyLoading.showSuccess(
+                                        response.data!.message!,
+                                        dismissOnTap: true);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllExams();
+                                  }
+                                }
+                              } else {}
+                            } else {
+                              final provider = Provider.of<AppProvider>(context,
+                                  listen: false);
+                              if (await provider.checkInternet()) {
+                                var response = await provider.editExamDate(
+                                    widget.exam.id!,
+                                    DateTime(
+                                        _selectedStartDate!.year,
+                                        _selectedStartDate!.month,
+                                        _selectedStartDate!.day,
+                                        _selectedStartTime!.hour,
+                                        _selectedStartTime!.minute),
+                                    DateTime(
+                                        _selectedStartDate!.year,
+                                        _selectedStartDate!.month,
+                                        _selectedStartDate!.day,
+                                        _selectedEndTime!.hour,
+                                        _selectedEndTime!.minute));
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    EasyLoading.showSuccess(
+                                        response.data!.message!,
+                                        dismissOnTap: true);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllExams();
+                                  }
+                                }
+                              } else {}
+                            }
                           } else {}
                         },
                         child: const Icon(
@@ -349,8 +400,9 @@ class _ExamCardState extends State<ExamCard> {
                       //start
                       InkWell(
                         hoverColor: Colors.transparent,
-                        onTap: (){
-                          _presentStartTimePicker(TimeOfDay.fromDateTime(widget.exam.start!));
+                        onTap: () {
+                          _presentStartTimePicker(
+                              TimeOfDay.fromDateTime(widget.exam.start!));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
@@ -406,8 +458,9 @@ class _ExamCardState extends State<ExamCard> {
                       //end
                       InkWell(
                         hoverColor: Colors.transparent,
-                        onTap: (){
-                          _presentEndTimePicker(TimeOfDay.fromDateTime(widget.exam.end!));
+                        onTap: () {
+                          _presentEndTimePicker(
+                              TimeOfDay.fromDateTime(widget.exam.end!));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
