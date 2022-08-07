@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/models/models.dart';
+import 'package:sms_dashboard/screens/screens.dart';
 
 import '../providers/app_provider.dart';
 import '../services/api_response.dart';
@@ -356,7 +357,14 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                         0Xff2BC3BB,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return AddTeacher(
+                              teacher: widget.teacher[index],
+                            );
+                          }));
+                    },
                     child: const Text(
                       "Edit this teacher's info",
                       style: TextStyle(color: Colors.white),

@@ -8,15 +8,11 @@ import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
 
 class AddMentor extends StatefulWidget {
-  final Function(Mentor) onAdd;
-  final Function(Mentor) onEdit;
   final Mentor? mentor;
   final bool isEditing;
 
   const AddMentor({
     Key? key,
-    required this.onEdit,
-    required this.onAdd,
     this.mentor,
   })  : isEditing = (mentor != null),
         super(key: key);
@@ -61,7 +57,7 @@ class _AddMentorState extends State<AddMentor> {
       townController.text = mentor.address!.town!;
       phoneController.text = mentor.phone!;
       classDDV = mentor.class_id!;
-      _selectedDate=mentor.joining_date!;
+      _selectedDate = mentor.joining_date!;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -112,7 +108,8 @@ class _AddMentorState extends State<AddMentor> {
         return;
       }
       setState(() {
-        _selectedDate = '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
+        _selectedDate =
+            '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
       });
     });
   }
@@ -587,57 +584,116 @@ class _AddMentorState extends State<AddMentor> {
                             final provider = Provider.of<AppProvider>(context,
                                 listen: false);
                             if (await provider.checkInternet()) {
-                              var response = await provider.addMentor(
-                                email: emailController.text,
-                                phone: phoneController.text,
-                                city: cityController.text,
-                                town: townController.text,
-                                street: streetController.text,
-                                lName: lnameController.text,
-                                fName: fnameController.text,
-                                joiningDate: _selectedDate!,
-                                classId: classDDV!,
-                              );
-                              if (response.status == Status.LOADING) {
-                                EasyLoading.showToast(
-                                  'Loading...',
-                                  duration: const Duration(
-                                    milliseconds: 300,
-                                  ),
+                              if (widget.isEditing) {
+                                var response = await provider.editMentor(
+                                  email: emailController.text,
+                                  phone: phoneController.text,
+                                  city: cityController.text,
+                                  town: townController.text,
+                                  street: streetController.text,
+                                  lName: lnameController.text,
+                                  fName: fnameController.text,
+                                  joiningDate: _selectedDate!,
+                                  classId: classDDV!,
+                                  id: widget.mentor!.id!,
                                 );
-                              }
-                              if (response.status == Status.ERROR) {
-                                EasyLoading.showError(response.message!,
-                                    dismissOnTap: true);
-                              }
-                              if (response.status == Status.COMPLETED) {
-                                if (response.data != null &&
-                                    response.data!.status!) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(response.data!.message!),
-                                          content: Text(
-                                            'The code is: ${response.data!.mentor![0].code}',
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('Ok'),
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                Text(response.data!.message!),
+                                            content: Text(
+                                              'The code is: ${response.data!.mentor![0].code}',
                                             ),
-                                          ],
-                                        );
-                                      });
-                                  fnameController.clear();
-                                  lnameController.clear();
-                                  emailController.clear();
-                                  streetController.clear();
-                                  cityController.clear();
-                                  townController.clear();
-                                  phoneController.clear();
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                    fnameController.clear();
+                                    lnameController.clear();
+                                    emailController.clear();
+                                    streetController.clear();
+                                    cityController.clear();
+                                    townController.clear();
+                                    phoneController.clear();
+                                  }
+                                }
+                              } else {
+                                var response = await provider.addMentor(
+                                  email: emailController.text,
+                                  phone: phoneController.text,
+                                  city: cityController.text,
+                                  town: townController.text,
+                                  street: streetController.text,
+                                  lName: lnameController.text,
+                                  fName: fnameController.text,
+                                  joiningDate: _selectedDate!,
+                                  classId: classDDV!,
+                                );
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                Text(response.data!.message!),
+                                            content: Text(
+                                              'The code is: ${response.data!.mentor![0].code}',
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                    fnameController.clear();
+                                    lnameController.clear();
+                                    emailController.clear();
+                                    streetController.clear();
+                                    cityController.clear();
+                                    townController.clear();
+                                    phoneController.clear();
+                                  }
                                 }
                               }
                             }

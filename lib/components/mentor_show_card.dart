@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/models/models.dart';
+import 'package:sms_dashboard/screens/screens.dart';
 import '../providers/app_provider.dart';
 import '../services/api_response.dart';
 import '../utill/widget_size.dart';
@@ -316,7 +317,14 @@ class _MentorShowCardState extends State<MentorShowCard> {
                         0Xff2BC3BB,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return AddMentor(
+                              mentor: widget.mentor[index],
+                            );
+                          }));
+                    },
                     child: const Text(
                       "Edit this mentor's info",
                       style: TextStyle(color: Colors.white),
@@ -377,7 +385,7 @@ class _MentorShowCardState extends State<MentorShowCard> {
                                     },
                                     child: const Text(
                                       'delete',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: Color(0Xff2BC3BB),
                                       ),
                                     ),

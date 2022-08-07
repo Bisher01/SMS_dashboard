@@ -128,19 +128,19 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FTeacher>> editTeacher(
-      String picture,
-      String email,
-      String fName,
-      String lName,
-      String joiningDate,
-      String genderId,
-      String religionId,
-      String gradeId,
-      String city,
-      String town,
-      int salary,
-      String street,
-      int id) async {
+      {required String picture,
+      required String email,
+      required String fName,
+      required String lName,
+      required String joiningDate,
+      required int genderId,
+      required int religionId,
+      required int gradeId,
+      required String city,
+      required String town,
+      required String salary,
+      required String street,
+      required int id}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'picture': picture,
@@ -735,24 +735,22 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FMentor>> editMentor(
-      String email,
-      String fName,
-      String lName,
-      String joiningDate,
-      String addressId,
-      String classId,
-      String phone,
-      String city,
-      String town,
-      String street,
-      int id) async {
+      {required String email,
+      required String fName,
+      required String lName,
+      required String joiningDate,
+      required int classId,
+      required String phone,
+      required String city,
+      required String town,
+      required String street,
+      required int id}) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'email': email,
       'f_name': fName,
       'l_name': lName,
       'joining_date': joiningDate,
-      'address_id': addressId,
       'class_id': classId,
       'phone': phone,
       '_method': 'PUT',

@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_dashboard/providers/providers.dart';
+import '../../models/teacher.dart';
 import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
 
 class AddTeacher extends StatefulWidget {
-  const AddTeacher({Key? key}) : super(key: key);
+  final Teacher? teacher;
+  final bool isEditing;
+  const AddTeacher({this.teacher, Key? key})
+      : isEditing = (teacher != null),
+        super(key: key);
 
   @override
   State<AddTeacher> createState() => _AddTeacherState();
@@ -44,8 +49,8 @@ class _AddTeacherState extends State<AddTeacher> {
   int? classDDV;
   int? classroomDDV;
 
-  int? selectedSubject=0;
-  int? selectedClass=0;
+  int? selectedSubject = 0;
+  int? selectedClass = 0;
 
   Map<int, int> classes = {};
   Map<int, int> subjects = {};
@@ -69,6 +74,18 @@ class _AddTeacherState extends State<AddTeacher> {
   @override
   initState() {
     //Provider.of<AppProvider>(context, listen: false).getSubjectClassClassroom();
+    final teacher = widget.teacher;
+    if (teacher != null) {
+      fnameController.text = teacher.f_name!;
+      lnameController.text = teacher.l_name!;
+      emailController.text = teacher.email!;
+      streetController.text = teacher.address!.street!;
+      cityController.text = teacher.address!.city!;
+      townController.text = teacher.address!.town!;
+      salaryController.text = teacher.salary!;
+      //classDDV = teacher.subject!;
+      _selectedDate = teacher.joining_date!;
+    }
     focusNode1.addListener(() {
       setState(() {});
     });
@@ -119,7 +136,8 @@ class _AddTeacherState extends State<AddTeacher> {
         return;
       }
       setState(() {
-        _selectedDate = "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
+        _selectedDate =
+            "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
       });
     });
   }
@@ -604,135 +622,154 @@ class _AddTeacherState extends State<AddTeacher> {
           },
         ),
         //subject class classroom
-        Consumer<AppProvider>(
-          builder: (context, provider, child) {
-            if (provider.getSubjectClassClassroomResponse != null) {
-              switch (provider.getSubjectClassClassroomResponse!.status) {
-                case Status.LOADING:
-                  return Container();
-                case Status.COMPLETED:
-                  {
-                    for (int i = 0;
-                        i <
-                            provider.getSubjectClassClassroomResponse!.data!
-                                .data!.length;
-                        i++) {
-                      subjects[provider.getSubjectClassClassroomResponse!.data!
-                          .data![i].id!] = i;
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          DropdownButton<int>(
-                            hint: const Text(
-                              'Subject',
+        !widget.isEditing
+            ? Consumer<AppProvider>(
+                builder: (context, provider, child) {
+                  if (provider.getSubjectClassClassroomResponse != null) {
+                    switch (provider.getSubjectClassClassroomResponse!.status) {
+                      case Status.LOADING:
+                        return Container();
+                      case Status.COMPLETED:
+                        {
+                          for (int i = 0;
+                              i <
+                                  provider.getSubjectClassClassroomResponse!
+                                      .data!.data!.length;
+                              i++) {
+                            subjects[provider.getSubjectClassClassroomResponse!
+                                .data!.data![i].id!] = i;
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              top: 30,
                             ),
-                            value: subjectDDV,
-                            elevation: 16,
-                            underline: Container(
-                              height: 2,
-                              color: const Color(
-                                0Xff2BC3BB,
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                DropdownButton<int>(
+                                  hint: const Text(
+                                    'Subject',
+                                  ),
+                                  value: subjectDDV,
+                                  elevation: 16,
+                                  underline: Container(
+                                    height: 2,
+                                    color: const Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                  onChanged: (int? newValue) {
+                                    setState(() {
+                                      subjectDDV = newValue ?? 0;
+                                      selectedSubject =
+                                          subjects[subjectDDV] ?? 0;
+                                      for (int i = 0;
+                                          i <
+                                              provider
+                                                  .getSubjectClassClassroomResponse!
+                                                  .data!
+                                                  .data![selectedSubject!]
+                                                  .classes!
+                                                  .length;
+                                          i++) {
+                                        classes[provider
+                                            .getSubjectClassClassroomResponse!
+                                            .data!
+                                            .data![selectedSubject!]
+                                            .classes![i]
+                                            .id!] = i;
+                                      }
+                                    });
+                                  },
+                                  items: provider
+                                      .getSubjectClassClassroomResponse!
+                                      .data!
+                                      .data!
+                                      .map((e) {
+                                    return DropdownMenuItem<int>(
+                                      value: e.id,
+                                      child: Text(e.name!),
+                                    );
+                                  }).toList(),
+                                ),
+                                DropdownButton<int>(
+                                  hint: const Text(
+                                    'Class',
+                                  ),
+                                  value: classDDV,
+                                  elevation: 16,
+                                  underline: Container(
+                                    height: 2,
+                                    color: const Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                  onChanged: (int? newValue) {
+                                    setState(() {
+                                      classDDV = newValue ?? 0;
+                                      selectedClass = classes[classDDV] ?? 0;
+                                    });
+                                  },
+                                  items: provider
+                                      .getSubjectClassClassroomResponse!
+                                      .data!
+                                      .data![selectedSubject!]
+                                      .classes!
+                                      .map((e) {
+                                    return DropdownMenuItem<int>(
+                                      value: e.id,
+                                      child: Text(e.name!),
+                                    );
+                                  }).toList(),
+                                ),
+                                DropdownButton<int>(
+                                  hint: const Text(
+                                    'Classroom',
+                                  ),
+                                  value: classroomDDV,
+                                  elevation: 16,
+                                  underline: Container(
+                                    height: 2,
+                                    color: const Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                  onChanged: (int? newValue) {
+                                    setState(() {
+                                      classroomDDV = newValue ?? 0;
+                                    });
+                                  },
+                                  items: provider
+                                      .getSubjectClassClassroomResponse!
+                                      .data!
+                                      .data![selectedSubject!]
+                                      .classes![selectedClass!]
+                                      .classroom!
+                                      .map((e) {
+                                    return DropdownMenuItem<int>(
+                                      value: e.id,
+                                      child: Text(e.name.toString()),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
                             ),
-                            onChanged: (int? newValue) {
-                              setState(() {
-                                subjectDDV = newValue ?? 0;
-                                selectedSubject = subjects[subjectDDV] ?? 0;
-                                for (int i = 0;
-                                i <
-                                    provider.getSubjectClassClassroomResponse!.data!
-                                        .data![selectedSubject!].classes!.length;
-                                i++) {
-                                  classes[provider.getSubjectClassClassroomResponse!.data!
-                                      .data![selectedSubject!].classes![i].id!] = i;
-                                }
-                              });
-                            },
-                            items: provider
-                                .getSubjectClassClassroomResponse!.data!.data!
-                                .map((e) {
-                              return DropdownMenuItem<int>(
-                                value: e.id,
-                                child: Text(e.name!),
-                              );
-                            }).toList(),
-                          ),
-                          DropdownButton<int>(
-                            hint: const Text(
-                              'Class',
-                            ),
-                            value: classDDV,
-                            elevation: 16,
-                            underline: Container(
-                              height: 2,
-                              color: const Color(
-                                0Xff2BC3BB,
-                              ),
-                            ),
-                            onChanged: (int? newValue) {
-                              setState(() {
-                                classDDV = newValue ?? 0;
-                                selectedClass = classes[classDDV] ?? 0;
-                              });
-                            },
-                            items: provider.getSubjectClassClassroomResponse!
-                                .data!.data![selectedSubject!].classes!
-                                .map((e) {
-                              return DropdownMenuItem<int>(
-                                value: e.id,
-                                child: Text(e.name!),
-                              );
-                            }).toList(),
-                          ),
-                          DropdownButton<int>(
-                            hint: const Text(
-                              'Classroom',
-                            ),
-                            value: classroomDDV,
-                            elevation: 16,
-                            underline: Container(
-                              height: 2,
-                              color: const Color(
-                                0Xff2BC3BB,
-                              ),
-                            ),
-                            onChanged: (int? newValue) {
-                              setState(() {
-                                classroomDDV = newValue ?? 0;
-                              });
-                            },
-                            items: provider
-                                .getSubjectClassClassroomResponse!
-                                .data!
-                                .data![selectedSubject!]
-                                .classes![selectedClass!]
-                                .classroom!
-                                .map((e) {
-                              return DropdownMenuItem<int>(
-                                value: e.id,
-                                child: Text(e.name.toString()),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
+                          );
+                        }
 
-                case Status.ERROR:
-                  return Container(child: Text('error'));
-                default:
+                      case Status.ERROR:
+                        return Container(child: const Text('error'));
+                      default:
+                        return Container();
+                    }
+                  }
                   return Container();
-              }
-            }
-            return Container();
-          },
-        ),
+                },
+              )
+            : const SizedBox(
+                height: 0,
+                width: 0,
+              ),
         //salary submit
         Padding(
           padding: const EdgeInsets.only(
@@ -811,44 +848,113 @@ class _AddTeacherState extends State<AddTeacher> {
                   child: const Text(
                     'Submit',
                   ),
-                  onPressed: () async{
-                    if(await Provider.of<AppProvider>(context,listen: false).checkInternet()){
-                      Provider.of<AppProvider>(context,listen: false).addTeacher(picture!, emailController.text, fnameController.text, lnameController.text, _selectedDate!, salaryController.text, genderDDV!, religionDDV!, gradeDDV!, cityController.text, townController.text, streetController.text).then((value) async {
-                        if(value.status==Status.COMPLETED){
-                          var response = await Provider.of<AppProvider>(context,listen: false).addSubjectsToTeacher(value.data!.teacher![0].id!, classDDV!, classroomDDV!, subjectDDV!);
-                          if(response.data != null){
-                            if(response.status == Status.COMPLETED && response.data!.status!){
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(value.data!.message!),
-                                      content: Text(
-                                        'The code is: ${value.data!.teacher![0].code}',
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Ok'),
+                  onPressed: () async {
+                    if (await Provider.of<AppProvider>(context, listen: false)
+                        .checkInternet()) {
+                      if (widget.isEditing) {
+                        var response =await Provider.of<AppProvider>(context, listen: false)
+                            .editTeacher(
+                          picture: picture!,
+                          email: emailController.text,
+                          fName: fnameController.text,
+                          lName: lnameController.text,
+                          joiningDate: _selectedDate!,
+                          salary: salaryController.text,
+                          genderId: genderDDV!,
+                          religionId: religionDDV!,
+                          gradeId: gradeDDV!,
+                          city: cityController.text,
+                          town: townController.text,
+                          street: streetController.text,
+                          id: widget.teacher!.id!,
+                        );
+
+                            if (response.data != null) {
+                              if (response.status == Status.COMPLETED &&
+                                  response.data!.status!) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(response.data!.message!),
+                                        content: Text(
+                                          'The code is: ${response.data!.teacher![0].code}',
                                         ),
-                                      ],
-                                    );
-                                  });
-                              setState((){
-                                subjectDDV=null;
-                              });
-                            }
-                            else{
-                              EasyLoading.showError(response.message!);
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                                setState(() {
+                                  subjectDDV = null;
+                                });
+                              } else {
+                                EasyLoading.showError(response.data!.message!);
+                              }
                             }
                           }
-                        }
-                      });
+                      } else {
+                        Provider.of<AppProvider>(context, listen: false)
+                            .addTeacher(
+                                picture!,
+                                emailController.text,
+                                fnameController.text,
+                                lnameController.text,
+                                _selectedDate!,
+                                salaryController.text,
+                                genderDDV!,
+                                religionDDV!,
+                                gradeDDV!,
+                                cityController.text,
+                                townController.text,
+                                streetController.text)
+                            .then((value) async {
+                          if (value.status == Status.COMPLETED) {
+                            var response = await Provider.of<AppProvider>(
+                                    context,
+                                    listen: false)
+                                .addSubjectsToTeacher(
+                                    value.data!.teacher![0].id!,
+                                    classDDV!,
+                                    classroomDDV!,
+                                    subjectDDV!);
+                            if (response.data != null) {
+                              if (response.status == Status.COMPLETED &&
+                                  response.data!.status!) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(value.data!.message!),
+                                        content: Text(
+                                          'The code is: ${value.data!.teacher![0].code}',
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                                setState(() {
+                                  subjectDDV = null;
+                                });
+                              } else {
+                                EasyLoading.showError(response.message!);
+                              }
+                            }
+                          }
+                        });
+                      }
                     }
-
-                  },
                 ),
               ),
             ],
