@@ -39,6 +39,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       AddSubject(onEdit: (subject) {}, onAdd: (subject) {}),
       AddClassroom(onEdit: (classroom) {}, onAdd: (classroom) {}),
       const ShowExams(),
+      const TimeTable(),
     ];
     super.initState();
   }
@@ -520,7 +521,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             //color: Colors.white,
                             color: ColorResources.green,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<TabManager>(context,listen: false).goToTab(11);
+                          },
                           title: const Text(
                             'Daily Schedule',
                             style: TextStyle(

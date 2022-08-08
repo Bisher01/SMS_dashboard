@@ -15,3 +15,4 @@ export './subjects/add.dart';
 export '././exams.dart';
 export './syllabi.dart';
 export './pdf_screen.dart';
+export './time_table.dart';
