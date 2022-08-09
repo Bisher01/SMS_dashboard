@@ -43,7 +43,6 @@ class _AddTeacherState extends State<AddTeacher> {
 
   int? genderDDV;
   int? religionDDV;
-  int? gradeDDV;
 
   int? subjectDDV;
   int? classDDV;
@@ -84,6 +83,9 @@ class _AddTeacherState extends State<AddTeacher> {
       townController.text = teacher.address!.town!;
       salaryController.text = teacher.salary!;
       //classDDV = teacher.subject!;
+      _selectedDate = teacher.joining_date!;
+      genderDDV = teacher.gender_id;
+      religionDDV = teacher.religion_id;
       _selectedDate = teacher.joining_date!;
     }
     focusNode1.addListener(() {
@@ -429,32 +431,32 @@ class _AddTeacherState extends State<AddTeacher> {
                                 );
                               }).toList(),
                             ),
-                            DropdownButton<int>(
-                              hint: const Text(
-                                'Grade',
-                              ),
-                              value: gradeDDV,
-                              elevation: 16,
-                              underline: Container(
-                                height: 2,
-                                color: const Color(
-                                  0Xff2BC3BB,
-                                ),
-                              ),
-                              onChanged: (int? newValue) {
-                                setState(() {
-                                  gradeDDV = newValue ?? 0;
-                                });
-                              },
-                              items: provider
-                                  .getSeedResponse!.data!.data![0].grades!
-                                  .map((e) {
-                                return DropdownMenuItem<int>(
-                                  value: e.id,
-                                  child: Text(e.name!),
-                                );
-                              }).toList(),
-                            ),
+                            // DropdownButton<int>(
+                            //   hint: const Text(
+                            //     'Grade',
+                            //   ),
+                            //   value: gradeDDV,
+                            //   elevation: 16,
+                            //   underline: Container(
+                            //     height: 2,
+                            //     color: const Color(
+                            //       0Xff2BC3BB,
+                            //     ),
+                            //   ),
+                            //   onChanged: (int? newValue) {
+                            //     setState(() {
+                            //       gradeDDV = newValue ?? 0;
+                            //     });
+                            //   },
+                            //   items: provider
+                            //       .getSeedResponse!.data!.data![0].grades!
+                            //       .map((e) {
+                            //     return DropdownMenuItem<int>(
+                            //       value: e.id,
+                            //       child: Text(e.name!),
+                            //     );
+                            //   }).toList(),
+                            // ),
                           ],
                         ),
                       ),
@@ -835,127 +837,158 @@ class _AddTeacherState extends State<AddTeacher> {
                   context,
                 ),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(
-                      0Xff2BC3BB,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        15,
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color(
+                        0Xff2BC3BB,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          15,
+                        ),
                       ),
                     ),
-                  ),
-                  child: const Text(
-                    'Submit',
-                  ),
-                  onPressed: () async {
-                    if (await Provider.of<AppProvider>(context, listen: false)
-                        .checkInternet()) {
-                      if (widget.isEditing) {
-                        var response =await Provider.of<AppProvider>(context, listen: false)
-                            .editTeacher(
-                          picture: picture!,
-                          email: emailController.text,
-                          fName: fnameController.text,
-                          lName: lnameController.text,
-                          joiningDate: _selectedDate!,
-                          salary: salaryController.text,
-                          genderId: genderDDV!,
-                          religionId: religionDDV!,
-                          gradeId: gradeDDV!,
-                          city: cityController.text,
-                          town: townController.text,
-                          street: streetController.text,
-                          id: widget.teacher!.id!,
-                        );
+                    child: const Text(
+                      'Submit',
+                    ),
+                    onPressed: () async {
+                      if (await Provider.of<AppProvider>(context, listen: false)
+                          .checkInternet()) {
+                        if (widget.isEditing) {
+                          var response = picture != null
+                              ? await Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .editTeacher(
+                                  picture: picture!,
+                                  email: emailController.text,
+                                  fName: fnameController.text,
+                                  lName: lnameController.text,
+                                  joiningDate: _selectedDate!,
+                                  salary: salaryController.text,
+                                  genderId: genderDDV!,
+                                  religionId: religionDDV!,
+                                  city: cityController.text,
+                                  town: townController.text,
+                                  street: streetController.text,
+                                  id: widget.teacher!.id!,
+                                )
+                              : await Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .editTeacher(
+                                  email: emailController.text,
+                                  fName: fnameController.text,
+                                  lName: lnameController.text,
+                                  joiningDate: _selectedDate!,
+                                  salary: salaryController.text,
+                                  genderId: genderDDV!,
+                                  religionId: religionDDV!,
+                                  city: cityController.text,
+                                  town: townController.text,
+                                  street: streetController.text,
+                                  id: widget.teacher!.id!,
+                                );
 
-                            if (response.data != null) {
-                              if (response.status == Status.COMPLETED &&
-                                  response.data!.status!) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text(response.data!.message!),
-                                        content: Text(
-                                          'The code is: ${response.data!.teacher![0].code}',
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Ok'),
+                          if (response.data != null) {
+                            if (response.status == Status.COMPLETED &&
+                                response.data!.status!) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(response.data!.message!),
+                                      content: Text(
+                                        'The code is: ${response.data!.teacher![0].code}',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'Ok',
+                                            style: TextStyle(
+                                                color: Color(
+                                              0Xff2BC3BB,
+                                            )),
                                           ),
-                                        ],
-                                      );
-                                    });
-                                setState(() {
-                                  subjectDDV = null;
-                                });
-                              } else {
-                                EasyLoading.showError(response.data!.message!);
-                              }
+                                        ),
+                                      ],
+                                    );
+                                  });
+                              setState(() {
+                                subjectDDV = null;
+                              });
+                              Provider.of<AppProvider>(context, listen: false)
+                                  .getAllTeachers();
+                            } else {
+                              EasyLoading.showError(response.data!.message!);
                             }
                           }
-                      } else {
-                        Provider.of<AppProvider>(context, listen: false)
-                            .addTeacher(
-                                picture!,
-                                emailController.text,
-                                fnameController.text,
-                                lnameController.text,
-                                _selectedDate!,
-                                salaryController.text,
-                                genderDDV!,
-                                religionDDV!,
-                                gradeDDV!,
-                                cityController.text,
-                                townController.text,
-                                streetController.text)
-                            .then((value) async {
-                          if (value.status == Status.COMPLETED) {
-                            var response = await Provider.of<AppProvider>(
-                                    context,
-                                    listen: false)
-                                .addSubjectsToTeacher(
-                                    value.data!.teacher![0].id!,
-                                    classDDV!,
-                                    classroomDDV!,
-                                    subjectDDV!);
-                            if (response.data != null) {
-                              if (response.status == Status.COMPLETED &&
-                                  response.data!.status!) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text(value.data!.message!),
-                                        content: Text(
-                                          'The code is: ${value.data!.teacher![0].code}',
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Ok'),
+                        } else {
+                          Provider.of<AppProvider>(context, listen: false)
+                              .addTeacher(
+                                  picture!,
+                                  emailController.text,
+                                  fnameController.text,
+                                  lnameController.text,
+                                  _selectedDate!,
+                                  salaryController.text,
+                                  genderDDV!,
+                                  religionDDV!,
+                                  cityController.text,
+                                  townController.text,
+                                  streetController.text)
+                              .then((value) async {
+                            print('requested');
+                            if (value.status == Status.COMPLETED) {
+                              var response = await Provider.of<AppProvider>(
+                                      context,
+                                      listen: false)
+                                  .addSubjectsToTeacher(
+                                      value.data!.teacher![0].id!,
+                                      classDDV!,
+                                      classroomDDV!,
+                                      subjectDDV!);
+                              if (response.data != null) {
+                                if (response.status == Status.COMPLETED &&
+                                    response.data!.status!) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(value.data!.message!),
+                                          content: Text(
+                                            'The code is: ${value.data!.teacher![0].code}',
                                           ),
-                                        ],
-                                      );
-                                    });
-                                setState(() {
-                                  subjectDDV = null;
-                                });
-                              } else {
-                                EasyLoading.showError(response.message!);
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Ok',style: TextStyle(
+                                                  color: Color(
+                                                    0Xff2BC3BB,
+                                                  )),),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                  setState(() {
+                                    subjectDDV = null;
+                                    classDDV = null;
+                                    classroomDDV = null;
+                                    genderDDV = null;
+                                    religionDDV = null;
+
+                                  });
+                                } else {
+                                  EasyLoading.showError(response.message!);
+                                }
                               }
                             }
-                          }
-                        });
+                          });
+                        }
                       }
-                    }
-                ),
+                    }),
               ),
             ],
           ),

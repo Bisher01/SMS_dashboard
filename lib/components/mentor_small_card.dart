@@ -41,7 +41,7 @@ class _MentorSmallCardState extends State<MentorSmallCard> {
                     top: 10,
                   ),
                   child: Text(
-                    "Student's basic information",
+                    "Mentor's basic information",
                     style: TextStyle(
                       color: Color(
                         0Xff2BC3BB,
@@ -129,8 +129,8 @@ class _MentorSmallCardState extends State<MentorSmallCard> {
           ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
             child: Image.asset(
-              'back.jpg',
-              fit: BoxFit.cover,
+              'mentor.png',
+              fit: BoxFit.fitHeight,
               width: widgetSize.getWidth(80, context),
               height: widgetSize.getHeight(230, context),
             ),

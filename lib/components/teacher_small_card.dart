@@ -41,7 +41,7 @@ class _TeacherSmallCardState extends State<TeacherSmallCard> {
                     top: 10,
                   ),
                   child: Text(
-                    "Student's basic information",
+                    "Teacher's basic information",
                     style: TextStyle(
                       color: Color(
                         0Xff2BC3BB,
@@ -82,7 +82,7 @@ class _TeacherSmallCardState extends State<TeacherSmallCard> {
                     child: RichText(
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      text:  TextSpan(
+                      text: TextSpan(
                         children: [
                           const TextSpan(
                             text: "Email address: ",
@@ -128,10 +128,15 @@ class _TeacherSmallCardState extends State<TeacherSmallCard> {
           //picture
           ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image.asset(
-              'back.jpg',
+            child: FadeInImage(
               fit: BoxFit.cover,
-              width: widgetSize.getWidth(80, context),
+              placeholder: const AssetImage('assets/teacher.png'),
+              image: NetworkImage(
+                  'http://127.0.0.1:8000/storage/${widget.teacher.picture}'),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Container(child: Image.asset("assets/teacher.png"));
+              },
+              width: widgetSize.getWidth(90, context),
               height: widgetSize.getHeight(230, context),
             ),
           ),

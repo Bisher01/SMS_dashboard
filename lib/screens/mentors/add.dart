@@ -624,9 +624,18 @@ class _AddMentorState extends State<AddMentor> {
                                             actions: [
                                               TextButton(
                                                 onPressed: () {
+                                                  setState(() {
+                                                    classDDV = null;
+                                                  });
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text('Ok'),
+                                                child: const Text(
+                                                  'Ok',
+                                                  style: TextStyle(
+                                                      color: Color(
+                                                    0Xff2BC3BB,
+                                                  )),
+                                                ),
                                               ),
                                             ],
                                           );
@@ -679,9 +688,18 @@ class _AddMentorState extends State<AddMentor> {
                                             actions: [
                                               TextButton(
                                                 onPressed: () {
+                                                  setState(() {
+                                                    classDDV = null;
+                                                  });
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text('Ok'),
+                                                child: Text(
+                                                  'Ok',
+                                                  style: TextStyle(
+                                                      color: Color(
+                                                    0Xff2BC3BB,
+                                                  )),
+                                                ),
                                               ),
                                             ],
                                           );

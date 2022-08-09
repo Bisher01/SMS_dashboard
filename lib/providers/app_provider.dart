@@ -77,7 +77,6 @@ class AppProvider extends ChangeNotifier {
       String salary,
       int genderId,
       int religionId,
-      int gradeId,
       String city,
       String town,
       String street) async {
@@ -91,7 +90,6 @@ class AppProvider extends ChangeNotifier {
       'salary': salary,
       'gender_id': genderId,
       'religion_id': religionId,
-      'grade_id': gradeId,
       'city': city,
       'town': town,
       'street': street,
@@ -128,35 +126,47 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FTeacher>> editTeacher(
-      {required String picture,
+      {String? picture,
       required String email,
       required String fName,
       required String lName,
       required String joiningDate,
       required int genderId,
       required int religionId,
-      required int gradeId,
       required String city,
       required String town,
       required String salary,
       required String street,
       required int id}) async {
     ApiService apiService = ApiService(Dio());
-    FormData formData = FormData.fromMap({
-      'picture': picture,
-      'email': email,
-      'f_name': fName,
-      'l_name': lName,
-      'joining_date': joiningDate,
-      'gender_id': genderId,
-      'religion_id': religionId,
-      'grade_id': gradeId,
-      'city': city,
-      'town': town,
-      'street': street,
-      'salary': salary,
-      '_method': 'put'
-    });
+    FormData formData = picture != null
+        ? FormData.fromMap({
+            'picture': picture,
+            'email': email,
+            'f_name': fName,
+            'l_name': lName,
+            'joining_date': joiningDate,
+            'gender_id': genderId,
+            'religion_id': religionId,
+            'city': city,
+            'town': town,
+            'street': street,
+            'salary': salary,
+            '_method': 'put'
+          })
+        : FormData.fromMap({
+            'email': email,
+            'f_name': fName,
+            'l_name': lName,
+            'joining_date': joiningDate,
+            'gender_id': genderId,
+            'religion_id': religionId,
+            'city': city,
+            'town': town,
+            'street': street,
+            'salary': salary,
+            '_method': 'put'
+          });
     if (await checkInternet()) {
       fEditTeacherResponse = ApiResponse.loading('');
       try {

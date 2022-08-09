@@ -105,7 +105,7 @@ class _AddSubjectState extends State<AddSubject> {
                                     )
                                   : Colors.black54,
                             ),
-                            labelText: "First name",
+                            labelText: "Name",
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(
                                 10,
@@ -149,7 +149,8 @@ class _AddSubjectState extends State<AddSubject> {
                               classDDV = newValue ?? 0;
                             });
                           },
-                          items: provider.getSeedResponse!.data!.data![0].classes!
+                          items: provider
+                              .getSeedResponse!.data!.data![0].classes!
                               .map((e) {
                             return DropdownMenuItem<int>(
                               value: e.id,
@@ -179,8 +180,8 @@ class _AddSubjectState extends State<AddSubject> {
                             labelStyle: TextStyle(
                               color: focusNode2.hasFocus
                                   ? const Color(
-                                0Xff2BC3BB,
-                              )
+                                      0Xff2BC3BB,
+                                    )
                                   : Colors.black54,
                             ),
                             labelText: "Mark",
@@ -209,10 +210,13 @@ class _AddSubjectState extends State<AddSubject> {
                     ],
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 //submit
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: widgetSize.getWidth(150, context)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: widgetSize.getWidth(150, context)),
                   child: SizedBox(
                     height: widgetSize.getHeight(
                       60,
@@ -233,8 +237,8 @@ class _AddSubjectState extends State<AddSubject> {
                         'Submit',
                       ),
                       onPressed: () async {
-                        final provider = Provider.of<AppProvider>(context,
-                            listen: false);
+                        final provider =
+                            Provider.of<AppProvider>(context, listen: false);
                         if (await provider.checkInternet()) {
                           var response = await provider.addSubject(
                             subjectName: _subjectNameController.text,
@@ -256,9 +260,11 @@ class _AddSubjectState extends State<AddSubject> {
                           if (response.status == Status.COMPLETED) {
                             if (response.data != null &&
                                 response.data!.status!) {
-                              EasyLoading.showSuccess(
-                                  response.data!.message!,
+                              EasyLoading.showSuccess(response.data!.message!,
                                   dismissOnTap: true);
+                              _subjectMarkController.clear();
+                              _subjectNameController.clear();
+                              classDDV = null;
                             }
                           }
                         }
@@ -268,9 +274,11 @@ class _AddSubjectState extends State<AddSubject> {
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 20),
-                  child: Divider(height: 2,
-                      thickness: 2,
-                  color: Colors.black38,),
+                  child: Divider(
+                    height: 2,
+                    thickness: 2,
+                    color: Colors.black38,
+                  ),
                 ),
               ],
             );

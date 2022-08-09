@@ -67,11 +67,19 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                     top: 15,
                   ),
                   child: SizedBox(
-                    width: widgetSize.getWidth(90, context),
-                    height: widgetSize.getHeight(90, context),
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'back.jpg',
+                    width: widgetSize.getWidth(100, context),
+                    height: widgetSize.getHeight(140, context),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        placeholder: AssetImage('assets/teacher.png'),
+                        image: NetworkImage(
+                            'http://127.0.0.1:8000/storage/${widget.teacher[index].picture}'),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Container(
+                              child: Image.asset("assets/teacher.png"));
+                        },
                       ),
                     ),
                   ),
@@ -193,7 +201,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].gender_id
+                                    text: widget.teacher[index].gender!.type
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -215,7 +223,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].religion_id
+                                    text: widget.teacher[index].religion!.name
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -238,14 +246,14 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                               text: TextSpan(
                                 children: [
                                   const TextSpan(
-                                    text: "Grade: ",
+                                    text: "Subject: ",
                                     style: TextStyle(
                                       color: Colors.black54,
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].grade_id
-                                        .toString(),
+                                    text:'',
+                                        //widget.teacher[index].subjects![0].name,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -288,8 +296,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].address_id
-                                        .toString(),
+                                    text: widget.teacher[index].address!.city,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -310,8 +317,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].address_id
-                                        .toString(),
+                                    text: widget.teacher[index].address!.town,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -332,8 +338,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.teacher[index].address_id
-                                        .toString(),
+                                    text: widget.teacher[index].address!.street,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -360,10 +365,10 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                            return AddTeacher(
-                              teacher: widget.teacher[index],
-                            );
-                          }));
+                        return AddTeacher(
+                          teacher: widget.teacher[index],
+                        );
+                      }));
                     },
                     child: const Text(
                       "Edit this teacher's info",
@@ -393,8 +398,8 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                           listen: false);
                                       if (await provider.checkInternet()) {
                                         var response =
-                                        await provider.deleteTeacher(
-                                            widget.teacher[index].id!);
+                                            await provider.deleteTeacher(
+                                                widget.teacher[index].id!);
                                         if (response.status == Status.LOADING) {
                                           EasyLoading.showToast(
                                             'Loading...',
@@ -416,7 +421,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                                 response.data!.message!,
                                                 dismissOnTap: true);
                                             Provider.of<AppProvider>(context,
-                                                listen: false)
+                                                    listen: false)
                                                 .getAllTeachers();
                                             Navigator.pop(context);
                                           }

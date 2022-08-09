@@ -205,6 +205,8 @@ class _AddClassroomState extends State<AddClassroom> {
                               EasyLoading.showSuccess(
                                   response.data!.message!,
                                   dismissOnTap: true);
+                              _maxNumberController.clear();
+                              classDDV=null;
                             }
                           }
                         }

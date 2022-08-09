@@ -66,14 +66,13 @@ class _MentorShowCardState extends State<MentorShowCard> {
                     top: 15,
                   ),
                   child: SizedBox(
-                    width: widgetSize.getWidth(90, context),
-                    height: widgetSize.getHeight(90, context),
+                    width: widgetSize.getWidth(120, context),
+                    height: widgetSize.getHeight(160, context),
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.supervised_user_circle_outlined,
-                        size: widgetSize.getWidth(25, context),
-                        color: Colors.grey,
+                      child: Image.asset(
+                       'mentor.png',
+                        fit: BoxFit.cover,
                       ),
                       // backgroundImage: AssetImage(
                       //   'back.jpg',
@@ -84,7 +83,7 @@ class _MentorShowCardState extends State<MentorShowCard> {
                 //name
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 5,
+                    top: 15,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

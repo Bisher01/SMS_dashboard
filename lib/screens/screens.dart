@@ -1,6 +1,5 @@
 export 'login.dart';
 export './students/add.dart';
-export './teachers/edit.dart';
 export './teachers/add.dart';
 export './students/show.dart';
 export './teachers/show.dart';
@@ -8,7 +7,6 @@ export './main_screen.dart';
 export './settings.dart';
 export './academic_years.dart';
 export './mentors/add.dart';
-export './mentors/edit.dart';
 export './mentors/show.dart';
 export './classrooms/add.dart';
 export './subjects/add.dart';

@@ -31,7 +31,7 @@ class _ShowSyllabiState extends State<ShowSyllabi> {
             return GridView.builder(
               scrollDirection: Axis.vertical,
               controller: ScrollController(),
-              itemCount: provider.getSyllabiResponse!.data!.data!.length,
+              itemCount: provider.getSyllabiResponse!.data!.syllabi!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: widgetSize.getWidth(200, context) /
@@ -45,7 +45,7 @@ class _ShowSyllabiState extends State<ShowSyllabi> {
                     height: widgetSize.getHeight(400, context),
                     child: SyllabiCard(
                       syllabi:
-                          provider.getSyllabiResponse!.data!.data![index],
+                          provider.getSyllabiResponse!.data!.syllabi![index],
                     ),
                   ),
                 );

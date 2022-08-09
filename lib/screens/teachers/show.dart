@@ -42,10 +42,13 @@ class _ShowTeacherState extends State<ShowTeacher> {
                     widgetSize.getHeight(300, context),
               ),
               itemBuilder: (BuildContext context, int index) {
+
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: GestureDetector(
                       onTap: () {
+                        print(index);
+                        print(provider.fTeacherResponse!.data!.teacher![3].religion!.name);
                         showDialog(
                             context: context,
                             builder: (context) {
