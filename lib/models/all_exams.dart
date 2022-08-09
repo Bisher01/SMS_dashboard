@@ -9,8 +9,8 @@ part 'all_exams.g.dart';
 class FAllExams{
   bool? status;
   String? message;
-  List<AllExams>? data;
-  FAllExams({this.message,this.data,this.status,});
+  List<AllExams>? exams;
+  FAllExams({this.message,this.exams,this.status,});
   factory FAllExams.fromJson(Map<String, dynamic> json) => _$FAllExamsFromJson(json);
   Map<String, dynamic> toJson() => _$FAllExamsToJson(this);
 }

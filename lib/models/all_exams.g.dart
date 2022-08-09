@@ -8,7 +8,7 @@ part of 'all_exams.dart';
 
 FAllExams _$FAllExamsFromJson(Map<String, dynamic> json) => FAllExams(
       message: json['message'] as String?,
-      data: (json['data'] as List<dynamic>?)
+      exams: (json['exams'] as List<dynamic>?)
           ?.map((e) => AllExams.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as bool?,
@@ -17,7 +17,7 @@ FAllExams _$FAllExamsFromJson(Map<String, dynamic> json) => FAllExams(
 Map<String, dynamic> _$FAllExamsToJson(FAllExams instance) => <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'data': instance.data,
+      'exams': instance.exams,
     };
 
 AllExams _$AllExamsFromJson(Map<String, dynamic> json) => AllExams(

@@ -252,8 +252,7 @@ class _TeacherShowCardState extends State<TeacherShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text:'',
-                                        //widget.teacher[index].subjects![0].name,
+                                    text:widget.teacher[index].subjects![0].name,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),

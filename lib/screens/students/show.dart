@@ -63,8 +63,8 @@ class _ShowStudentState extends State<ShowStudent> {
                                   ),
                                 ),
                                 content: SizedBox(
-                                  width: widgetSize.getWidth(200, context),
-                                  height: widgetSize.getHeight(600, context),
+                                  width: widgetSize.getWidth(250, context),
+                                  height: widgetSize.getHeight(680, context),
                                   child: StudentShowCard(
                                       selectedStudent: index,
                                       student: provider

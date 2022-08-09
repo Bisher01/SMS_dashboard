@@ -52,8 +52,8 @@ abstract class ApiService {
 
   //============STUDENT=========//
   //all students
-  @GET('student/all')
-  Future<FStudent> getAllStudents();
+  @POST('student/all')
+  Future<FStudent> getAllStudents(@Body() FormData formData);
 
   //add student
   @POST('student/add')

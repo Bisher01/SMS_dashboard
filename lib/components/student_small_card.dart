@@ -128,12 +128,14 @@ class _StudentSmallCardState extends State<StudentSmallCard> {
           //picture
           ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image.network(
-              'http://127.0.0.1:8000/storage${widget.student.picture!}',
-              errorBuilder: (context,_,stackTrace){
-                return Image.asset('assets/student.png');
-              },
+            child: FadeInImage(
               fit: BoxFit.cover,
+              placeholder: const AssetImage('assets/student.png'),
+              image: NetworkImage(
+                  'http://127.0.0.1:8000/storage/${widget.student.picture}'),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Container(child: Image.asset("assets/student.png"));
+              },
               width: widgetSize.getWidth(80, context),
               height: widgetSize.getHeight(230, context),
             ),

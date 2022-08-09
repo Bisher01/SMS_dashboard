@@ -66,19 +66,24 @@ class _StudentShowCardState extends State<StudentShowCard> {
                     top: 15,
                   ),
                   child: SizedBox(
-                    width: widgetSize.getWidth(90, context),
-                    height: widgetSize.getHeight(90, context),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'http://127.0.0.1:8000/storage${widget.student[index].picture!}',
-                      ),
+                    width: widgetSize.getWidth(100, context),
+                    height: widgetSize.getHeight(140, context),
+                    child: FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('assets/student.png'),
+                      image: NetworkImage(
+                          'http://127.0.0.1:8000/storage/${widget.student[index].picture}'),
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Container(
+                            child: Image.asset("assets/student.png"));
+                      },
                     ),
                   ),
                 ),
                 //name
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 5,
+                    top: 15,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -192,7 +197,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].gender_id
+                                    text: widget.student[index].gender!.type
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -214,7 +219,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].blood_id
+                                    text: widget.student[index].blood!.type
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -236,7 +241,8 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].nationality_id
+                                    text: widget
+                                        .student[index].nationality!.name
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -265,7 +271,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: widget.student[index].religion_id
+                                    text: widget.student[index].religion!.name
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -352,7 +358,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                   ),
                                   TextSpan(
                                     text: widget.student[index].class_classroom!
-                                        .classes!.id
+                                        .classes!.name
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -375,7 +381,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                                   ),
                                   TextSpan(
                                     text: widget.student[index].class_classroom!
-                                        .classrooms!.id
+                                        .classrooms!.name
                                         .toString(),
                                     style: const TextStyle(
                                       color: Colors.black,

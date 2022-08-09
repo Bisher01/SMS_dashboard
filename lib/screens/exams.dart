@@ -31,7 +31,7 @@ class _ShowExamsState extends State<ShowExams> {
             return GridView.builder(
               scrollDirection: Axis.vertical,
               controller: ScrollController(),
-              itemCount: provider.getAllExamsResponse!.data!.data!.length,
+              itemCount: provider.getAllExamsResponse!.data!.exams!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: widgetSize.getWidth(200, context) /
@@ -44,7 +44,7 @@ class _ShowExamsState extends State<ShowExams> {
                     width: widgetSize.getWidth(200, context),
                     height: widgetSize.getHeight(400, context),
                     child: ExamCard(
-                      exam: provider.getAllExamsResponse!.data!.data![index],
+                      exam: provider.getAllExamsResponse!.data!.exams![index],
                     ),
                   ),
                 );

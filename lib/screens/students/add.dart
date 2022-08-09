@@ -141,14 +141,13 @@ class _AddStudentState extends State<AddStudent> {
       phoneController.text = student.parent!.phone!;
       jobController.text = student.parent!.jop!;
       classDDV = student.class_classroom!.classes!.id!;
-      genderDDV=student.gender_id;
-      nationalityDDV=student.nationality_id;
-      bloodDDV=student.blood_id;
-      religionDDV=student.religion_id;
-      gradeDDv=student.grade_id;
-      classroomDDv=student.class_classroom!.classrooms!.id;
-      yearDDV=student.academic_year_id;
-
+      genderDDV = student.gender_id;
+      nationalityDDV = student.nationality_id;
+      bloodDDV = student.blood_id;
+      religionDDV = student.religion_id;
+      gradeDDv = student.grade_id;
+      classroomDDv = student.class_classroom!.classrooms!.id;
+      yearDDV = student.academic_year_id;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -1329,6 +1328,30 @@ class _AddStudentState extends State<AddStudent> {
                                             ],
                                           );
                                         });
+                                    fnameController.clear();
+                                    lnameController.clear();
+                                    emailController.clear();
+                                    streetController.clear();
+                                    cityController.clear();
+                                    townController.clear();
+                                    fatherController.clear();
+                                    motherController.clear();
+                                    pemailController.clear();
+                                    nationalController.clear();
+                                    phoneController.clear();
+                                    jobController.clear();
+                                    genderDDV=null;
+                                    nationalityDDV=null;
+                                    bloodDDV=null;
+                                    religionDDV=null;
+                                    gradeDDv=null;
+                                    classDDV=null;
+                                    classroomDDv=null;
+                                    mnationalityDDV=null;
+                                    fnationalityDDV=null;
+                                    fbloodDDV=null;
+                                    preligionDDV=null;
+                                    yearDDV=null;
                                   }
                                 }
                               } else {
@@ -1383,11 +1406,41 @@ class _AddStudentState extends State<AddStudent> {
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                   },
-                                                  child: Text('Ok'),
+                                                  child: Text(
+                                                    'Ok',
+                                                    style: TextStyle(
+                                                        color: Color(
+                                                      0Xff2BC3BB,
+                                                    )),
+                                                  ),
                                                 ),
                                               ],
                                             );
                                           });
+                                      fnameController.clear();
+                                      lnameController.clear();
+                                      emailController.clear();
+                                      streetController.clear();
+                                      cityController.clear();
+                                      townController.clear();
+                                      fatherController.clear();
+                                      motherController.clear();
+                                      pemailController.clear();
+                                      nationalController.clear();
+                                      phoneController.clear();
+                                      jobController.clear();
+                                      genderDDV = null;
+                                      nationalityDDV = null;
+                                      bloodDDV = null;
+                                      religionDDV = null;
+                                      gradeDDv = null;
+                                      classDDV = null;
+                                      classroomDDv = null;
+                                      mnationalityDDV = null;
+                                      fnationalityDDV = null;
+                                      fbloodDDV = null;
+                                      preligionDDV = null;
+                                      yearDDV = null;
                                     }
                                   }
                                 } else {
@@ -1438,18 +1491,49 @@ class _AddStudentState extends State<AddStudent> {
                                               title:
                                                   Text(response.data!.message!),
                                               content: Text(
-                                                'The code is: ${response.data!.student![0].code}',
+                                                'The student code is: ${response.data!.student![0].code}'
+                                                ' and parent code is: ${response.data!.student![0].parent!.code}',
                                               ),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                   },
-                                                  child: Text('Ok'),
+                                                  child: Text(
+                                                    'Ok',
+                                                    style: TextStyle(
+                                                        color: Color(
+                                                      0Xff2BC3BB,
+                                                    )),
+                                                  ),
                                                 ),
                                               ],
                                             );
                                           });
+                                      fnameController.clear();
+                                      lnameController.clear();
+                                      emailController.clear();
+                                      streetController.clear();
+                                      cityController.clear();
+                                      townController.clear();
+                                      fatherController.clear();
+                                      motherController.clear();
+                                      pemailController.clear();
+                                      nationalController.clear();
+                                      phoneController.clear();
+                                      jobController.clear();
+                                      genderDDV = null;
+                                      nationalityDDV = null;
+                                      bloodDDV = null;
+                                      religionDDV = null;
+                                      gradeDDv = null;
+                                      classDDV = null;
+                                      classroomDDv = null;
+                                      mnationalityDDV = null;
+                                      fnationalityDDV = null;
+                                      fbloodDDV = null;
+                                      preligionDDV = null;
+                                      yearDDV = null;
                                     }
                                   }
                                 }

@@ -31,7 +31,6 @@ class Student {
   Gender? gender;
   Nationality? nationality;
 
-
   Student({
     this.academic_year_id,
     this.address_id,
@@ -57,7 +56,7 @@ class Student {
     this.gender,
     this.grade,
     this.class_classroom_id,
-    this.class_classroom
+    this.class_classroom,
   });
 
   factory Student.fromJson(Map<String, dynamic> json) =>

@@ -233,12 +233,16 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FStudent>> getAllStudents() async {
+  Future<ApiResponse<FStudent>> getAllStudents({String? name,String? order}) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       fStudentResponse = ApiResponse.loading('');
+      FormData formData = FormData.fromMap({
+        'searchByName':name??'',
+        'orderBy':order??'',
+      });
       try {
-        FStudent fStudent = await apiService.getAllStudents();
+        FStudent fStudent = await apiService.getAllStudents( formData);
         fStudentResponse = ApiResponse.completed(fStudent);
       } catch (e) {
         if (e is DioError) {
