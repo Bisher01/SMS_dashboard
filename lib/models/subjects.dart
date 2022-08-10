@@ -5,7 +5,9 @@ part 'subjects.g.dart';
 
 @JsonSerializable()
 class AllSubjectsModel {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
   List<Classes>? classes;
 

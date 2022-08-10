@@ -229,4 +229,23 @@ abstract class ApiService {
   @DELETE('syllabi/delete/{id}')
   Future<Delete> deleteSyllabi(@Path('id') int id);
 //=================================================//
+
+  //get settings
+  @GET('admin/show-settings')
+  Future<Settings> getSettings();
+  //edit settings
+  @POST('admin/edit-settings')
+  Future<Settings> editSettings(
+    @Field('phone') String phone,
+    @Field('name') String name,
+    @Field('color') String color,
+    @Field('city') String city,
+    @Field('town') String town,
+    @Field('street') String street,
+    @Field('email') String email,
+    @Field('_method') String method, {
+    @Field('picture') String? picture,
+    @Field('old_password') String? oldP,
+    @Field('new_password') String? newP,
+  });
 }

@@ -8,8 +8,8 @@ part of 'subjects.dart';
 
 AllSubjectsModel _$AllSubjectsModelFromJson(Map<String, dynamic> json) =>
     AllSubjectsModel(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
       classes: (json['classes'] as List<dynamic>?)
           ?.map((e) => Classes.fromJson(e as Map<String, dynamic>))
           .toList(),

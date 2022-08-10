@@ -7,8 +7,8 @@ part of 'admin.dart';
 // **************************************************************************
 
 Admin _$AdminFromJson(Map<String, dynamic> json) => Admin(
-      email: json['email'] as String?,
-      id: json['id'] as int?,
+      email: json['email'] as String? ?? '',
+      id: json['id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AdminToJson(Admin instance) => <String, dynamic>{
@@ -20,8 +20,8 @@ AdminData _$AdminDataFromJson(Map<String, dynamic> json) => AdminData(
       admin: json['admin'] == null
           ? null
           : Admin.fromJson(json['admin'] as Map<String, dynamic>),
-      token: json['token'] as String?,
-      Bearer: json['Bearer'] as String?,
+      token: json['token'] as String? ?? '',
+      Bearer: json['Bearer'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AdminDataToJson(AdminData instance) => <String, dynamic>{

@@ -16,13 +16,19 @@ class FAllExams{
 }
 @JsonSerializable()
 class AllExams {
+  @JsonKey(defaultValue: 0)
   int? id;
   DateTime? start;
   DateTime? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? active;
+  @JsonKey(defaultValue: 0)
   int? exam_name_id;
+  @JsonKey(defaultValue: 0)
   int? subject_mark_id;
+  @JsonKey(defaultValue: 0)
   int? season_id;
   SubjectMark? subject_mark;
   AllExams(
@@ -41,9 +47,13 @@ class AllExams {
 
 @JsonSerializable()
 class SubjectMark {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? subject_id;
+  @JsonKey(defaultValue: 0)
   int? class_id;
   Subject? subject;
   SubjectMark({

@@ -76,7 +76,7 @@ class _AddStudentState extends State<AddStudent> {
 
   String? picture;
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
   void _presentDatePicker() {
     showDatePicker(
@@ -100,7 +100,8 @@ class _AddStudentState extends State<AddStudent> {
         return;
       }
       setState(() {
-        _selectedDate = pickedDate;
+        _selectedDate =
+            '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
       });
     });
   }
@@ -148,6 +149,7 @@ class _AddStudentState extends State<AddStudent> {
       gradeDDv = student.grade_id;
       classroomDDv = student.class_classroom!.classrooms!.id;
       yearDDV = student.academic_year_id;
+      _selectedDate = student.birthdate;
     }
     focusNode1.addListener(() {
       setState(() {});
@@ -1277,8 +1279,7 @@ class _AddStudentState extends State<AddStudent> {
                                     fName: fnameController.text,
                                     lName: lnameController.text,
                                     nationalityId: nationalityDDV!,
-                                    birthdate:
-                                        '${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}',
+                                    birthdate: _selectedDate!,
                                     bloodId: bloodDDV!,
                                     genderId: genderDDV!,
                                     religionId: religionDDV!,
@@ -1340,18 +1341,21 @@ class _AddStudentState extends State<AddStudent> {
                                     nationalController.clear();
                                     phoneController.clear();
                                     jobController.clear();
-                                    genderDDV=null;
-                                    nationalityDDV=null;
-                                    bloodDDV=null;
-                                    religionDDV=null;
-                                    gradeDDv=null;
-                                    classDDV=null;
-                                    classroomDDv=null;
-                                    mnationalityDDV=null;
-                                    fnationalityDDV=null;
-                                    fbloodDDV=null;
-                                    preligionDDV=null;
-                                    yearDDV=null;
+                                    genderDDV = null;
+                                    nationalityDDV = null;
+                                    bloodDDV = null;
+                                    religionDDV = null;
+                                    gradeDDv = null;
+                                    classDDV = null;
+                                    classroomDDv = null;
+                                    mnationalityDDV = null;
+                                    fnationalityDDV = null;
+                                    fbloodDDV = null;
+                                    preligionDDV = null;
+                                    yearDDV = null;
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllStudents();
                                   }
                                 }
                               } else {

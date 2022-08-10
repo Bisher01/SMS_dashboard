@@ -22,15 +22,15 @@ Map<String, dynamic> _$StudentExamToJson(StudentExam instance) =>
     };
 
 ExamData _$ExamDataFromJson(Map<String, dynamic> json) => ExamData(
-      id: json['id'] as int?,
+      id: json['id'] as int? ?? 0,
       start: json['start'] == null
           ? null
           : DateTime.parse(json['start'] as String),
       end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
-      mark: json['mark'] as int?,
-      examNameId: json['examNameId'] as int?,
-      subjectMarkId: json['subjectMarkId'] as int?,
-      seasonId: json['seasonId'] as int?,
+      mark: json['mark'] as int? ?? 0,
+      examNameId: json['examNameId'] as int? ?? 0,
+      subjectMarkId: json['subjectMarkId'] as int? ?? 0,
+      seasonId: json['seasonId'] as int? ?? 0,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -56,9 +56,9 @@ Map<String, dynamic> _$ExamDataToJson(ExamData instance) => <String, dynamic>{
     };
 
 Questions _$QuestionsFromJson(Map<String, dynamic> json) => Questions(
-      id: json['id'] as int?,
-      text: json['text'] as String?,
-      teacherSubjectsId: json['teacherSubjectsId'] as int?,
+      id: json['id'] as int? ?? 0,
+      text: json['text'] as String? ?? '',
+      teacherSubjectsId: json['teacherSubjectsId'] as int? ?? 0,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -80,10 +80,10 @@ Map<String, dynamic> _$QuestionsToJson(Questions instance) => <String, dynamic>{
     };
 
 Choices _$ChoicesFromJson(Map<String, dynamic> json) => Choices(
-      id: json['id'] as int?,
-      text: json['text'] as String?,
-      status: json['status'] as int?,
-      questionId: json['questionId'] as int?,
+      id: json['id'] as int? ?? 0,
+      text: json['text'] as String? ?? '',
+      status: json['status'] as int? ?? 0,
+      questionId: json['questionId'] as int? ?? 0,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
