@@ -18,6 +18,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   double studentCardHeight = 0;
   double teacherCardHeight = 0;
   double mentorsCardHeight = 0;
+  double subjectsCardHeight = 0;
+  double classesCardHeight = 0;
 
   List<Widget> pages = [];
 
@@ -32,8 +34,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       const ShowStudent(),
       const AddTeacher(),
       const ShowTeacher(),
-      const AddMentor(
-      ),
+      const AddMentor(),
       const ShowMentor(),
       const ShowSyllabi(),
       AddSubject(onEdit: (subject) {}, onAdd: (subject) {}),
@@ -55,6 +56,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       builder: (context, provider, child) {
         return Scaffold(
             appBar: AppBar(
+              title: const Text(
+                'Sherlock School',
+                style: TextStyle(
+                  //color: ColorResources.green,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              centerTitle: false,
               leading: IconButton(
                 onPressed: () {
                   setState(() {
@@ -86,19 +97,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       controller: ScrollController(),
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        SvgPicture.asset(
-                          'login.svg',
-                          height: widgetSize.getHeight(180, context),
-                        ),
-                        const Text(
-                          'School Name',
-                          style: TextStyle(
-                            //color: ColorResources.green,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                          ),
-                        ),
+                        Image.asset('college.png',height: 200,),
+                        //student==================================
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                           child: InkWell(
@@ -108,6 +108,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   studentCardHeight = 85;
                                   teacherCardHeight = 0;
                                   mentorsCardHeight = 0;
+                                  classesCardHeight = 0;
+                                  subjectsCardHeight = 0;
                                 } else {
                                   studentCardHeight = 0;
                                 }
@@ -147,82 +149,53 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
                           height: studentCardHeight,
-                          child: Row(
+                          child: ListView(
+                            primary: false,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.only(left: 42, top: 15),
                             children: [
-                              SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10.0, bottom: 2, left: 10),
-                                  child: RotatedBox(
-                                    quarterTurns: 1,
-                                    child: AnimatedSmoothIndicator(
-                                      count: 2,
-                                      effect: WormEffect(
-                                        activeDotColor: ColorResources.green,
-                                        dotColor: Colors.grey[600]!,
-                                        paintStyle: PaintingStyle.fill,
-                                        dotHeight: 12,
-                                        dotWidth: 12,
-                                        spacing: 25,
-                                      ),
-                                      activeIndex: provider.selectedTab - 1,
+                              InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  width: 250,
+                                  child: Text(
+                                    'Add Students',
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 1
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
                                     ),
                                   ),
                                 ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(1);
+                                  });
+                                },
                               ),
-                              Expanded(
-                                child: ListView(
-                                  primary: false,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 15),
-                                  children: [
-                                    InkWell(
-                                      child: Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 15),
-                                        width: 250,
-                                        child: Text(
-                                          'Add Students',
-                                          overflow: TextOverflow.clip,
-                                          style: TextStyle(
-                                            color: provider.selectedTab == 1
-                                                ? ColorResources.green
-                                                : Colors.grey[600],
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          provider.goToTab(1);
-                                        });
-                                      },
+                              InkWell(
+                                child: SizedBox(
+                                  width: 250,
+                                  child: Text(
+                                    'Show Students',
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 2
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
                                     ),
-                                    InkWell(
-                                      child: SizedBox(
-                                        width: 250,
-                                        child: Text(
-                                          'Show Students',
-                                          style: TextStyle(
-                                            color: provider.selectedTab == 2
-                                                ? ColorResources.green
-                                                : Colors.grey[600],
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          provider.goToTab(2);
-                                          Provider.of<AppProvider>(context,
-                                                  listen: false)
-                                              .getAllStudents();
-                                        });
-                                      },
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(2);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllStudents();
+                                  });
+                                },
                               ),
                             ],
                           ),
@@ -231,6 +204,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           color: ColorResources.green,
                           height: 0,
                         ),
+                        //teacher==================================
                         Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
                           child: InkWell(
@@ -240,6 +214,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   teacherCardHeight = 85;
                                   studentCardHeight = 0;
                                   mentorsCardHeight = 0;
+                                  classesCardHeight = 0;
+                                  subjectsCardHeight = 0;
                                 } else {
                                   teacherCardHeight = 0;
                                 }
@@ -282,78 +258,56 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
                           height: teacherCardHeight,
-                          child: Row(
+                          child: ListView(
+                            primary: false,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.only(left: 42, top: 15),
                             children: [
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: Colors.grey[600],
-                                      radius: 6,
+                              InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  width: 250,
+                                  child: Text(
+                                    'Add Teachers',
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 3
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
                                     ),
-                                    CircleAvatar(
-                                      backgroundColor: Colors.grey[600],
-                                      radius: 6,
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(3);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getSubjectClassClassroom();
+                                  });
+                                },
                               ),
-                              Expanded(
-                                child: ListView(
-                                  primary: false,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 15),
-                                  children: [
-                                    InkWell(
-                                      child: Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 15),
-                                        width: 250,
-                                        child: Text(
-                                          'Add Teachers',
-                                          overflow: TextOverflow.clip,
-                                          style: TextStyle(
-                                            color: provider.selectedTab == 3
-                                                ? ColorResources.green
-                                                : Colors.grey[600],
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          provider.goToTab(3);
-                                          Provider.of<AppProvider>(context,
-                                                  listen: false)
-                                              .getSubjectClassClassroom();
-                                        });
-                                      },
+                              InkWell(
+                                child: SizedBox(
+                                  width: 250,
+                                  child: Text(
+                                    'Show Teachers',
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 4
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
                                     ),
-                                    InkWell(
-                                      child: SizedBox(
-                                        width: 250,
-                                        child: Text(
-                                          'Show Teachers',
-                                          style: TextStyle(
-                                            color: provider.selectedTab == 4
-                                                ? ColorResources.green
-                                                : Colors.grey[600],
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
-                                          provider.goToTab(4);
-                                          Provider.of<AppProvider>(context,
-                                                  listen: false)
-                                              .getAllTeachers();
-                                        });
-                                      },
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(4);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllTeachers();
+                                  });
+                                },
                               ),
                             ],
                           ),
@@ -362,6 +316,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           height: 0,
                           color: ColorResources.green,
                         ),
+                        //mentor==================================
                         Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
                           child: InkWell(
@@ -371,6 +326,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   mentorsCardHeight = 85;
                                   studentCardHeight = 0;
                                   teacherCardHeight = 0;
+                                  subjectsCardHeight = 0 ;
+                                  classesCardHeight = 0;
                                 } else {
                                   mentorsCardHeight = 0;
                                 }
@@ -468,165 +425,304 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                           color: ColorResources.green,
                           height: 0,
                         ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              provider.goToTab(8);
-                            });
-                          },
-                          title: const Text(
-                            'Subjects',
-                            style: TextStyle(
-                              //color: Colors.white,
-                              color: ColorResources.green,
-                            ),
-                          ),
-                        ),
-                        const Divider(
-                          //color: Colors.white,
-                          color: ColorResources.green,
 
-                        ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              provider.goToTab(9);
-                            });
-                          },
-                          title: const Text(
-                            'Classrooms',
-                            style: TextStyle(
-                              //color: Colors.white,
-                              color: ColorResources.green,
+                        //classes===================================
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (classesCardHeight == 0) {
+                                  classesCardHeight = 85;
+                                  studentCardHeight = 0;
+                                  teacherCardHeight = 0;
+                                  subjectsCardHeight=0;
+                                  mentorsCardHeight=0;
+                                } else {
+                                  classesCardHeight = 0;
+                                }
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'classroom.png',
+                                  height: 35,
+                                  color: ColorResources.green,
+                                ),
+                                const Text(
+                                  ' Classes',
+                                  style: TextStyle(
+                                    //color: Colors.white,
+                                    color: ColorResources.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const Expanded(child: SizedBox()),
+                                const RotatedBox(
+                                  quarterTurns: 1,
+                                  child: Icon(
+                                    Icons.double_arrow_rounded,
+                                    color: ColorResources.green,
+                                  ),
+                                ),
+                              ],
                             ),
+                          ),
+                        ),
+                        const Divider(
+                          height: 0,
+                          indent: 40,
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: classesCardHeight,
+                          child: ListView(
+                            primary: false,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.only(left: 42, top: 15),
+                            children: [
+                              InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  width: 250,
+                                  child: Text(
+                                    'Add Classroom',
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 9
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(9);
+                                  });
+                                },
+                              ),
+                              InkWell(
+                                child: SizedBox(
+                                  width: 250,
+                                  child: Text(
+                                    'Daily Schedule',
+                                    style: TextStyle(
+                                      //color: Colors.white,
+                                      color: provider.selectedTab == 11
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(11);
+                                    Provider.of<AppProvider>(context,
+                                            listen: false)
+                                        .getAllMentors();
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
                         const Divider(
                           //color: Colors.white,
                           color: ColorResources.green,
+                          height: 0,
                         ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          onTap: () {
-                            Provider.of<TabManager>(context,listen: false).goToTab(11);
-                          },
-                          title: const Text(
-                            'Daily Schedule',
-                            style: TextStyle(
-                              // color: Colors.white,
-                              color: ColorResources.green,
+                        //subjects==================================
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (subjectsCardHeight == 0) {
+                                  subjectsCardHeight = 85;
+                                  studentCardHeight = 0;
+                                  teacherCardHeight = 0;
+                                  mentorsCardHeight = 0;
+                                  classesCardHeight = 0;
+                                } else {
+                                  subjectsCardHeight = 0;
+                                }
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'book-stack.png',
+                                  height: 35,
+                                  color: ColorResources.green,
+                                ),
+                                const Text(
+                                  ' Subjects',
+                                  style: TextStyle(
+                                    //color: Colors.white,
+                                    color: ColorResources.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const Expanded(child: SizedBox()),
+                                const RotatedBox(
+                                  quarterTurns: 1,
+                                  child: Icon(
+                                    Icons.double_arrow_rounded,
+                                    color: ColorResources.green,
+                                  ),
+                                ),
+                              ],
                             ),
+                          ),
+                        ),
+                        const Divider(
+                          height: 0,
+                          indent: 40,
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: subjectsCardHeight,
+                          child: ListView(
+                            primary: false,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.only(left: 42, top: 15),
+                            children: [
+                              InkWell(
+                                child: Container(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  width: 250,
+                                  child: Text(
+                                    'Add subject',
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: provider.selectedTab == 8
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(8);
+                                  });
+                                },
+                              ),
+                              InkWell(
+                                child: SizedBox(
+                                  width: 250,
+                                  child: Text(
+                                    'Show syllabi',
+                                    style: TextStyle(
+                                      //color: Colors.white,
+                                      color: provider.selectedTab == 7
+                                          ? ColorResources.green
+                                          : Colors.grey[600],
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    provider.goToTab(7);
+                                    Provider.of<AppProvider>(context,
+                                        listen: false)
+                                        .getSyllabi();
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
                         const Divider(
                           //color: Colors.white,
                           color: ColorResources.green,
+                          height: 0,
                         ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              provider.goToTab(10);
-                            });
-                            Provider.of<AppProvider>(context, listen: false)
-                                .getAllExams();
-                          },
-                          title: const Text(
-                            'Exams',
-                            style: TextStyle(
-                              //color: Colors.white,
-                              color: ColorResources.green,
-                            ),
-                          ),
-                        ),
-                        const Divider(
-                          //color: Colors.white,
-                          color: ColorResources.green,
-                        ),
-                        // ListTile(
-                        //   leading: const Icon(
-                        //     Icons.ac_unit,
-                        //     //color: Colors.white,
-                        //     color: ColorResources.green,
-                        //   ),
-                        //   onTap: () {},
-                        //   title: const Text(
-                        //     'Exams',
-                        //     style: TextStyle(
-                        //       //color: Colors.white,
-                        //       color: ColorResources.green,
-                        //     ),
-                        //   ),
-                        // ),
-                        // const Divider(
-                        //   //color: Colors.white,
-                        //   color: ColorResources.green,
-                        // ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              provider.goToTab(7);
+                        //exams=====================================
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                provider.goToTab(10);
+                              });
                               Provider.of<AppProvider>(context, listen: false)
-                                  .getSyllabi();
-                            });
-                          },
-                          title: const Text(
-                            'Syllabi',
-                            style: TextStyle(
-                              //color: Colors.white,
-                              color: ColorResources.green,
+                                  .getAllExams();
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'test.png',
+                                  height: 35,
+                                  color: ColorResources.green,
+                                ),
+                                const Text(
+                                  ' Exams',
+                                  style: TextStyle(
+                                    //color: Colors.white,
+                                    color: ColorResources.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const Expanded(child: SizedBox()),
+                                const Icon(
+                                  Icons.double_arrow_rounded,
+                                  color: ColorResources.green,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                         const Divider(
                           //color: Colors.white,
                           color: ColorResources.green,
+                          height: 0,
                         ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.ac_unit,
-                            //color: Colors.white,
-                            color: ColorResources.green,
-                          ),
-                          title: const Text(
-                            'Settings',
-                            style: TextStyle(
-                              //color: Colors.white,
-                              color: ColorResources.green,
+                        //settings==================================
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                provider.goToTab(0);
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'settings.png',
+                                  height: 35,
+                                  color: ColorResources.green,
+                                ),
+                                const Text(
+                                  ' Settings',
+                                  style: TextStyle(
+                                    //color: Colors.white,
+                                    color: ColorResources.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const Expanded(child: SizedBox()),
+                                const Icon(
+                                  Icons.double_arrow_rounded,
+                                  color: ColorResources.green,
+                                ),
+                              ],
                             ),
                           ),
-                          onTap: () {
-                            setState(() {
-                              provider.goToTab(0);
-                            });
-                          },
                         ),
                         const Divider(
                           //color: Colors.white,
                           color: ColorResources.green,
+                          height: 0,
                         ),
                       ],
                     ),
