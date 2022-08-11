@@ -22,13 +22,17 @@ class StudentExam {
 
 @JsonSerializable()
 class ExamData {
-
+  @JsonKey(defaultValue: 0)
   int? id;
   DateTime? start;
   DateTime? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? examNameId;
+  @JsonKey(defaultValue: 0)
   int? subjectMarkId;
+  @JsonKey(defaultValue: 0)
   int? seasonId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -54,9 +58,11 @@ class ExamData {
 
 @JsonSerializable()
 class Questions {
-
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? text;
+  @JsonKey(defaultValue: 0)
   int? teacherSubjectsId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -78,10 +84,13 @@ class Questions {
 
 @JsonSerializable()
 class Choices {
-
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? text;
+  @JsonKey(defaultValue: 0)
   int? status;
+  @JsonKey(defaultValue: 0)
   int? questionId;
   DateTime? createdAt;
   DateTime? updatedAt;

@@ -647,6 +647,8 @@ class _AddMentorState extends State<AddMentor> {
                                     cityController.clear();
                                     townController.clear();
                                     phoneController.clear();
+                                    Provider.of<AppProvider>(context, listen: false)
+                                        .getAllMentors();
                                   }
                                 }
                               } else {

@@ -233,16 +233,17 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FStudent>> getAllStudents({String? name,String? order}) async {
+  Future<ApiResponse<FStudent>> getAllStudents(
+      {String? name, String? order}) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       fStudentResponse = ApiResponse.loading('');
       FormData formData = FormData.fromMap({
-        'searchByName':name??'',
-        'orderBy':order??'',
+        'searchByName': name ?? '',
+        'orderBy': order ?? '',
       });
       try {
-        FStudent fStudent = await apiService.getAllStudents( formData);
+        FStudent fStudent = await apiService.getAllStudents(formData);
         fStudentResponse = ApiResponse.completed(fStudent);
       } catch (e) {
         if (e is DioError) {
@@ -276,7 +277,7 @@ class AppProvider extends ChangeNotifier {
       required String f_name,
       required String l_name,
       required int nationality,
-      required DateTime birthdate,
+      required String birthdate,
       required int blood_id,
       required int gender_id,
       required int religion_id,
@@ -295,7 +296,7 @@ class AppProvider extends ChangeNotifier {
       'f_name': f_name,
       'l_name': l_name,
       'nationality_id': nationality,
-      'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
+      'birthdate': birthdate,
       'blood_id': blood_id,
       'gender_id': gender_id,
       'religion_id': religion_id,
@@ -337,7 +338,7 @@ class AppProvider extends ChangeNotifier {
     required String f_name,
     required String l_name,
     required int nationality,
-    required DateTime birthdate,
+    required String birthdate,
     required int blood_id,
     required int gender_id,
     required int religion_id,
@@ -362,7 +363,7 @@ class AppProvider extends ChangeNotifier {
       'f_name': f_name,
       'l_name': l_name,
       'nationality_id': nationality,
-      'birthdate': DateFormat('yyyy-MM-dd').format(birthdate),
+      'birthdate': birthdate,
       'blood_id': blood_id,
       'gender_id': gender_id,
       'religion_id': religion_id,
@@ -1860,6 +1861,72 @@ class AppProvider extends ChangeNotifier {
           ApiResponse.error('No Internet Connection');
     }
     return deleteSyllabiResponse!;
+  }
+
+  ApiResponse<Settings>? _getSettingsResponse;
+  ApiResponse<Settings>? get getSettingsResponse => _getSettingsResponse;
+  set getSettingsResponse(ApiResponse<Settings>? value) {
+    _getSettingsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Settings>> getSettings() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getSettingsResponse = ApiResponse.loading('');
+      try {
+        Settings settings = await apiService.getSettings();
+        getSettingsResponse = ApiResponse.completed(settings);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getSettingsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getSettingsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getSettingsResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getSettingsResponse!;
+  }
+
+  ApiResponse<Settings>? _editSettingsResponse;
+  ApiResponse<Settings>? get editSettingsResponse => _editSettingsResponse;
+  set editSettingsResponse(ApiResponse<Settings>? value) {
+    _editSettingsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Settings>> editSettings(String phone, String name,
+      String color, String city, String town, String street, String email,
+      {String? picture, String? oldP, String? newP}) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      editSettingsResponse = ApiResponse.loading('');
+      try {
+        Settings settings = await apiService.editSettings(
+            phone, name, color, city, town, street, email, 'PUT',
+            picture: picture, oldP: oldP, newP: newP);
+        editSettingsResponse = ApiResponse.completed(settings);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return editSettingsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return editSettingsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return editSettingsResponse = ApiResponse.error('No Internet Connection');
+    }
+    return editSettingsResponse!;
   }
 }
 

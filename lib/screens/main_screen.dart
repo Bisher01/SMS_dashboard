@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sms_dashboard/providers/providers.dart';
+import '../services/api_response.dart';
 import '../utill/utill.dart';
 import '../screens/screens.dart';
 
@@ -26,8 +27,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     Provider.of<AppProvider>(context, listen: false).getSeed();
+    Provider.of<AppProvider>(context, listen: false).getSettings();
     pages = [
-      const Settings(),
+      Settings(),
       AddStudent(
         student: Provider.of<TabManager>(context, listen: false).student,
       ),
@@ -56,14 +58,32 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       builder: (context, provider, child) {
         return Scaffold(
             appBar: AppBar(
-              title: const Text(
-                'Sherlock School',
-                style: TextStyle(
-                  //color: ColorResources.green,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+              title: Consumer<AppProvider>(
+                builder: (context, provider, child) {
+                  if (provider.getSettingsResponse != null) {
+                    switch (provider.getSettingsResponse!.status) {
+                      case Status.LOADING:
+                        return const Center(child: Text('loading'));
+                      case Status.COMPLETED:
+                        return Text(
+                          '${provider.getSettingsResponse!.data!.name}',
+                          style: TextStyle(
+                            //color: ColorResources.green,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        );
+                      case Status.ERROR:
+                        return Center(
+                            child: Text(provider.getSettingsResponse!.message!
+                                .toString()));
+                      default:
+                        return const Center(child: Text('def'));
+                    }
+                  }
+                  return const Center(child: Text('else'));
+                },
               ),
               centerTitle: false,
               leading: IconButton(
@@ -97,7 +117,41 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       controller: ScrollController(),
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
-                        Image.asset('college.png',height: 200,),
+                        Consumer<AppProvider>(
+                          builder: (context, provider, child) {
+                            if (provider.getSettingsResponse != null) {
+                              switch (provider.getSettingsResponse!.status) {
+                                case Status.LOADING:
+                                  return const Center(child: Text('loading'));
+                                case Status.COMPLETED:
+                                  return SizedBox(
+                                    height: widgetSize.getHeight(200, context),
+                                    child: FadeInImage(
+                                      fit: BoxFit.fitHeight,
+                                      placeholder: const AssetImage(
+                                          'assets/college.png'),
+                                      image: NetworkImage(
+                                          'http://127.0.0.1:8000/storage/${provider.getSettingsResponse!.data!.logo}'),
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                            child: Image.asset(
+                                                "assets/college.png"));
+                                      },
+                                    ),
+                                  );
+                                case Status.ERROR:
+                                  return Center(
+                                      child: Text(provider
+                                          .getSettingsResponse!.message!
+                                          .toString()));
+                                default:
+                                  return const Center(child: Text('def'));
+                              }
+                            }
+                            return const Center(child: Text('else'));
+                          },
+                        ),
                         //student==================================
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0, bottom: 10),
@@ -326,7 +380,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   mentorsCardHeight = 85;
                                   studentCardHeight = 0;
                                   teacherCardHeight = 0;
-                                  subjectsCardHeight = 0 ;
+                                  subjectsCardHeight = 0;
                                   classesCardHeight = 0;
                                 } else {
                                   mentorsCardHeight = 0;
@@ -436,8 +490,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   classesCardHeight = 85;
                                   studentCardHeight = 0;
                                   teacherCardHeight = 0;
-                                  subjectsCardHeight=0;
-                                  mentorsCardHeight=0;
+                                  subjectsCardHeight = 0;
+                                  mentorsCardHeight = 0;
                                 } else {
                                   classesCardHeight = 0;
                                 }
@@ -631,7 +685,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   setState(() {
                                     provider.goToTab(7);
                                     Provider.of<AppProvider>(context,
-                                        listen: false)
+                                            listen: false)
                                         .getSyllabi();
                                   });
                                 },

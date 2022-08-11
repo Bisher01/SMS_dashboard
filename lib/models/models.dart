@@ -26,3 +26,5 @@ export 'grade.dart';
 export 'subjects.dart';
 export 'all_exams.dart';
 export 'time_table.dart';
+export 'settings.dart';
+
