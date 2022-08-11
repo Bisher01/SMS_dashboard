@@ -129,7 +129,7 @@ class _SettingsCardState extends State<SettingsCard> {
             TextButton(
               onPressed: () {
                 nameController.text = widget.settings!.name!;
-                phoneController.text = widget.settings!.name!;
+                phoneController.text = widget.settings!.phone!;
                 emailController.text = widget.settings!.name!;
                 streetController.text = widget.settings!.address!.street!;
                 cityController.text = widget.settings!.address!.city!;
@@ -138,7 +138,7 @@ class _SettingsCardState extends State<SettingsCard> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text(
+                        title: const Text(
                           'Edit Settings',
                         ),
                         content: SizedBox(

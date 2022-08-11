@@ -1412,7 +1412,27 @@ class AppProvider extends ChangeNotifier {
   }
 
   ///==============================================///
+  int getTeacherCount(ClassClassRooms classClassRooms){
+    int count = 0;
+    for(int i=0;i<classClassRooms.data!.length;i++)
+      {
+        count = count + classClassRooms.data![i].teacher!.length;
+      }
+    return count;
+  }
 
+  String getTeacherName(ClassClassRooms classClassRooms,int index){
+    int counter = 0;
+    for(int i =0;i<classClassRooms.data!.length;i++){
+      for(int j=0;j<classClassRooms.data![i].teacher!.length;j++){
+        if(counter==index) {
+          return classClassRooms.data![i].teacher![j].f_name!;
+        }
+        counter+=1;
+      }
+    }
+    return '';
+  }
   ApiResponse<ClassClassRooms>? _classClassroomsResponse;
   ApiResponse<ClassClassRooms>? get classClassroomsResponse => _classClassroomsResponse;
   set classClassroomsResponse(ApiResponse<ClassClassRooms>? value) {

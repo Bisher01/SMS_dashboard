@@ -575,9 +575,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                 onTap: () {
                                   setState(() {
                                     provider.goToTab(11);
-                                    Provider.of<AppProvider>(context,
-                                            listen: false)
-                                        .getAllMentors();
+                                    Provider.of<AppProvider>(context,listen: false).getClassClassrooms(1);
                                   });
                                 },
                               ),

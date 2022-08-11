@@ -20,12 +20,12 @@ class STeacher {
   String? l_name;
   String? email;
   String? code;
-  DateTime? joining_date;
+  String? joining_date;
   String? salary;
   String? picture;
-  String? address_id;
-  String? religion_id;
-  String? gender_id;
+  int? address_id;
+  int? religion_id;
+  int? gender_id;
 
   STeacher(
       {this.email,
@@ -42,19 +42,6 @@ class STeacher {
 
   factory STeacher.fromJson(Map<String,dynamic> json) => _$STeacherFromJson(json);
   Map<String,dynamic> toJson() => _$STeacherToJson(this);
-}
-
-@JsonSerializable()
-class SClassroom{
-  int? id;
-  int? max_number;
-  int? name;
-  SClassroom({
-    this.id,this.name,this.max_number
-});
-  factory SClassroom.fromJson(Map<String,dynamic> json) => _$SClassroomFromJson(json);
-  Map<String,dynamic> toJson() => _$SClassroomToJson(this);
-
 }
 
 @JsonSerializable()

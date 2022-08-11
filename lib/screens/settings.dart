@@ -29,110 +29,106 @@ class _SettingsState extends State<Settings> {
             case Status.LOADING:
               return const Center(child: Text('loading'));
             case Status.COMPLETED:
-              return Container(
-                padding: const EdgeInsets.only(
-                  top: 30,
-                ),
-                child: ListView(
-                  controller: ScrollController(),
-                  children: <Widget>[
-                    Center(
-                      child: const Text(
-                        'School settings',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+              return ListView(
+                padding: EdgeInsets.symmetric(vertical: 50),
+                controller: ScrollController(),
+                children: <Widget>[
+                  const Center(
+                    child: Text(
+                      'School settings',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                      ),
-                      child: SizedBox(
-                        height: widgetSize.getHeight(300, context),
-                        child: FadeInImage(
-                          fit: BoxFit.fitHeight,
-                          placeholder: const AssetImage('assets/college.png'),
-                          image: NetworkImage(
-                              'http://127.0.0.1:8000/storage/${provider.getSettingsResponse!.data!.logo}'),
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return Container(
-                                child: Image.asset("assets/college.png"));
-                          },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    child: SizedBox(
+                      height: widgetSize.getHeight(300, context),
+                      child: FadeInImage(
+                        fit: BoxFit.fitHeight,
+                        placeholder: const AssetImage('assets/college.png'),
+                        image: NetworkImage(
+                            'http://127.0.0.1:8000/storage/${provider.getSettingsResponse!.data!.logo}'),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Container(
+                              child: Image.asset("assets/college.png"));
+                        },
 
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: widgetSize.getWidth(120, context),
+                          height: widgetSize.getHeight(200, context),
+                          child: SettingsCard(
+                            settings: provider.getSettingsResponse!.data,
+                            color: cardColor[3],
+                            title: 'School name',
+                            name:
+                                '${provider.getSettingsResponse!.data!.name}',
+                            button: 'Edit school name',
+                          ),
                         ),
-                      ),
+                        SizedBox(
+                          width: widgetSize.getWidth(120, context),
+                          height: widgetSize.getHeight(200, context),
+                          child: SettingsCard(
+                            settings: provider.getSettingsResponse!.data,
+                            color: cardColor[0],
+                            title: 'School address',
+                            name:
+                                '${provider.getSettingsResponse!.data!.address!.city}-${provider.getSettingsResponse!.data!.address!.town}-${provider.getSettingsResponse!.data!.address!.street}',
+                            button: 'Edit school address',
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: widgetSize.getWidth(120, context),
-                            height: widgetSize.getHeight(200, context),
-                            child: SettingsCard(
-                              settings: provider.getSettingsResponse!.data,
-                              color: cardColor[3],
-                              title: 'School name',
-                              name:
-                                  '${provider.getSettingsResponse!.data!.name}',
-                              button: 'Edit school name',
-                            ),
-                          ),
-                          SizedBox(
-                            width: widgetSize.getWidth(120, context),
-                            height: widgetSize.getHeight(200, context),
-                            child: SettingsCard(
-                              settings: provider.getSettingsResponse!.data,
-                              color: cardColor[0],
-                              title: 'School address',
-                              name:
-                                  '${provider.getSettingsResponse!.data!.address!.city}-${provider.getSettingsResponse!.data!.address!.town}-${provider.getSettingsResponse!.data!.address!.street}',
-                              button: 'Edit school address',
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: widgetSize.getWidth(120, context),
-                            height: widgetSize.getHeight(200, context),
-                            child:  SettingsCard(
-                              settings: provider.getSettingsResponse!.data,
-                              color: cardColor[1],
-                              title: 'School email address',
-                              name: '${provider.getSettingsResponse!.data!.admin!.email}',
-                              button: 'Edit school email',
-                            ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: widgetSize.getWidth(120, context),
+                          height: widgetSize.getHeight(200, context),
+                          child:  SettingsCard(
+                            settings: provider.getSettingsResponse!.data,
+                            color: cardColor[1],
+                            title: 'School email address',
+                            name: '${provider.getSettingsResponse!.data!.admin!.email}',
+                            button: 'Edit school email',
                           ),
-                          SizedBox(
-                            width: widgetSize.getWidth(120, context),
-                            height: widgetSize.getHeight(200, context),
-                            child:  SettingsCard(
-                              settings: provider.getSettingsResponse!.data,
-                              color: cardColor[2],
-                              title: 'School phone number',
-                              name: '${provider.getSettingsResponse!.data!.phone}',
-                              button: 'Edit school phone number',
-                            ),
+                        ),
+                        SizedBox(
+                          width: widgetSize.getWidth(120, context),
+                          height: widgetSize.getHeight(200, context),
+                          child:  SettingsCard(
+                            settings: provider.getSettingsResponse!.data,
+                            color: cardColor[2],
+                            title: 'School phone number',
+                            name: '${provider.getSettingsResponse!.data!.phone}',
+                            button: 'Edit school phone number',
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             case Status.ERROR:
               return Center(

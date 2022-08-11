@@ -28,13 +28,11 @@ STeacher _$STeacherFromJson(Map<String, dynamic> json) => STeacher(
       picture: json['picture'] as String?,
       l_name: json['l_name'] as String?,
       f_name: json['f_name'] as String?,
-      address_id: json['address_id'] as String?,
+      address_id: json['address_id'] as int?,
       code: json['code'] as String?,
-      gender_id: json['gender_id'] as String?,
-      joining_date: json['joining_date'] == null
-          ? null
-          : DateTime.parse(json['joining_date'] as String),
-      religion_id: json['religion_id'] as String?,
+      gender_id: json['gender_id'] as int?,
+      joining_date: json['joining_date'] as String?,
+      religion_id: json['religion_id'] as int?,
       salary: json['salary'] as String?,
     );
 
@@ -44,25 +42,12 @@ Map<String, dynamic> _$STeacherToJson(STeacher instance) => <String, dynamic>{
       'l_name': instance.l_name,
       'email': instance.email,
       'code': instance.code,
-      'joining_date': instance.joining_date?.toIso8601String(),
+      'joining_date': instance.joining_date,
       'salary': instance.salary,
       'picture': instance.picture,
       'address_id': instance.address_id,
       'religion_id': instance.religion_id,
       'gender_id': instance.gender_id,
-    };
-
-SClassroom _$SClassroomFromJson(Map<String, dynamic> json) => SClassroom(
-      id: json['id'] as int?,
-      name: json['name'] as int?,
-      max_number: json['max_number'] as int?,
-    );
-
-Map<String, dynamic> _$SClassroomToJson(SClassroom instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'max_number': instance.max_number,
-      'name': instance.name,
     };
 
 SClassRooms _$SClassRoomsFromJson(Map<String, dynamic> json) => SClassRooms(
