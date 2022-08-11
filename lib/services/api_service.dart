@@ -171,6 +171,9 @@ abstract class ApiService {
   @GET('management/get-subjects')
   Future<FAllSubjectsModel> getSubjectClassClassroom();
 
+  @GET('management/get-classrooms/{id}')
+  Future<ClassClassRooms> getClassClassrooms(@Path('id') int id);
+
 //=================================================//
 
 //============Exams=========//

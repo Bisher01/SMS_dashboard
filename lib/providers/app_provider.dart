@@ -1412,6 +1412,36 @@ class AppProvider extends ChangeNotifier {
 
   ///==============================================///
 
+  ApiResponse<ClassClassRooms>? _classClassroomsResponse;
+  ApiResponse<ClassClassRooms>? get classClassroomsResponse => _classClassroomsResponse;
+  set classClassroomsResponse(ApiResponse<ClassClassRooms>? value) {
+    _classClassroomsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<ClassClassRooms>> getClassClassrooms(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      classClassroomsResponse = ApiResponse.loading('');
+      try {
+        ClassClassRooms classClassrooms = await apiService.getClassClassrooms(id);
+        classClassroomsResponse = ApiResponse.completed(classClassrooms);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return classClassroomsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return classClassroomsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return classClassroomsResponse = ApiResponse.error('No Internet Connection');
+    }
+    return classClassroomsResponse!;
+  }
   // //get all syllabi
   // ApiResponse<FSyllabi>? _fSyllabi;
   // ApiResponse<FSyllabi>? get fSyllabiResponse => _fSyllabi;
