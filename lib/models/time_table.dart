@@ -57,3 +57,41 @@ class SClassRooms{
   Map<String,dynamic> toJson() => _$SClassRoomsToJson(this);
 
 }
+
+@JsonSerializable()
+class SendTimeTable{
+  int? id;
+  List<DayId>? day_id;
+  SendTimeTable({this.id,this.day_id});
+  factory SendTimeTable.fromJson(Map<String,dynamic>json) => _$SendTimeTableFromJson(json);
+  Map<String,dynamic> toJson() => _$SendTimeTableToJson(this);
+}
+
+
+@JsonSerializable()
+class LessonId{
+  int? id;
+  int? teacher_id;
+  LessonId({this.id,this.teacher_id});
+  factory LessonId.fromJson(Map<String,dynamic> json) => _$LessonIdFromJson(json);
+  Map<String,dynamic> toJson() => _$LessonIdToJson(this);
+}
+
+@JsonSerializable()
+class ClassroomId{
+int? id;
+List<LessonId>? lesson_id;
+ClassroomId({this.id,this.lesson_id});
+factory ClassroomId.fromJson(Map<String,dynamic> json) => _$ClassroomIdFromJson(json);
+Map<String,dynamic> toJson() => _$ClassroomIdToJson(this);
+}
+
+
+@JsonSerializable()
+class DayId{
+int? id;
+List<ClassroomId>? classroom_id;
+DayId({this.id,this.classroom_id});
+factory DayId.fromJson(Map<String,dynamic> json) => _$DayIdFromJson(json);
+Map<String,dynamic> toJson() => _$DayIdToJson(this);
+}

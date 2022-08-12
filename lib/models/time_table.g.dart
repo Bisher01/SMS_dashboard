@@ -70,3 +70,52 @@ Map<String, dynamic> _$SClassRoomsToJson(SClassRooms instance) =>
       'classrooms': instance.classrooms,
       'teacher': instance.teacher,
     };
+
+SendTimeTable _$SendTimeTableFromJson(Map<String, dynamic> json) =>
+    SendTimeTable(
+      id: json['id'] as int?,
+      day_id: (json['day_id'] as List<dynamic>?)
+          ?.map((e) => DayId.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$SendTimeTableToJson(SendTimeTable instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'day_id': instance.day_id,
+    };
+
+LessonId _$LessonIdFromJson(Map<String, dynamic> json) => LessonId(
+      id: json['id'] as int?,
+      teacher_id: json['teacher_id'] as int?,
+    );
+
+Map<String, dynamic> _$LessonIdToJson(LessonId instance) => <String, dynamic>{
+      'id': instance.id,
+      'teacher_id': instance.teacher_id,
+    };
+
+ClassroomId _$ClassroomIdFromJson(Map<String, dynamic> json) => ClassroomId(
+      id: json['id'] as int?,
+      lesson_id: (json['lesson_id'] as List<dynamic>?)
+          ?.map((e) => LessonId.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ClassroomIdToJson(ClassroomId instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'lesson_id': instance.lesson_id,
+    };
+
+DayId _$DayIdFromJson(Map<String, dynamic> json) => DayId(
+      id: json['id'] as int?,
+      classroom_id: (json['classroom_id'] as List<dynamic>?)
+          ?.map((e) => ClassroomId.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$DayIdToJson(DayId instance) => <String, dynamic>{
+      'id': instance.id,
+      'classroom_id': instance.classroom_id,
+    };

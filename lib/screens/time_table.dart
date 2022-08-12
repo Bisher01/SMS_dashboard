@@ -6,6 +6,8 @@ import 'package:sms_dashboard/services/api_response.dart';
 import 'package:sms_dashboard/utill/utill.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
+import '../models/models.dart';
+
 class TimeTable extends StatefulWidget {
   const TimeTable({Key? key}) : super(key: key);
 
@@ -23,6 +25,7 @@ class TimeTableState extends State<TimeTable> {
   ScrollController? _firstColumnController;
   ScrollController? _secondColumnController;
   ScrollController? _restColumnsController;
+  List<LessonId> lessons = [];
   @override
   void initState() {
     super.initState();
@@ -49,9 +52,7 @@ class TimeTableState extends State<TimeTable> {
 
   final List<String> head = ['1', '2', '3', '4', '5', '6', '7'];
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  List<String> seasons = ['Season 1', 'Season 2'];
-  int seasonId = 0;
-  String? selectedSeason;
+  int? classDDV;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,32 @@ class TimeTableState extends State<TimeTable> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButton<int>(
+                            hint: const Text('Class'),
+                            value: classDDV,
+                            items:
+                            Provider.of<AppProvider>(context,listen: false).getSeedResponse!.data!.data![0].classes!
+                                .map((e) => DropdownMenuItem(
+                              value: e.id,
+                              child: Text(e.name!),
+                            ))
+                                .toList(),
+                            onChanged: (int? value) {
+                              setState(() {
+                                classDDV = value;
+                                lessons.clear();
+                                Provider.of<AppProvider>(context,listen: false).getClassClassrooms(classDDV!);
+                              });
+                            }),
+                        OutlinedButton(onPressed: (){}, child: Text('submit',style: TextStyle(color: ColorResources.green),))
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 50,
                     child: Row(
@@ -104,15 +131,15 @@ class TimeTableState extends State<TimeTable> {
                                 height: 50,
                                 decoration: BoxDecoration(
                                   color: Colors.teal[400],
-                                  border:  const Border.symmetric(
+                                  border: const Border.symmetric(
                                       horizontal: BorderSide(
                                         width: 1,
                                         color: Colors.black12,
                                       ),
                                       vertical: BorderSide(
-                                        width: 1,color: Colors.black26,
-                                      )
-                                  ),
+                                        width: 1,
+                                        color: Colors.black26,
+                                      )),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
@@ -318,23 +345,57 @@ class TimeTableState extends State<TimeTable> {
                                       children: List.generate(
                                         49,
                                         (x) {
-                                          return Container(
-                                            width: 50,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.black12,
-                                                  width: 1,
-                                                ),
-                                                borderRadius: BorderRadius.zero
+                                          if (lessons.length <
+                                              provider.getTeacherCount(provider
+                                                      .classClassroomsResponse!
+                                                      .data!) *
+                                                  49) {
+                                            lessons.add(LessonId(
+                                                teacher_id: -1, id: -1));
+                                          }
+                                          int index = y * 49 + x;
+                                          return InkWell(
+                                            onTap: () {
+                                              if (lessons[index].id == x &&
+                                                  lessons[index].teacher_id ==
+                                                      y) {
+                                                setState(() {
+                                                  lessons[index].id = -1;
+                                                  lessons[index].teacher_id =
+                                                      -1;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  lessons[index].id = x;
+                                                  lessons[index].teacher_id = y;
+                                                });
+                                              }
+                                            },
+                                            child: AnimatedContainer(
+                                                duration: const Duration(
+                                                    milliseconds: 250),
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black12,
+                                                      width: 1,
                                                     ),
-                                            alignment: Alignment.center,
-                                            child: const Text(
-                                              '',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
+                                                    color: lessons[index].id ==
+                                                                x &&
+                                                            lessons[index]
+                                                                    .teacher_id ==
+                                                                y
+                                                        ? ColorResources.green
+                                                        : Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.zero),
+                                                alignment: Alignment.center,
+                                                child: const Icon(
+                                                  Icons.check,
+                                                  color: Colors.white,
+                                                  size: 30,
+                                                )),
                                           );
                                         },
                                       ),
