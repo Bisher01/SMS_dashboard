@@ -60,9 +60,9 @@ class SClassRooms{
 
 @JsonSerializable()
 class SendTimeTable{
-  int? id;
+  int? class_id;
   List<DayId>? day_id;
-  SendTimeTable({this.id,this.day_id});
+  SendTimeTable({this.class_id,this.day_id});
   factory SendTimeTable.fromJson(Map<String,dynamic>json) => _$SendTimeTableFromJson(json);
   Map<String,dynamic> toJson() => _$SendTimeTableToJson(this);
 }

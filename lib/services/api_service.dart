@@ -174,6 +174,9 @@ abstract class ApiService {
   @POST('management/get-classrooms/{id}')
   Future<ClassClassRooms> getClassClassrooms(@Path('id') int id);
 
+
+  @POST('timetable/add')
+  Future<Delete> addTimeTable(@Body() Map<String,dynamic> data);
 //=================================================//
 
 //============Exams=========//

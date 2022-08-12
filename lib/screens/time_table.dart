@@ -51,7 +51,7 @@ class TimeTableState extends State<TimeTable> {
   }
 
   final List<String> head = ['1', '2', '3', '4', '5', '6', '7'];
-  List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  List<String> days = ['Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   int? classDDV;
 
   @override
@@ -71,7 +71,8 @@ class TimeTableState extends State<TimeTable> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -79,20 +80,106 @@ class TimeTableState extends State<TimeTable> {
                             hint: const Text('Class'),
                             value: classDDV,
                             items:
-                            Provider.of<AppProvider>(context,listen: false).getSeedResponse!.data!.data![0].classes!
-                                .map((e) => DropdownMenuItem(
-                              value: e.id,
-                              child: Text(e.name!),
-                            ))
-                                .toList(),
+                                Provider.of<AppProvider>(context, listen: false)
+                                    .getSeedResponse!
+                                    .data!
+                                    .data![0]
+                                    .classes!
+                                    .map((e) => DropdownMenuItem(
+                                          value: e.id,
+                                          child: Text(e.name!),
+                                        ))
+                                    .toList(),
                             onChanged: (int? value) {
                               setState(() {
                                 classDDV = value;
                                 lessons.clear();
-                                Provider.of<AppProvider>(context,listen: false).getClassClassrooms(classDDV!);
+                                Provider.of<AppProvider>(context, listen: false)
+                                    .getClassClassrooms(classDDV!);
                               });
                             }),
-                        OutlinedButton(onPressed: (){}, child: Text('submit',style: TextStyle(color: ColorResources.green),))
+                        OutlinedButton(
+                            onPressed: () {
+                              ClassClassRooms classClassRooms= provider.classClassroomsResponse!.data!;
+                              List<LessonId> data = lessons;
+                              int classId = classDDV!;
+                              SendTimeTable sendTimeTable = SendTimeTable(class_id: classId, day_id: [
+                                DayId(
+                                  id: 1,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),
+                                ),
+                                DayId(id: 2,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),),
+                                DayId(id: 3,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),),
+                                DayId(id: 4,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),),
+                                DayId(id: 5,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),),
+                                DayId(id: 6,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),),
+                                DayId(id: 7,
+                                  classroom_id: List.generate(
+                                    classClassRooms.data!.length,
+                                        (index) => ClassroomId(id: classClassRooms.data![index].classroom_id,lesson_id: []),
+                                  ),)
+                              ]);
+                              List<LessonId> test = [];
+                              for (int i = 0; i < data.length; i++) {
+                                if (data[i].teacher_id != -1 && data[i].id != -1) {
+                                  test.add(data[i]);
+                                }
+                              }
+                              for (int i = 0; i < test.length; i++) {
+                                int day = (test[i].id!~/7) +1 ;
+                                int period = (test[i].id! - (day-1)*7) + 1;
+                                int teacher = -1;
+                                int classroom = -1;
+                                int counter = 0;
+                                for (int z = 0; z < classClassRooms.data!.length; z++) {
+                                  for (int j = 0; j < classClassRooms.data![z].teacher!.length; j++) {
+                                    if (counter == test[i].teacher_id!) {
+                                      teacher= classClassRooms.data![z].teacher![j].id!;
+                                      classroom=classClassRooms.data![z].classroom_id!;
+                                    }
+                                    else{
+                                      counter += 1;
+                                    }
+                                  }
+                                }
+                                for(int w=0;w<sendTimeTable.day_id![day].classroom_id!.length;w++){
+                                  if(sendTimeTable.day_id![day].classroom_id![w].id==classroom){
+                                    sendTimeTable.day_id![day].classroom_id![w].lesson_id!.add(LessonId(
+                                        id: period,
+                                        teacher_id: teacher
+                                    ));
+                                  }
+                                }
+                              }
+                              Provider.of<AppProvider>(context, listen: false).addTimeTable(sendTimeTable.toJson());
+                            },
+                            child: const Text(
+                              'submit',
+                              style: TextStyle(color: ColorResources.green),
+                            ))
                       ],
                     ),
                   ),

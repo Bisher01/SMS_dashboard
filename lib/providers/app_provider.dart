@@ -1149,8 +1149,6 @@ class AppProvider extends ChangeNotifier {
         FSeed fSeed = await apiService.getSeed();
         getSeedResponse = ApiResponse.completed(fSeed);
       } catch (e) {
-        print('====================');
-        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -1278,7 +1276,6 @@ class AppProvider extends ChangeNotifier {
     }
     return addExamResponse!;
   }
-  //edit exam
 
   //delete exam
   ApiResponse<Delete>? _deleteExamResponse;
@@ -1412,29 +1409,31 @@ class AppProvider extends ChangeNotifier {
   }
 
   ///==============================================///
-  int getTeacherCount(ClassClassRooms classClassRooms){
+  int getTeacherCount(ClassClassRooms classClassRooms) {
     int count = 0;
-    for(int i=0;i<classClassRooms.data!.length;i++)
-      {
-        count = count + classClassRooms.data![i].teacher!.length;
-      }
+    for (int i = 0; i < classClassRooms.data!.length; i++) {
+      count = count + classClassRooms.data![i].teacher!.length;
+    }
     return count;
   }
 
-  String getTeacherName(ClassClassRooms classClassRooms,int index){
+  String getTeacherName(ClassClassRooms classClassRooms, int index) {
     int counter = 0;
-    for(int i =0;i<classClassRooms.data!.length;i++){
-      for(int j=0;j<classClassRooms.data![i].teacher!.length;j++){
-        if(counter==index) {
+    for (int i = 0; i < classClassRooms.data!.length; i++) {
+      for (int j = 0; j < classClassRooms.data![i].teacher!.length; j++) {
+        if (counter == index) {
           return classClassRooms.data![i].teacher![j].f_name!;
         }
-        counter+=1;
+        counter += 1;
       }
     }
     return '';
   }
+
+
   ApiResponse<ClassClassRooms>? _classClassroomsResponse;
-  ApiResponse<ClassClassRooms>? get classClassroomsResponse => _classClassroomsResponse;
+  ApiResponse<ClassClassRooms>? get classClassroomsResponse =>
+      _classClassroomsResponse;
   set classClassroomsResponse(ApiResponse<ClassClassRooms>? value) {
     _classClassroomsResponse = value;
     notifyListeners();
@@ -1445,7 +1444,8 @@ class AppProvider extends ChangeNotifier {
     if (await checkInternet()) {
       classClassroomsResponse = ApiResponse.loading('');
       try {
-        ClassClassRooms classClassrooms = await apiService.getClassClassrooms(id);
+        ClassClassRooms classClassrooms =
+            await apiService.getClassClassrooms(id);
         classClassroomsResponse = ApiResponse.completed(classClassrooms);
       } catch (e) {
         if (e is DioError) {
@@ -1459,7 +1459,8 @@ class AppProvider extends ChangeNotifier {
         return classClassroomsResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return classClassroomsResponse = ApiResponse.error('No Internet Connection');
+      return classClassroomsResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return classClassroomsResponse!;
   }
@@ -1947,6 +1948,37 @@ class AppProvider extends ChangeNotifier {
       return editSettingsResponse = ApiResponse.error('No Internet Connection');
     }
     return editSettingsResponse!;
+  }
+
+  ApiResponse<Delete>? _timeTableResponse;
+  ApiResponse<Delete>? get timeTableResponse => _timeTableResponse;
+  set timeTableResponse(ApiResponse<Delete>? value) {
+    _timeTableResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addTimeTable(Map<String,dynamic> map) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      timeTableResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addTimeTable(map);
+        timeTableResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return timeTableResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return timeTableResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return timeTableResponse = ApiResponse.error('No Internet Connection');
+    }
+    return timeTableResponse!;
   }
 }
 

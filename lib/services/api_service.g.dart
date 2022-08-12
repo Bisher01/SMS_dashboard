@@ -530,6 +530,23 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<Delete> addTimeTable(data) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Delete>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'timetable/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Delete.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<Delete> addExam() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

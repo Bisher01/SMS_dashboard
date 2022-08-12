@@ -73,7 +73,7 @@ Map<String, dynamic> _$SClassRoomsToJson(SClassRooms instance) =>
 
 SendTimeTable _$SendTimeTableFromJson(Map<String, dynamic> json) =>
     SendTimeTable(
-      id: json['id'] as int?,
+      class_id: json['class_id'] as int?,
       day_id: (json['day_id'] as List<dynamic>?)
           ?.map((e) => DayId.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -81,7 +81,7 @@ SendTimeTable _$SendTimeTableFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SendTimeTableToJson(SendTimeTable instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'class_id': instance.class_id,
       'day_id': instance.day_id,
     };
 
