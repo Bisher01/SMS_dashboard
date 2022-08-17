@@ -252,6 +252,10 @@ class TimeTableState extends State<TimeTable> {
                                     setState(() {
                                       lessons.clear();
                                     });
+                                  } else {
+                                    EasyLoading.showError(
+                                        response.data!.message!,
+                                        dismissOnTap: true);
                                   }
                                 }
                               } else {}
