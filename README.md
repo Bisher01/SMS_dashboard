@@ -14,5 +14,5 @@ the work of the director (School Evacuation - Timetable).
 >>  [Backend](https://github.com/Abdulrahem-Alzubi/School-Management-System.git)
 <hr>
 
-### Here is a demo of the application and pictures:
+### Here is a demo of the application:
 -https://drive.google.com/drive/folders/188raKt1if1R1A6O0OqT2MrBjNzRCSjIh
